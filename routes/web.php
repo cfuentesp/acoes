@@ -18,4 +18,4 @@ Route::view('/','welcome');
 
 
 Route::view('/login','login');
-Route::resource('personas','index');
+Route::resource('/personas','index');
