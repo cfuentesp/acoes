@@ -18,4 +18,4 @@ Route::view('/','welcome');
 
 
 Route::view('/login','login');
-
+Route::view('personas','App\Http\Controllers\PersonaController');
