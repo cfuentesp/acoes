@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProvisionServer;
+
 
 
 /*
@@ -18,4 +20,9 @@ Route::view('/','welcome');
 
 
 Route::view('/login','login');
+
+Route::view('/dashboard','dashboard');
+
+Route::get('/verify',[ProvisionServer::class, 'verify'])->name('verify');
+
 
