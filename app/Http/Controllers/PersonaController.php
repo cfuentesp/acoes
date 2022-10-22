@@ -13,7 +13,7 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        return view('personas.index');
+        return view('index');
     }
 
     /**
