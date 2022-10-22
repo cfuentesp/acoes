@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controller\PersonaController;
+use App\Http\Controllers\PersonaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +16,4 @@ use App\Http\Controller\PersonaController;
 
 Route::view('/','welcome');
 Route::view('/login','login');
-Route::resource('personas','App\Http\Controller\PersonaController');
+Route::resource('personas','App\Http\Controllers\PersonaController');
