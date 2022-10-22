@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
 use App\Http\Controllers\PersonaController;
-
 use Illuminate\Support\Facades\Auth;
 
+
+<<<<<<< HEAD
 
 
 
