@@ -20,9 +20,13 @@ use App\Http\Controllers\Auth\LoginController;
 
 Route::view('/','login');
 
+
 Route::view('/registro','registro');
 
+Route::resource('personas','App\Http\Controllers\PersonaController');
+
 Auth::routes();
+
 
 Route::get('/home/inventario', [App\Http\Controllers\HomeController::class, 'getInventario'])->name('home/inventario');
 
