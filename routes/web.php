@@ -23,7 +23,7 @@ Route::view('/','login');
 
 Route::view('/registro','registro');
 
-Route::resource('personas','App\Http\Controllers\PersonaController');
+Route::resource('/personas','App\Http\Controllers\PersonaController');
 
 Auth::routes();
 
