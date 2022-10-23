@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
 
 
 
@@ -22,6 +23,8 @@ Route::view('/','login');
 Route::view('/registro','registro');
 
 Auth::routes();
+
+Route::get('/home/inventario', [App\Http\Controllers\HomeController::class, 'getInventario'])->name('home/inventario');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

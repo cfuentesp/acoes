@@ -33,7 +33,7 @@
 			<div id="jquery-accordion-menu" class="jquery-accordion-menu">
 				<div class="jquery-accordion-menu-header">Header </div>
 				<ul>
-					<li class="active"><a href="#"><i class="fa fa-home"></i>Home </a></li>
+					<li class="active"><a href="{{ route('home/inventario') }}"><i class="fa fa-home"></i>Home </a></li>
 					<li><a href="#"><i class="fa fa-glass"></i>Events </a></li>
 					<li><a href="#"><i class="fa fa-file-image-o"></i>Gallery </a><span class="jquery-accordion-menu-label">12 </span></li>
 					<li><a href="#"><i class="fa fa-cog"></i>Services </a>
