@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\Auth\PersonaController;
 
 
 
@@ -23,7 +23,7 @@ Route::view('/','login');
 
 Route::view('/registro','registro');
 
-Route::resource('/personas','App\Http\Controllers\PersonaController');
+Route::resource('personas','App\Http\Controllers\PersonaController');
 
 Auth::routes();
 
