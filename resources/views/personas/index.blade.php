@@ -1,9 +1,10 @@
-  @extends('dashboard');
+  @extends('layouts.personasb');
 
 @section('contenido')
 
-<h1> VISTA INDEX </h1>
-<div class='card-header'>
+ <h1> VISTA INDEX </h1>
+ @endsection
+<!--<div class='card-header'>
     <h1>{{$header}}</h1>
 </div>
 <div class='card-body'>
@@ -49,7 +50,7 @@
       </form>
       <a href="{{route('actualizarPersona',1)}}">create</a> 
 </div>
-@endsection 
+  -->
 
 <!-- @extends('dashboard')
 
