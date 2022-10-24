@@ -2,7 +2,6 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>{{$header}}</h1>
 </div>
 <div class='card-body'>
     <form>

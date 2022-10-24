@@ -27,7 +27,7 @@ Route::view('/registro','registro');
 
 //RUTAS MODULO PERSONAS
 
-Route::resource('personas','App\Http\Controllers\PersonaController');
+Route::resource('/personas','App\Http\Controllers\PersonaController');
 
 Route::get('/home/persona/editar/create/', [App\Http\Controllers\ControllerPersona::class, 'actualizar'])->name('actualizarPersona');
 
