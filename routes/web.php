@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PersonaController;
 use App\Http\Controllers\inventarioController;
+use App\Http\Controllers\Auth\ControllerPersona;
 
 
 
@@ -28,9 +29,12 @@ Route::view('/registro','registro');
 //RUTAS MODULO PERSONAS
 
 Route::resource('/personas','App\Http\Controllers\PersonaController');
+Route::resource('/personas/nuevo',[App\Http\Controllers\ControllerPersona::class, 'nuevoPersona'])->name('nuevoPersona');
+
+Route::get('/home/persona/nuevo', [App\Http\Controllers\ControllerPersona::class, 'nuevoPersona'])->name('nuevoPersona');
 
 Route::get('/home/persona/editar/create/', [App\Http\Controllers\ControllerPersona::class, 'actualizar'])->name('actualizarPersona');
-
+Route::resource('/personas/create','App\Http\Controllers\PersonaController');
 
 //
 
