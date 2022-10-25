@@ -34,7 +34,7 @@ Route::resource('/personas/nuevo',[App\Http\Controllers\ControllerPersona::class
 Route::get('/home/persona/nuevo', [App\Http\Controllers\ControllerPersona::class, 'nuevoPersona'])->name('nuevoPersona');
 
 Route::get('/home/persona/editar/create/', [App\Http\Controllers\ControllerPersona::class, 'actualizar'])->name('actualizarPersona');
-Route::resource('/personas/create','App\Http\Controllers\PersonaController');
+Route::resource('/personas/nuevo','App\Http\Controllers\PersonaController');
 
 //
 
