@@ -2,12 +2,12 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de personas</h1>
+    <h1>Registros de personas</h1>
 </div>
 <div class='card-body'>
-    <form action="{{route('nuevaPersona)}}" method="GET">
+    <form action="{{route('nuevoPersona')}}" method="GET">
       <div>
-          <button type="submit" class="btn btn-primary float-right">Agregar Persona</button>
+          <button type="submit" class="btn btn-primary float-right">Nueva Persona</button>
           <br>
           <br>
       </div>
@@ -22,13 +22,15 @@
 				<table class="table user-list">
 					<thead>
 						<tr>
-							<th><span>Nombre Completo</span></th>
-							<th><span>DNI /No Identidad</span></th>
-                            <th><span>Fecha de nacimiento</span></th>
+							<th><span>Nombres</span></th>
+                            <th><span>Apellidos</span></th>
+							<th><span>DNI/#Identidad </span></th>
+                            <th><span>Fecha de Nacimiento</span></th>
                             <th><span>Direccion</span></th>
                             <th><span>Telefono Movil</span></th>
-                            <th><span>Telefono Fijo</span></th>
+                            <th><span>Correo </span></th>
                             <th><span>Referencia Personal</span></th>
+                            <th><span>Telefono Referencia</span></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
@@ -39,22 +41,28 @@
 								<span class="user-subhead">{{$item['NOM_PERSONA']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['NUM_IDENTIDAD']}}</span>
+								<span class="user-subhead">{{$item['APLL_PERSONA']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['FEC_NACIMIENTO']}}</span>
+								<span class="user-subhead">{{$item['NUM_IDENTIDAD']}}</span>
+							</td>
+                            <td>
+								<span class="user-subhead">{{$item['FECHA_NACIMIENTO']}}</span>
 							</td>
 							<td>
                                 <span class="user-subhead">{{$item['DIR_PERSONA']}}</span>
 							</td>
                             <td>
-								<span class="user-subhead">{{$item['TEL_PERSONA']}}</span>
+                                <span class="user-subhead">{{$item['TEL_PERSONA']}}</span>
 							</td>
                             <td>
-								<span class="user-subhead">{{$item['TEL_FIJ_PERSONA']}}</span>
+                                <span class="user-subhead">{{$item['COR_PERSONA']}}</span>
 							</td>
                             <td>
-								<span class="user-subhead">{{$item['DES_REF_PERSONA']}}</span>
+                                <span class="user-subhead">{{$item['DES_REF_PERSONA']}}</span>
+							</td>
+                            <td>
+                                <span class="user-subhead">{{$item['NUM_REF_PERSONA']}}</span>
 							</td>
 							  <td style="width: 20%;">
 							  	<a href="{{route('editarPersona',$item['COD_PERSONA'])}}" class="table-link">

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PersonaController;
 use App\Http\Controllers\inventarioController;
-use App\Http\Controllers\Auth\ControllerPersona;
+
 
 
 
@@ -27,14 +27,15 @@ Route::view('/','login');
 Route::view('/registro','registro');
 
 //RUTAS MODULO PERSONAS
+Route::get('/home/persona', [App\Http\Controllers\HomeController::class, 'getPersona'])->name('home/persona');
+Route::get('/home/persona/nuevo', [App\Http\Controllers\PersonaController::class, 'nuevoPersona'])->name('nuevoPersona');
 
-Route::resource('/personas','App\Http\Controllers\PersonaController');
-Route::resource('/personas/nuevo',[App\Http\Controllers\ControllerPersona::class, 'nuevoPersona'])->name('nuevoPersona');
+Route::get('/home/persona/{id}', [App\Http\Controllers\PersonaController::class, 'getDatosPersona'])->name('editarPersona');
 
-Route::get('/home/persona/nuevo', [App\Http\Controllers\ControllerPersona::class, 'nuevoPersona'])->name('nuevoPersona');
+Route::get('/home/persona/editar/hello/', [App\Http\Controllers\PersonaController::class, 'actualizar'])->name('actualizarPersona');
 
-Route::get('/home/persona/editar/create/', [App\Http\Controllers\ControllerPersona::class, 'actualizar'])->name('actualizarPersona');
-Route::resource('/personas/nuevo','App\Http\Controllers\PersonaController');
+//Route::resource('/personas','App\Http\Controllers\PersonaController');
+
 
 //
 
@@ -57,3 +58,6 @@ Route::get('/home/inventario/nuevo', [App\Http\Controllers\inventarioController:
 Route::get('/home/inventario/{id}', [App\Http\Controllers\inventarioController::class, 'getDatosEquipo'])->name('editarEquipo');
 
 Route::get('/home/inventario/editar/hola/', [App\Http\Controllers\inventarioController::class, 'actualizar'])->name('actualizarEquipo');
+
+
+ 
