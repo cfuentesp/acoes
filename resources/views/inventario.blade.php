@@ -30,7 +30,7 @@
 						</tr>
 					</thead>
 					<tbody>
-                        @foreach ($equipos as $item)
+                        @foreach ($equipos[0] as $item)
 						<tr>
 							<td>
 								<span class="user-subhead">{{$item['NUM_EQUIPO']}}</span>

@@ -36,4 +36,4 @@ Route::get('/home/inventario/nuevo', [App\Http\Controllers\inventarioController:
 
 Route::get('/home/inventario/{id}', [App\Http\Controllers\inventarioController::class, 'getDatosEquipo'])->name('editarEquipo');
 
-Route::get('/home/inventario/editar/hola/', [App\Http\Controllers\inventarioController::class, 'actualizar'])->name('actualizarEquipo');
+Route::put('/home/inventario/{id}', [App\Http\Controllers\inventarioController::class, 'updateDatosEquipo'])->name('actualizarEquipo');
