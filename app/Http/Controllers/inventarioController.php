@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class inventarioController extends Controller
 {
     public function getInventario(Request $request){
-        $inventario = HTTP::get('http://localhost:3000/inventario');
+        $inventario = Http::post('http://localhost:3004/inventario/get', [
+            'funcion' => 's',
+        ]);
         $equipos = $inventario->json();
         return view('inventario',compact('equipos'));
     }
@@ -18,16 +21,30 @@ class inventarioController extends Controller
         return view('inventarioNuevo',compact('header'));
     }
 
-    public function getDatosEquipo(Request $request){
-        $header = "Editar datos de equipo";
-        $inventario = HTTP::get('http://localhost:3000/inventario/editar',[
-            'cod_equipo' => $request['id'],
+    public function getDatosEquipo(Request $request, $id){
+        $datos = HTTP::post('http://localhost:3004/inventario/search',[
+            'funcion' => 'b',
+            'cod_equipo' => $id,
         ]);
-        $equipo = $inventario->json();
-        return view('inventarioEditar',compact('equipo','header'));
+        $equipo = $datos->json();
+        $equipo = $equipo[0];
+        return view('inventarioEditar',compact('equipo'));
     }
 
-    public function actualizar(Request $request){
-        dd('hola');
+    public function updateDatosEquipo(Request $request, $id){
+
+        HTTP::put('http://localhost:3000/inventario/editar',[
+            'funcion' => 'u',
+            'usr_adicion' => auth()->user()->name,
+            'cod_equipo' => $id,
+            'tip_equipo' => $request->tipo_equipo,
+            'mrc_equipo' => $request->marca_equipo,
+            'mdl_serie' => $request->modelo_serie,
+            'ecf_tecnicas' => $request->especificaciones,
+            'color_equipo' => $request->cod_equipo,
+            'num_equipo' => $request->cod_equipo,
+            'fec_ingreso' => $request->fecha_ingreso
+        ]);
+        return view('inventarioLista');
     }
 }
