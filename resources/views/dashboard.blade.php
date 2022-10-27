@@ -508,7 +508,7 @@ $(document).ready(function () {
 								href="#" class="dashboard-nav-dropdown-item">Banned</a><a
 								href="#" class="dashboard-nav-dropdown-item">New</a></div>
 					</div>
-					<div class='dashboard-nav-dropdown'><a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+					<div class='dashboard-nav-dropdown'><a href="{{route('getListaPersonas')}}" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-people-fill"></i> Personas </a>
 						<div class='dashboard-nav-dropdown-menu'><a href="#"
 																	class="dashboard-nav-dropdown-item">Direcciones</a><a

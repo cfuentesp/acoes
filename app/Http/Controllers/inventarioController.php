@@ -32,8 +32,7 @@ class inventarioController extends Controller
     }
 
     public function updateDatosEquipo(Request $request, $id){
-
-        HTTP::put('http://localhost:3000/inventario/editar',[
+        HTTP::post('http://localhost:3004/inventario/update',[
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
             'cod_equipo' => $id,
@@ -41,10 +40,14 @@ class inventarioController extends Controller
             'mrc_equipo' => $request->marca_equipo,
             'mdl_serie' => $request->modelo_serie,
             'ecf_tecnicas' => $request->especificaciones,
-            'color_equipo' => $request->cod_equipo,
-            'num_equipo' => $request->cod_equipo,
-            'fec_ingreso' => $request->fecha_ingreso
+            'clr_equipo' => $request->clr_equipo,
+            'num_equipo' => $request->num_equipo,
+            'fec_ingreso' => $request->fec_ingreso
         ]);
-        return view('inventarioLista');
+        $inventario = Http::post('http://localhost:3004/inventario/get', [
+            'funcion' => 's',
+        ]);
+        $equipos = $inventario->json();
+        return view('inventario',compact('equipos'));
     }
 }
