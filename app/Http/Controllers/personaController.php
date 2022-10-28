@@ -15,17 +15,17 @@ class PersonaController extends Controller
     }
 
     public function nuevoPersona(Request $request){
-        return view('personaNuevo',compact('header'));
+        return view('personaNuevo');
     }
 
     public function getDatosPersona(Request $request, $id){
-        $header = "Editar datos de personas";
-        $persona = HTTP::post('http://localhost:6000/persona/search',[
+        $data = HTTP::post('http://localhost:6000/persona/search',[
             'funcion' => 'b',
             'cod_persona' => $id,
         ]);
-        $tiempo = $persona->json();
-        return view('personaEditar',compact('tiempo','header'));
+        $personas = $data->json();
+        $personas = $personas[0];
+        return view('personaEditar',compact('personas'));
     }
 
    
@@ -48,6 +48,4 @@ class PersonaController extends Controller
         $equipos = $inventario->json();
         return view('inventario',compact('equipos'));
     }
-    
-    
 }

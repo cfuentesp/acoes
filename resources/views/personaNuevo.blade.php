@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>{{$header}}</h1>
+    <h1>Agregar nueva persona</h1>
 </div>
 <div class='card-body'>
     <form>
@@ -28,16 +28,6 @@
       <form>
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Direccion">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Telefono Movil">
-          </div>
-        </div>
-      </form>
-      <form>
-        <div class="row">
-          <div class="col">
             <input type="text" class="form-control" placeholder="Correo">
           </div>
           <div class="col">
@@ -55,6 +45,5 @@
           </div>
         </div>
       </form>
-      <a href="{{route('actualizarPersona',1)}}">ACOES</a>
 </div>
 @endsection
