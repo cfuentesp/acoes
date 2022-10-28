@@ -8,6 +8,15 @@
   <form action="{{ route('actualizarEquipo', $equipo[0]['COD_EQUIPO']) }}" method="POST">
     @csrf
     @method('PUT')
+      @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+      @endif
     <div class="mb-3">
         <div class="row">
           <div class="col">
@@ -31,17 +40,17 @@
       <div class="mb-3">
         <div class="row">
           <div class="col">
-            <input type="text" name="clr_equipo" class="form-control" placeholder="Color de quipo" value="{{$equipo[0]['CLR_EQUIPO']}}">
+            <input type="text" name="color_equipo" class="form-control" placeholder="Color de quipo" value="{{$equipo[0]['CLR_EQUIPO']}}">
           </div>
           <div class="col">
-            <input type="number" name="num_equipo" class="form-control" placeholder="Numero de equipo" value="{{$equipo[0]['NUM_EQUIPO']}}">
+            <input type="number" name="numero_equipo" class="form-control" placeholder="Numero de equipo" value="{{$equipo[0]['NUM_EQUIPO']}}">
           </div>
         </div>
       </div>
       <div class="mb-3">
         <div class="row">
           <div class="col">
-            <input type="date" name="fec_ingreso" class="form-control" placeholder="Fecha de ingreso" value="{{($equipo[0]['FEC_INGRESO'])}}">
+            <input type="date" name="fecha_ingreso" class="form-control" placeholder="Fecha de ingreso" value="{{$equipo[0]['FEC_INGRESO']}}">
           </div>
           <div class="col">
             <button type="submit" class="btn btn-primary float-right">Actualizar datos</button>
