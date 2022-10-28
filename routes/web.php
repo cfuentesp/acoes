@@ -40,6 +40,10 @@ Route::put('/home/inventario/{id}', [App\Http\Controllers\inventarioController::
 
 Route::put('/home/inventario/nuevo', [App\Http\Controllers\inventarioController::class, 'insertEquipo'])->name('agregarEquipo');
 
+Route::post('/home/inventario/nuevo', [App\Http\Controllers\inventarioController::class, 'insertEquipo'])->name('agregarEquipo');
+
+Route::get('/home/inventario/eliminar/{id}', [App\Http\Controllers\inventarioController::class, 'deleteEquipo'])->name('eliminarEquipo');
+
 
 //RUTAS MODULO PERSONAS
 Route::get('/home/personas', [App\Http\Controllers\PersonaController::class, 'getPersona'])->name('getListaPersonas');
