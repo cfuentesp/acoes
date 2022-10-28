@@ -51,7 +51,7 @@
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-							  	<a href="{{route('editarEquipo',$item['COD_EQUIPO'])}}" class="table-link danger">
+							  	<a href="{{route('eliminarEquipo',$item['COD_EQUIPO'])}}" class="table-link danger">
 							  		<span class="fa-stack">
 							  			<i class="fa fa-square fa-stack-2x"></i>
 							  			<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>

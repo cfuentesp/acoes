@@ -5,9 +5,9 @@
     <h1>{{$header}}</h1>
 </div>
 <div class='card-body'>
-<form action="{{route('agregarEquipo')}}" method="POST">
+<form action="{{ route('agregarEquipo') }}" method="POST">
     @csrf
-    @method('PUT')
+    @method('POST')
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

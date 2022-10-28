@@ -48,7 +48,7 @@ class inventarioController extends Controller
                         
         }
 
-        HTTP::post('http://localhost:3004/inventario/insert',[
+        HTTP::post('http://localhost:6000/inventario/insert',[
             'funcion' => 'i',
             'usr_adicion' => auth()->user()->name,
             'tip_equipo' => $request->tipo_equipo,
@@ -58,6 +58,20 @@ class inventarioController extends Controller
             'clr_equipo' => $request->color_equipo,
             'num_equipo' => $request->numero_equipo,
             'fec_ingreso' => $request->fecha_ingreso
+        ]);
+
+        $inventario = Http::post('http://localhost:3004/inventario/get', [
+            'funcion' => 's',
+        ]);
+        $equipos = $inventario->json();
+        return view('inventario',compact('equipos'));
+
+    }
+
+    public function deleteEquipo(Request $request,$id){
+        $inventario = Http::post('http://localhost:6000/inventario/delete', [
+            'funcion' => 'd',
+            'cod_equipo' => $id,
         ]);
 
         $inventario = Http::post('http://localhost:3004/inventario/get', [
