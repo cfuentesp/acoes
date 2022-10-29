@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class inventarioController extends Controller
 {
     public function getInventario(Request $request){
-        $inventario = Http::post('http://localhost:3004/inventario/get', [
+        $inventario = Http::post('http://localhost:6000/inventario/get', [
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
@@ -23,6 +23,7 @@ class inventarioController extends Controller
     }
 
     public function insertEquipo(Request $request){
+
         $validator = Validator::make($request->all(), [
             'tipo_equipo' => 'required',
             'marca_equipo' => 'required',
@@ -44,8 +45,7 @@ class inventarioController extends Controller
 
         if ($validator->fails()) {
             return back()->withInput()
-                        ->withErrors($validator);
-                        
+                        ->withErrors($validator);            
         }
 
         HTTP::post('http://localhost:6000/inventario/insert',[
@@ -60,7 +60,7 @@ class inventarioController extends Controller
             'fec_ingreso' => $request->fecha_ingreso
         ]);
 
-        $inventario = Http::post('http://localhost:3004/inventario/get', [
+        $inventario = Http::post('http://localhost:6000/inventario/get', [
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
@@ -74,7 +74,7 @@ class inventarioController extends Controller
             'cod_equipo' => $id,
         ]);
 
-        $inventario = Http::post('http://localhost:3004/inventario/get', [
+        $inventario = Http::post('http://localhost:6000/inventario/get', [
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
@@ -83,7 +83,7 @@ class inventarioController extends Controller
     }
 
     public function getDatosEquipo(Request $request, $id){
-        $datos = HTTP::post('http://localhost:3004/inventario/search',[
+        $datos = HTTP::post('http://localhost:6000/inventario/search',[
             'funcion' => 'b',
             'cod_equipo' => $id,
         ]);
@@ -118,7 +118,7 @@ class inventarioController extends Controller
                         
         }
 
-        HTTP::post('http://localhost:3004/inventario/update',[
+        HTTP::post('http://localhost:6000/inventario/update',[
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
             'cod_equipo' => $id,
@@ -130,7 +130,7 @@ class inventarioController extends Controller
             'num_equipo' => $request->numero_equipo,
             'fec_ingreso' => $request->fecha_ingreso
         ]);
-        $inventario = Http::post('http://localhost:3004/inventario/get', [
+        $inventario = Http::post('http://localhost:6000/inventario/get', [
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
