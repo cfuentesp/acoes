@@ -14,7 +14,7 @@ class inventarioController extends Controller
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
-        return view('inventario',compact('equipos'));
+        return view('inventarioLista',compact('equipos'));
     }
 
     public function nuevoEquipo(Request $request){
@@ -64,7 +64,7 @@ class inventarioController extends Controller
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
-        return view('inventario',compact('equipos'));
+        return view('inventarioLista',compact('equipos'));
 
     }
 
@@ -78,7 +78,7 @@ class inventarioController extends Controller
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
-        return view('inventario',compact('equipos'));
+        return view('inventarioLista',compact('equipos'));
 
     }
 
@@ -134,6 +134,6 @@ class inventarioController extends Controller
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
-        return view('inventario',compact('equipos'));
+        return view('inventarioLista',compact('equipos'));
     }
 }
