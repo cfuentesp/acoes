@@ -17,6 +17,9 @@
             </ul>
         </div>
       @endif
+      @if (session('mensaje'))
+	      <div class="alert alert-success alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('mensaje')}}</div>	
+	    @endif
     <div class="mb-3">
         <div class="row">
           <div class="col">

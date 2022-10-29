@@ -134,6 +134,6 @@ class inventarioController extends Controller
             'funcion' => 's',
         ]);
         $equipos = $inventario->json();
-        return view('inventarioLista',compact('equipos'));
+        return back()->with('mensaje','Actualizacion exitosa.');
     }
 }
