@@ -6,8 +6,9 @@
 </div>
 <div class='card-body'>
 <form action="{{ route('agregarObservacion')}}" method="POST">
-    @csrf
-    @method('PUT')
+  @csrf
+  @method('PUT')
+
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -29,7 +30,7 @@
           <div class="col">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Evaluador</label>
-              <select class="form-control" id="exampleFormControlSelect1">
+              <select class="form-control" name="cod_persona">
                 @foreach ($personas as $item)
                  <option value="{{$item['COD_PERSONA']}}">{{$item['NOM_PERSONA']}}</option>
                 @endforeach
