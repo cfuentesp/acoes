@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Validator;
 class inventarioController extends Controller
 {
     public function getInventario(Request $request){
-        $inventario = Http::post('http://localhost:6000/inventario/get', [
+        $data = Http::post('http://localhost:6000/inventario/get', [
             'funcion' => 's',
         ]);
-        $equipos = $inventario->json();
+        $equipos = $data->json();
         return view('inventarioLista',compact('equipos'));
     }
 

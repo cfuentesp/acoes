@@ -52,3 +52,15 @@ Route::get('/home/persona/{id}', [App\Http\Controllers\PersonaController::class,
 
 Route::put('/home/persona/{id}]', [App\Http\Controllers\PersonaController::class, 'updateDatosPersona'])->name('actualizarPersona');
 
+//RUTAS DE BITACORA DE MEJORA CONTINUA
+Route::get('/home/observacion', [App\Http\Controllers\observacionController::class, 'getObservacion'])->name('getListaObservacion');
+
+Route::get('/home/observacion/{id}', [App\Http\Controllers\observacionController::class, 'getDatosObservacion'])->name('editarObservacion');
+
+Route::put('/home/observacion/{id}', [App\Http\Controllers\observacionController::class, 'updateDatosObservacion'])->name('actualizarObservacion');
+
+Route::get('/home/observacion/eliminar/{id}', [App\Http\Controllers\observacionController::class, 'deleteObservacion'])->name('eliminarObservacion');
+
+Route::get('/home/observacion/nuevop', [App\Http\Controllers\observacionController::class, 'nuevo'])->name('nuevaObservacion');
+
+Route::put('/home/observacion/nuevoc', [App\Http\Controllers\observacionController::class, 'insertObservacion'])->name('agregarObservacion');

@@ -490,30 +490,31 @@ $(document).ready(function () {
 					Home </a><a
 						href="{{ route('getListaEquipos') }}" class="dashboard-nav-item active"><i class="bi bi-pc-display"></i> Inventario
 				</a><a
-						href="#" class="dashboard-nav-item"><i class="bi bi-tools"></i>Mantenimiento</a>
-					<div class='dashboard-nav-dropdown'><a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+						href="" class="dashboard-nav-item"><i class="bi bi-tools"></i>Mantenimiento</a>
+					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-chat-square-text"></i>Solicitudes</a>
-						<div class='dashboard-nav-dropdown-menu'><a href="#" class="dashboard-nav-dropdown-item">Manteniminto</a><a
+						<div class='dashboard-nav-dropdown-menu'><a style="color:white;" class="dashboard-nav-dropdown-item">Manteniminto</a><a
 								href="#" class="dashboard-nav-dropdown-item">Aprobacion de compra</a><a
 								href="#" class="dashboard-nav-dropdown-item">Compra</a><a
 								href="#" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
-					<div class='dashboard-nav-dropdown'><a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-card-checklist"></i> Evaluacion </a>
-						<div class='dashboard-nav-dropdown-menu'><a href="#"
-																	class="dashboard-nav-dropdown-item">Personal</a><a
+						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaObservacion')}}"
+																	class="dashboard-nav-dropdown-item">Mejora continua</a><a
 								href="#" class="dashboard-nav-dropdown-item">Subscribed</a><a
 								href="#"
 								class="dashboard-nav-dropdown-item">Non-subscribed</a><a
 								href="#" class="dashboard-nav-dropdown-item">Banned</a><a
 								href="#" class="dashboard-nav-dropdown-item">New</a></div>
 					</div>
-					<div class='dashboard-nav-dropdown'><a href="{{route('getListaPersonas')}}" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-people-fill"></i> Personas </a>
-						<div class='dashboard-nav-dropdown-menu'><a href="#"
-																	class="dashboard-nav-dropdown-item">Direcciones</a><a
+						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaPersonas')}}"
+																	class="dashboard-nav-dropdown-item">Personal</a><a
+								href="#" class="dashboard-nav-dropdown-item">Direcciones</a><a
 								href="#" class="dashboard-nav-dropdown-item">Telefonos</a><a
-								href="#" class="dashboard-nav-dropdown-item"> usuarios del sistema</a>
+								href="#" class="dashboard-nav-dropdown-item">Usuarios del sistema</a>
 						</div>
 					</div>
 					<a href="#" class="dashboard-nav-item"><i class="fas fa-user"></i> Profile </a>
