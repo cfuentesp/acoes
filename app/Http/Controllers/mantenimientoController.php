@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Http;
 class PersonaController extends Controller
 {
     public function getMantenimiento(Request $request){
-        $control = HTTP::get('http://localhost:3000/mantenimiento');
-        $mante = $control->json();
-        return view('control',compact('mante'));
+        $mantenimiento = HTTP::get('http://localhost:3000/mantenimiento');
+        $mante = $mantenimiento->json();
+        return view('mantenimiento',compact('mante'));
     }
 
     public function nuevoMantenimiento(Request $request){
@@ -19,7 +19,7 @@ class PersonaController extends Controller
 
     public function getDatosMantenimiento(Request $request){
         $header = "Editar datos de mantenimiento";
-        $control = HTTP::get('http://localhost:3000/mantenimiento/editar',[
+        $mantenimiento = HTTP::get('http://localhost:3000/mantenimiento/editar',[
             'cod_mantenimiento' => $request['id'],
         ]);
         $mante = $control->json();
