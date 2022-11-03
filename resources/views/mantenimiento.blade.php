@@ -2,12 +2,12 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de equipos</h1>
+    <h1>Registros de mantenimiento</h1>
 </div>
 <div class='card-body'>
-    <form action="{{route('nuevoEquipo')}}" method="GET">
+    <form action="{{route('nuevoMantenimiento)}}" method="GET">
       <div>
-          <button type="submit" class="btn btn-primary float-right">Agregar nuevo equipo</button>
+          <button type="submit" class="btn btn-primary float-right">Agregar registro de mantenimiento</button>
           <br>
           <br>
       </div>
@@ -22,36 +22,40 @@
 				<table class="table user-list">
 					<thead>
 						<tr>
-							<th><span>Numero equipo</span></th>
-							<th><span>Tipo de equipo</span></th>
-                            <th><span>Marca</span></th>
-                            <th><span>Modelo/serie</span></th>
+							<th><span>Descripcion De Falla</span></th>
+							<th><span>Solucion Del Problema</span></th>
+                            <th><span>Estado Del Equipo</span></th>
+                            <th><span>Fecha De Ingreso</span></th>
+							<th><span>Fecha De Salida</span></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-                        @foreach ($equipos[0] as $item)
+                        @foreach ($mante[0] as $item)
 						<tr>
 							<td>
-								<span class="user-subhead">{{$item['NUM_EQUIPO']}}</span>
+								<span class="user-subhead">{{$item['DES_FALLA']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['TIP_EQUIPO']}}</span>
+								<span class="user-subhead">{{$item['SOL_PROBLEMA']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['MRC_EQUIPO']}}</span>
+								<span class="user-subhead">{{$item['EST_EQUIPO']}}</span>
 							</td>
 							<td>
-                                <span class="user-subhead">{{$item['MDL_SERIE']}}</span>
+                                <span class="user-subhead">{{$item['FEC_INGRESO']}}</span>
+							</td>
+							<td>
+                                <span class="user-subhead">{{$item['FEC_SALIDA']}}</span>
 							</td>
 							  <td style="width: 20%;">
-							  	<a href="{{route('editarEquipo',$item['COD_EQUIPO'])}}" class="table-link">
+							  	<a href="{{route('editarMantenimiento',$item['COD_MANTENIMIENTO'])}}" class="table-link">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-							  	<a href="{{route('editarEquipo',$item['COD_EQUIPO'])}}" class="table-link danger">
+							  	<a href="{{route('editarMantenimiento',$item['COD_MANTENIMIENTO'])}}" class="table-link danger">
 							  		<span class="fa-stack">
 							  			<i class="fa fa-square fa-stack-2x"></i>
 							  			<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>

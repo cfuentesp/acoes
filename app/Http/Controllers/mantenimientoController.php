@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+class PersonaController extends Controller
+{
+    public function getMantenimiento(Request $request){
+        $control = HTTP::get('http://localhost:3000/mantenimiento');
+        $mante = $control->json();
+        return view('control',compact('mante'));
+    }
+
+    public function nuevoMantenimiento(Request $request){
+        $header = "Agregar Nuevo Registro";
+        return view('mantenimientoNuevo',compact('header'));
+    }
+
+    public function getDatosMantenimiento(Request $request){
+        $header = "Editar datos de mantenimiento";
+        $control = HTTP::get('http://localhost:3000/mantenimiento/editar',[
+            'cod_mantenimiento' => $request['id'],
+        ]);
+        $mante = $control->json();
+        return view('mantenimientoEditar',compact('mante','header'));
+    }
+
+    public function actualizar(Request $request){
+        dd('ACOES');
+    }
+    
+    
+}
