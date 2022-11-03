@@ -499,14 +499,12 @@ $(document).ready(function () {
 								href="#" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
-							class="bi bi-card-checklist"></i> Evaluacion </a>
-						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaObservacion')}}"
-																	class="dashboard-nav-dropdown-item">Mejora continua</a><a
-								href="#" class="dashboard-nav-dropdown-item">Subscribed</a><a
+							class="bi bi-card-checklist"></i> Sistema</a>
+						<div class='dashboard-nav-dropdown-menu'><a href=" "
+																	class="dashboard-nav-dropdown-item">Usuarios</a><a
+								href="#" class="dashboard-nav-dropdown-item">Permisos</a><a
 								href="#"
-								class="dashboard-nav-dropdown-item">Non-subscribed</a><a
-								href="#" class="dashboard-nav-dropdown-item">Banned</a><a
-								href="#" class="dashboard-nav-dropdown-item">New</a></div>
+								href="#" class="dashboard-nav-dropdown-item">Roles</a></div>
 					</div>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-people-fill"></i> Personas </a>
@@ -517,7 +515,7 @@ $(document).ready(function () {
 								href="#" class="dashboard-nav-dropdown-item">Usuarios del sistema</a>
 						</div>
 					</div>
-					<a href="#" class="dashboard-nav-item"><i class="fas fa-user"></i> Profile </a>
+					<a href="{{route('getListaObservacion')}}" class="dashboard-nav-item"><i class="bi bi-card-checklist"></i> Bitacora</a>
 				  <div class="nav-item-divider"></div>
 				  <a
 							href="{{route('logout')}}" class="dashboard-nav-item"><i class="bi bi-box-arrow-right"></i> Cerrar Sesion </a>
