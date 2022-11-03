@@ -31,26 +31,6 @@
             <input type="date" class="form-control" placeholder="Fecha De Salida">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Telefono Movil">
-          </div>
-        </div>
-      </form>
-      <form>
-        <div class="row">
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Correo">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Referencia Personal">
-          </div>
-        </div>
-      </form>
-      <form>
-        <div class="row">
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Telefono Referencia">
-          </div>
-          <div class="col">
             <button type="submit" class="btn btn-primary float-right">Registrar Mantenimiento</button>
           </div>
         </div>
