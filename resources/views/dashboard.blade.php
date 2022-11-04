@@ -500,7 +500,7 @@ $(document).ready(function () {
 					</div>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-card-checklist"></i> Sistema</a>
-						<div class='dashboard-nav-dropdown-menu'><a href=" "
+						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
 																	class="dashboard-nav-dropdown-item">Usuarios</a><a
 								href="#" class="dashboard-nav-dropdown-item">Permisos</a><a
 								href="#"

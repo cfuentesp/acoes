@@ -20,8 +20,6 @@ use App\Http\Controllers\inventarioController;
 
 Route::view('/','login');
 
-Route::view('/registro','registro');
-
 Route::view('/roles','roles');
 
 Auth::routes();
@@ -29,6 +27,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logoutt');
+
+//RUTAS USUARIO
+
+Route::get('/home/usuarios', [App\Http\Controllers\usuariosController::class, 'getUsuarios'])->name('getListaUsuarios');
+
+Route::get('/home/usurios/registro', [App\Http\Controllers\usuariosController::class, 'registroUsuarios'])->name('userRegistro');
+
 
 // RUTAS INVENTARIO
 
