@@ -40,7 +40,10 @@ Route::get('/home/roles/nuevo', [App\Http\Controllers\usuariosController::class,
 
 Route::put('/home/roles/insert', [App\Http\Controllers\usuariosController::class, 'insertRole'])->name('insertarNuevoRol');
 
-Route::get('/home/permission{id}', [App\Http\Controllers\usuariosController::class, 'getPermission'])->name('getListaPermisos');
+Route::get('/home/roles/permission/{name}/{id}', [App\Http\Controllers\usuariosController::class, 'getPermission'])->name('getListaPermisos');
+
+Route::get('/home/permission/insertPermission/{id}', [App\Http\Controllers\usuariosController::class, 'intertPermission'])->name('insertPermissionRole');
+
 
 // RUTAS INVENTARIO
 

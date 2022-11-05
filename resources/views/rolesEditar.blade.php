@@ -2,12 +2,11 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Actualzizar permisos a role</h1>
+    <h1>Actualizar permisos a rol {{$nombre}}</h1>
 </div>
 <div class='card-body'>
-  <form action="" method="POST">
+  <form action="{{route('insertPermissionRole',$id)}}" method="GET">
     @csrf
-    @method('PUT')
       @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -20,13 +19,16 @@
       @if (session('mensaje'))
 	      <div class="alert alert-success alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('mensaje')}}</div>	
 	    @endif
+        @if (session('error'))
+        <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('error')}}</div>	
+      @endif
     <div class="mb-3">
         <div class="col">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Permisos</label>
-              <select class="form-control" name="id">
-                @foreach ($permission as $item)
-                 <option value="{{$item['id']}}">{{$item['name']}}</option>
+              <select class="form-control" name="permiso">
+                @foreach ($permission as $permisos)
+                 <option value="{{$permisos['id']}}">{{$permisos['name']}}</option>
                 @endforeach
               </select>
             </div>
@@ -45,17 +47,15 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Permiso</th>
             <th scope="col">Descripcion</th>
           </tr>
         </thead>
         <tbody>
-        @foreach ($permisos as $item)        
+        @foreach ($permissionRole as $permisoRole)        
           <tr>
-            <th scope="row">1</th>
-            <td>{{$item['name']}}</td>
-            <td>{{$item['desciption']}}</td>
+            <td>{{$permisoRole['name']}}</td>
+            <td>{{$permisoRole['description']}}</td>
           </tr>
         @endforeach
         </tbody>

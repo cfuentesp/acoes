@@ -10,6 +10,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 use App\Models\Permission;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class usuariosController extends Controller
 {
@@ -35,15 +36,6 @@ class usuariosController extends Controller
 
     
     public function insertRole(Request $request){
-      //$user= Auth::user()->attachPermission('editar');
-    //   $user=User::find(1);
-
-    //   $dd=User::select('*')->get();
-    //   dd($dd);
-    //   $user->attachPermission('create-post');
-    //   dd($user);
-      //dd(Auth::user()->hasRole('Create Posts'));
-      //dd(Laratrust::hasRole('role-name'));
       Permission::create([
         'name' => $request->nombre_rol,
         'description' => $request->descripcion, // optional
@@ -53,15 +45,28 @@ class usuariosController extends Controller
         return back()->with('mensaje','Agregado exitosamente.');
     }
 
-    public function getPermission(Request $request, $id){
-        dd('hola');
+    public function getPermission(Request $request,$name,$id){
         $data = Http::post('http://localhost:6000/permission/get');
         $permission = $data->json();
         $dataDos = Http::post('http://localhost:6000/permissionRole/get',[
             'role_id' => $id
         ]);
         $permissionRole = $dataDos->json();
-        return view('rolesEditar',compact('permission','permissionRole'));
+        $id=$request->id;
+        $nombre =$name;
+        return view('rolesEditar',compact('permission','permissionRole','id','nombre'));
+    }
+
+    public function intertPermission(Request $request,$id){
+      $verificar = DB::connection('mysql')->table('permission_role')->where('permission_id','=',$request->permiso)->where('role_id','=',$id)->first();
+      if($verificar==null){
+         $role=Role::find($id);
+         $role->attachPermission($request->permiso);;
+         $id=$request->id;
+         return back()->with('mensaje','Permiso asignado al rol');
+      }else{
+        return back()->with('error','El rol ya tiene asignado este permiso');
+      }
     }
 
     public function insertEquipo(Request $request){

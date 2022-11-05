@@ -503,7 +503,6 @@ $(document).ready(function () {
 							class="bi bi-card-checklist"></i> Sistema</a>
 						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
 																	class="dashboard-nav-dropdown-item">Usuarios</a><a
-								href="#" class="dashboard-nav-dropdown-item">Permisos</a><a
 								href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a></div>
 					</div>
                     @endpermission

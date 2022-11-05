@@ -41,10 +41,10 @@
 								<span class="user-subhead">{{$item['description']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['id']}}</span>
+								<span class="user-subhead">{{$item['created_at']}}</span>
 							</td>
 							  <td style="width: 20%;">
-							  	<a href="{{route('getListaPermisos'),$item['id']}}" class="table-link">
+							  	<a href="{{route('getListaPermisos',[$item['name'],$item['id']])}}" class="table-link">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
@@ -57,7 +57,6 @@
 							  		</span>
 							  	</a> --}}
 							  </td>
-                            </form>
 						</tr>
                         @endforeach
 					</tbody>
