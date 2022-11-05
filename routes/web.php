@@ -32,7 +32,9 @@ Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logou
 
 Route::get('/home/usuarios', [App\Http\Controllers\usuariosController::class, 'getUsuarios'])->name('getListaUsuarios');
 
-Route::get('/home/usurios/registro', [App\Http\Controllers\usuariosController::class, 'registroUsuarios'])->name('userRegistro');
+Route::get('/home/usuaios/registro', [App\Http\Controllers\usuariosController::class, 'registroUsuarios'])->name('userRegistro');
+
+Route::get('/home/usuaios/permisos', [App\Http\Controllers\usuariosController::class, 'permisos'])->name('agregarPermiso');
 
 
 // RUTAS INVENTARIO
@@ -71,3 +73,9 @@ Route::get('/home/observacion/eliminar/{id}', [App\Http\Controllers\observacionC
 Route::get('/home/observacion/nuevo', [App\Http\Controllers\observacionController::class, 'nuevoBitacora'])->name('abrirNuevo');
 
 Route::put('/home/observacion/insert', [App\Http\Controllers\observacionController::class, 'insertObservacion'])->name('agregarObservacion');
+
+//RUTAS MODULO MANTENIMIENTO
+Route::get('/home/mantenimiento', [App\Http\Controllers\HomeController::class, 'getMantenimiento'])->name('home/mantenimiento');
+Route::get('/home/mantenimiento/nuevo', [App\Http\Controllers\MantenimientoController::class, 'nuevoMantenimiento'])->name('nuevoMantenimiento');
+Route::get('/home/mantenimiento/{id}', [App\Http\Controllers\MantenimientoController::class, 'getDatosMantenimiento'])->name('editarMantenimiento');
+Route::get('/home/mantenimiento/editar/hello/', [App\Http\Controllers\MantenimientoController::class, 'actualizar'])->name('actualizarMantenimiento');

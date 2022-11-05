@@ -483,7 +483,7 @@ $(document).ready(function () {
 				
 			@endif
 			<div class="dashboard-nav">
-				<header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="#"
+				<header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a style="color:white;"
 																						   class="brand-logo"><i
 						class="bi bi-display"></i> <span>MENU</span></a></header>
 				<nav class="dashboard-nav-list"><a href=" {{route('home')}} " class="dashboard-nav-item"><i class="bi bi-house-door-fill"></i>
@@ -493,7 +493,7 @@ $(document).ready(function () {
 						href="" class="dashboard-nav-item"><i class="bi bi-tools"></i>Mantenimiento</a>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-chat-square-text"></i>Solicitudes</a>
-						<div class='dashboard-nav-dropdown-menu'><a style="color:white;" class="dashboard-nav-dropdown-item">Manteniminto</a><a
+						<div class='dashboard-nav-dropdown-menu'><a style="color:white;" class="dashboard-nav-dropdown-item">Mantenimiento</a><a
 								href="#" class="dashboard-nav-dropdown-item">Aprobacion de compra</a><a
 								href="#" class="dashboard-nav-dropdown-item">Compra</a><a
 								href="#" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
@@ -506,15 +506,16 @@ $(document).ready(function () {
 								href="#"
 								href="#" class="dashboard-nav-dropdown-item">Roles</a></div>
 					</div>
+                    @if(auth()->user()->can('persona'))
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-people-fill"></i> Personas </a>
 						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaPersonas')}}"
 																	class="dashboard-nav-dropdown-item">Personal</a><a
 								href="#" class="dashboard-nav-dropdown-item">Direcciones</a><a
-								href="#" class="dashboard-nav-dropdown-item">Telefonos</a><a
-								href="#" class="dashboard-nav-dropdown-item">Usuarios del sistema</a>
+								href="#" class="dashboard-nav-dropdown-item">Telefonos</a>
 						</div>
 					</div>
+                    @endif
 					<a href="{{route('getListaObservacion')}}" class="dashboard-nav-item"><i class="bi bi-card-checklist"></i> Bitacora</a>
 				  <div class="nav-item-divider"></div>
 				  <a

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;;
 
 class usuariosController extends Controller
 {
@@ -17,6 +17,13 @@ class usuariosController extends Controller
 
     public function registroUsuarios(Request $request){
         return view('registro');
+    }
+
+    
+    public function permisos(Request $request){
+      //$user= Auth::user()->attachPermission('editar');
+      //dd(Auth::user()->attachPermission('editar'));
+      dd(Auth::user()->hasPermission("permission-name"));
     }
 
     public function insertEquipo(Request $request){
