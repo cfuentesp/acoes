@@ -498,15 +498,15 @@ $(document).ready(function () {
 								href="#" class="dashboard-nav-dropdown-item">Compra</a><a
 								href="#" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
+                    @permission('admin')
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-card-checklist"></i> Sistema</a>
 						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
 																	class="dashboard-nav-dropdown-item">Usuarios</a><a
 								href="#" class="dashboard-nav-dropdown-item">Permisos</a><a
-								href="#"
-								href="#" class="dashboard-nav-dropdown-item">Roles</a></div>
+								href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a></div>
 					</div>
-                    @if(auth()->user()->can('persona'))
+                    @endpermission
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-people-fill"></i> Personas </a>
 						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaPersonas')}}"
@@ -515,7 +515,6 @@ $(document).ready(function () {
 								href="#" class="dashboard-nav-dropdown-item">Telefonos</a>
 						</div>
 					</div>
-                    @endif
 					<a href="{{route('getListaObservacion')}}" class="dashboard-nav-item"><i class="bi bi-card-checklist"></i> Bitacora</a>
 				  <div class="nav-item-divider"></div>
 				  <a

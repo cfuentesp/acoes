@@ -34,8 +34,13 @@ Route::get('/home/usuarios', [App\Http\Controllers\usuariosController::class, 'g
 
 Route::get('/home/usuaios/registro', [App\Http\Controllers\usuariosController::class, 'registroUsuarios'])->name('userRegistro');
 
-Route::get('/home/usuaios/permisos', [App\Http\Controllers\usuariosController::class, 'permisos'])->name('agregarPermiso');
+Route::get('/home/roles', [App\Http\Controllers\usuariosController::class, 'getRoles'])->name('getListaRoles');
 
+Route::get('/home/roles/nuevo', [App\Http\Controllers\usuariosController::class, 'nuevoRol'])->name('agregarNuevoRol');
+
+Route::put('/home/roles/insert', [App\Http\Controllers\usuariosController::class, 'insertRole'])->name('insertarNuevoRol');
+
+Route::get('/home/permission{id}', [App\Http\Controllers\usuariosController::class, 'getPermission'])->name('getListaPermisos');
 
 // RUTAS INVENTARIO
 

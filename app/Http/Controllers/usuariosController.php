@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator;;
+use Illuminate\Support\Facades\Validator;
+use Laratrust\Traits\LaratrustUserTrait;
+use App\Models\Permission;
+use App\Models\User;
+use App\Models\Role;
 
 class usuariosController extends Controller
 {
@@ -19,11 +23,45 @@ class usuariosController extends Controller
         return view('registro');
     }
 
+    public function getRoles(Request $request){
+        $data = Http::post('http://localhost:6000/roles/get');
+        $roles = $data->json();
+        return view('roles',compact('roles'));
+    }
+
+    public function nuevoRol(Request $request){
+        return view('rolesNuevo');
+    }
+
     
-    public function permisos(Request $request){
+    public function insertRole(Request $request){
       //$user= Auth::user()->attachPermission('editar');
-      //dd(Auth::user()->attachPermission('editar'));
-      dd(Auth::user()->hasPermission("permission-name"));
+    //   $user=User::find(1);
+
+    //   $dd=User::select('*')->get();
+    //   dd($dd);
+    //   $user->attachPermission('create-post');
+    //   dd($user);
+      //dd(Auth::user()->hasRole('Create Posts'));
+      //dd(Laratrust::hasRole('role-name'));
+      Permission::create([
+        'name' => $request->nombre_rol,
+        'description' => $request->descripcion, // optional
+        'created_at' => date('Y-m-d'), // optional
+        ]);
+
+        return back()->with('mensaje','Agregado exitosamente.');
+    }
+
+    public function getPermission(Request $request, $id){
+        dd('hola');
+        $data = Http::post('http://localhost:6000/permission/get');
+        $permission = $data->json();
+        $dataDos = Http::post('http://localhost:6000/permissionRole/get',[
+            'role_id' => $id
+        ]);
+        $permissionRole = $dataDos->json();
+        return view('rolesEditar',compact('permission','permissionRole'));
     }
 
     public function insertEquipo(Request $request){
