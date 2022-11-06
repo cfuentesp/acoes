@@ -10,20 +10,25 @@ use Illuminate\Support\Facades\Validator;
 class inventarioController extends Controller
 {
     public function getInventario(Request $request){
+        if(Auth::user()->hasPermission('inventario')){
         $data = Http::post('http://localhost:6000/inventario/get', [
             'funcion' => 's',
         ]);
         $equipos = $data->json();
         return view('inventarioLista',compact('equipos'));
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function nuevoEquipo(Request $request){
-        $header = "Agregar nuevo equipo";
-        return view('inventarioNuevo',compact('header'));
+        if(Auth::user()->hasPermission('inventario-agregar')){
+        return view('inventarioNuevo');
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function insertEquipo(Request $request){
-
+        if(Auth::user()->hasPermission('inventario-agregar')){
         $validator = Validator::make($request->all(), [
             'tipo_equipo' => 'required',
             'marca_equipo' => 'required',
@@ -32,7 +37,6 @@ class inventarioController extends Controller
             'color_equipo' => 'required',
             'numero_equipo' => 'required',
             'fecha_ingreso' => 'required',
-
         ],[
             'tipo_equipo.required' => 'Debe ingresar el tipo de equipo.',
             'marca_equipo.required' => 'Debe ingresar la marca del equipo.',
@@ -60,29 +64,24 @@ class inventarioController extends Controller
             'fec_ingreso' => $request->fecha_ingreso
         ]);
 
-        $inventario = Http::post('http://localhost:6000/inventario/get', [
-            'funcion' => 's',
-        ]);
-        $equipos = $inventario->json();
-        return view('inventarioLista',compact('equipos'));
-
+        return redirect()->route('getListaEquipos')->with('mensaje','Agregado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function deleteEquipo(Request $request,$id){
-        $inventario = Http::post('http://localhost:6000/inventario/delete', [
+        if(Auth::user()->hasPermission('inventario-eliminar')){
+        Http::post('http://localhost:6000/inventario/delete', [
             'funcion' => 'd',
             'cod_equipo' => $id,
         ]);
-
-        $inventario = Http::post('http://localhost:6000/inventario/get', [
-            'funcion' => 's',
-        ]);
-        $equipos = $inventario->json();
-        return view('inventarioLista',compact('equipos'));
-
+        return back()->with('mensaje','Eliminado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function getDatosEquipo(Request $request, $id){
+        if(Auth::user()->hasPermission('inventario-eliminar')){
         $datos = HTTP::post('http://localhost:6000/inventario/search',[
             'funcion' => 'b',
             'cod_equipo' => $id,
@@ -91,8 +90,11 @@ class inventarioController extends Controller
         $equipo = $equipo[0];
         return view('inventarioEditar',compact('equipo'));
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function updateDatosEquipo(Request $request, $id){
+        if(Auth::user()->hasPermission('inventario-editar')){
         $validator = Validator::make($request->all(), [
             'tipo_equipo' => 'required',
             'marca_equipo' => 'required',
@@ -117,7 +119,6 @@ class inventarioController extends Controller
                         ->withErrors($validator);
                         
         }
-
         HTTP::post('http://localhost:6000/inventario/update',[
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
@@ -130,10 +131,8 @@ class inventarioController extends Controller
             'num_equipo' => $request->numero_equipo,
             'fec_ingreso' => $request->fecha_ingreso
         ]);
-        $inventario = Http::post('http://localhost:6000/inventario/get', [
-            'funcion' => 's',
-        ]);
-        $equipos = $inventario->json();
-        return back()->with('mensaje','Actualizacion exitosa.');
+        return redirect()->route('getListaEquipos')->with('mensaje','Actualizado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 }

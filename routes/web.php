@@ -60,11 +60,11 @@ Route::get('/home/inventario', [App\Http\Controllers\inventarioController::class
 
 Route::get('/home/inventario/nuevo', [App\Http\Controllers\inventarioController::class, 'nuevoEquipo'])->name('nuevoEquipo');
 
-Route::get('/home/inventario/{id}', [App\Http\Controllers\inventarioController::class, 'getDatosEquipo'])->name('editarEquipo');
+Route::get('/home/inventario/editar/{id}', [App\Http\Controllers\inventarioController::class, 'getDatosEquipo'])->name('editarEquipo');
 
-Route::put('/home/inventario/{id}', [App\Http\Controllers\inventarioController::class, 'updateDatosEquipo'])->name('actualizarEquipo');
+Route::put('/home/inventario/actualizar/{id}', [App\Http\Controllers\inventarioController::class, 'updateDatosEquipo'])->name('actualizarEquipo');
 
-Route::put('/home/inventario/nuevo', [App\Http\Controllers\inventarioController::class, 'insertEquipo'])->name('agregarEquipo');
+Route::put('/home/inventario/insert', [App\Http\Controllers\inventarioController::class, 'insertEquipo'])->name('agregarEquipo');
 
 Route::get('/home/inventario/eliminar/{id}', [App\Http\Controllers\inventarioController::class, 'deleteEquipo'])->name('eliminarEquipo');
 
