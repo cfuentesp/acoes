@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Termwind\Components\Dd;
 
-class observacionController extends Controller
+class bitacoraController extends Controller
 {
     public function getObservacion(Request $request){
         $data = Http::post('http://localhost:6000/bitacora/get', [
@@ -24,7 +26,13 @@ class observacionController extends Controller
         ]);
         $observacion = $datos->json();
         $observacion = $observacion[0];
-        return view('bitacoraEditar',compact('observacion'));
+        $observacion[0]['FEC_OBSERVACION']=date("Y-m-d", strtotime($observacion[0]['FEC_OBSERVACION']));
+        $data = HTTP::post('http://localhost:6000/persona/get',[
+            'funcion' => 's',
+        ]);
+        $personas = $data->json();
+        $personas = $personas[0];
+        return view('bitacoraEditar',compact('observacion','personas'));
     }
 
     public function nuevoBitacora(Request $request){
@@ -37,29 +45,24 @@ class observacionController extends Controller
     }
 
     public function deleteObservacion(Request $request,$id){
-        $inventario = Http::post('http://localhost:6000/bitacora/delete', [
+        Http::post('http://localhost:6000/bitacora/delete', [
             'funcion' => 'd',
             'cod_bit_mejora' => $id,
         ]);
 
-        $inventario = Http::post('http://localhost:6000/bitacora/get', [
-            'funcion' => 's',
-        ]);
-        $equipos = $inventario->json();
-        return view('inventarioLista',compact('equipos'));
-
+        return redirect()->route('getListaObservacion')->with('mensaje','Eliminado exitosamente');
     }
 
     public function updateDatosObservacion(Request $request, $id){
         $validator = Validator::make($request->all(), [
             'cod_persona' => 'required',
-            'des_observacion' => 'required',
-            'fec_observacion' => 'required',
+            'descripcion' => 'required',
+            'fecha_observacion' => 'required',
 
         ],[
             'cod_persona.required' => 'Debe ingresar el nombre del evaluador.',
-            'des_observacion.required' => 'Debe ingresar la descripcion de la observacion.',
-            'fec_observacion.required' => 'Debe ingresar la fecha de la observacion.',
+            'descripcion.required' => 'Debe ingresar la descripcion de la observacion.',
+            'fecha_observacion.required' => 'Debe ingresar la fecha de la observacion.',
         ]);
 
         if ($validator->fails()) {
@@ -72,14 +75,10 @@ class observacionController extends Controller
             'usr_adicion' => auth()->user()->name,
             'cod_bit_mejora' => $id,
             'cod_persona' => $request->cod_persona,
-            'dec_observacion' => $request->des_observacion,
-            'fec_observacion' => $request->fec_observacion,
+            'des_observacion' => $request->descripcion,
+            'fec_observacion' => $request->fecha_observacion,
         ]);
-        $data = Http::post('http://localhost:6000/bitacora/get', [
-            'funcion' => 's',
-        ]);
-        $observaciones = $data->json();
-        return back()->with('mensaje','Actualizacion exitosa.');
+        return redirect()->route('getListaObservacion')->with('mensaje','Actualizado exitosamente');
     }
 
     public function insertObservacion(Request $request){
@@ -106,11 +105,6 @@ class observacionController extends Controller
             'des_observacion' => $request->descripcion,
             'fec_observacion' => $request->fecha_observacion,
         ]);
-
-        $data = Http::post('http://localhost:6000/bitacora/get', [
-            'funcion' => 's',
-        ]);
-        $observaciones = $data->json();
-        return view('bitacoraLista',compact('observaciones'));
+       return redirect()->route('getListaObservacion')->with('mensaje','Agregado exitosamente');
     }
 }

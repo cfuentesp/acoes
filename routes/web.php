@@ -79,17 +79,17 @@ Route::get('/home/persona/{id}', [App\Http\Controllers\PersonaController::class,
 Route::put('/home/persona/{id}]', [App\Http\Controllers\PersonaController::class, 'updateDatosPersona'])->name('actualizarPersona');
 
 //RUTAS DE BITACORA DE MEJORA CONTINUA
-Route::get('/home/observacion', [App\Http\Controllers\observacionController::class, 'getObservacion'])->name('getListaObservacion');
+Route::get('/home/observacion', [App\Http\Controllers\bitacoraController::class, 'getObservacion'])->name('getListaObservacion');
 
-Route::get('/home/observacion/search{id}', [App\Http\Controllers\observacionController::class, 'getDatosObservacion'])->name('editarObservacion');
+Route::get('/home/observacion/search/{id}', [App\Http\Controllers\bitacoraController::class, 'getDatosObservacion'])->name('editarObservacion');
 
-Route::put('/home/observacion/update/{id}', [App\Http\Controllers\observacionController::class, 'updateDatosObservacion'])->name('actualizarObservacion');
+Route::get('/home/observacion/update/{id}', [App\Http\Controllers\bitacoraController::class, 'updateDatosObservacion'])->name('actualizarObservacion');
 
-Route::get('/home/observacion/eliminar/{id}', [App\Http\Controllers\observacionController::class, 'deleteObservacion'])->name('eliminarObservacion');
+Route::get('/home/observacion/eliminar/{id}', [App\Http\Controllers\bitacoraController::class, 'deleteObservacion'])->name('eliminarObservacion');
 
-Route::get('/home/observacion/nuevo', [App\Http\Controllers\observacionController::class, 'nuevoBitacora'])->name('abrirNuevo');
+Route::get('/home/observacion/nuevo', [App\Http\Controllers\bitacoraController::class, 'nuevoBitacora'])->name('abrirNuevo');
 
-Route::put('/home/observacion/insert', [App\Http\Controllers\observacionController::class, 'insertObservacion'])->name('agregarObservacion');
+Route::put('/home/observacion/insert/new', [App\Http\Controllers\bitacoraController::class, 'insertObservacion'])->name('agregarObservacion');
 
 //RUTAS MODULO MANTENIMIENTO
 Route::get('/home/mantenimiento', [App\Http\Controllers\HomeController::class, 'getMantenimiento'])->name('home/mantenimiento');

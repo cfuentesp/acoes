@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class inventarioController extends Controller
@@ -88,6 +89,7 @@ class inventarioController extends Controller
         ]);
         $equipo = $datos->json();
         $equipo = $equipo[0];
+        $equipo[0]['FEC_INGRESO']=date("Y-m-d", strtotime($equipo[0]['FEC_INGRESO']));
         return view('inventarioEditar',compact('equipo'));
     }
     return back()->with('error','No tienes permisos');
