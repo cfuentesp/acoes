@@ -32,7 +32,7 @@ Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logou
 
 Route::get('/home/usuarios', [App\Http\Controllers\usuariosController::class, 'getUsuarios'])->name('getListaUsuarios');
 
-Route::get('/home/usuaios/registro', [App\Http\Controllers\usuariosController::class, 'registroUsuarios'])->name('userRegistro');
+Route::get('/home/usuarios/registro', [App\Http\Controllers\usuariosController::class, 'registroUsuarios'])->name('userRegistro');
 
 Route::get('/home/roles', [App\Http\Controllers\usuariosController::class, 'getRoles'])->name('getListaRoles');
 
@@ -44,6 +44,15 @@ Route::get('/home/roles/permission/{name}/{id}', [App\Http\Controllers\usuariosC
 
 Route::get('/home/permission/insertPermission/{id}', [App\Http\Controllers\usuariosController::class, 'intertPermission'])->name('insertPermissionRole');
 
+Route::get('/home/usuarios/editar/{name}/{id}', [App\Http\Controllers\usuariosController::class, 'getDatosUsuario'])->name('editarUsuario');
+
+Route::get('/home/usuarios/nuevoRole/{id}', [App\Http\Controllers\usuariosController::class, 'insertRoleUser'])->name('agregarRoleUsuario');
+
+Route::get('/home/usuarios/eliminarRole/{id}', [App\Http\Controllers\usuariosController::class, 'deleteRole'])->name('eliminarRole');
+
+Route::get('/home/usuarios/deleteUser/{id}', [App\Http\Controllers\usuariosController::class, 'deleteUser'])->name('eliminarUsuario');
+
+Route::get('/home/usuarios/createUser', [App\Http\Controllers\usuariosController::class, 'createUser'])->name('crearUsuario');
 
 // RUTAS INVENTARIO
 

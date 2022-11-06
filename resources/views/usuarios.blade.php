@@ -14,9 +14,6 @@
    </form>
     <br>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-	@if (session('mensaje'))
-	    <div class="alert alert-success">{{session('mensaje')}}</div>	
-	@endif
 <div class="container">
 <div class="row">
 	<div class="col-lg-12">
@@ -44,13 +41,13 @@
 								<span class="user-subhead">{{$item['created_at']}}</span>
 							</td>
 							  <td style="width: 20%;">
-							  	<a href="{{route('editarEquipo',$item['id'])}}" class="table-link">
+							  	<a href="{{route('editarUsuario',[$item['name'],$item['id']])}}" class="table-link">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-							  	<a href="{{route('eliminarEquipo',$item['id'])}}" class="table-link danger">
+							  	<a href="{{route('eliminarUsuario',$item['id'])}}" class="table-link danger">
 							  		<span class="fa-stack">
 							  			<i class="fa fa-square fa-stack-2x"></i>
 							  			<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>

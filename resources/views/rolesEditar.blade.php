@@ -16,12 +16,6 @@
             </ul>
         </div>
       @endif
-      @if (session('mensaje'))
-	      <div class="alert alert-success alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('mensaje')}}</div>	
-	    @endif
-        @if (session('error'))
-        <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('error')}}</div>	
-      @endif
     <div class="mb-3">
         <div class="col">
             <div class="form-group">

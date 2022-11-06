@@ -14,9 +14,6 @@
    </form>
     <br>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-	@if (session('mensaje'))
-	    <div class="alert alert-success">{{session('mensaje')}}</div>	
-	@endif
 <div class="container">
 <div class="row">
 	<div class="col-lg-12">

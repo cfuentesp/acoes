@@ -482,6 +482,7 @@ $(document).ready(function () {
 			@else
 				
 			@endif
+            
 			<div class="dashboard-nav">
 				<header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a style="color:white;"
 																						   class="brand-logo"><i
@@ -498,14 +499,12 @@ $(document).ready(function () {
 								href="#" class="dashboard-nav-dropdown-item">Compra</a><a
 								href="#" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
-                    @permission('admin')
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-card-checklist"></i> Sistema</a>
 						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
 																	class="dashboard-nav-dropdown-item">Usuarios</a><a
 								href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a></div>
 					</div>
-                    @endpermission
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-people-fill"></i> Personas </a>
 						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaPersonas')}}"
@@ -525,6 +524,12 @@ $(document).ready(function () {
 				<div class='dashboard-content'>
 					<div class='container'>
 						<div class='card'>
+                            @if (session('mensaje'))
+                            <div class="alert alert-success alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('mensaje')}}</div>	
+                              @endif
+                              @if (session('error'))
+                                <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('error')}}</div>	
+                            @endif
 							@yield('seccion')
 						</div>
 					</div>

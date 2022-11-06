@@ -2,9 +2,11 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Editar Usuarios</h1>
+    <h1>Actualizar rol a usuario {{$nombre}}</h1>
 </div>
 <div class='card-body'>
+  <form action="{{route('agregarRoleUsuario',$id)}}" method="GET">
+    @csrf
       @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -14,23 +16,43 @@
             </ul>
         </div>
       @endif
-      @if (session('mensaje'))
-	      <div class="alert alert-success alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('mensaje')}}</div>	
-	    @endif
-    <form action="{{route('agregarUsuarioRol')}}" method="GET">
-         <div>
-             <button type="submit" class="btn btn-primary float-right">Agregar nuevo rol</button>
-         </div>
-     </form>
-    <div class="mb-3">
+      <div class="mb-3">
+        <div class="col">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Roles</label>
+              <select class="form-control" name="role">
+                @foreach ($roles as $rol)
+                 <option value="{{$rol['id']}}">{{$rol['name']}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+      </div>
+      <div class="mb-3">
         <div class="row">
           <div class="col">
-            <input type="text" readonly class="form-control" placeholder="Nombre" value="{{$item['name']}}">
           </div>
           <div class="col">
-            <input type="text" readonly class="form-control" placeholder="Email" value="{{$item['email']}}">
+            <button type="submit" class="btn btn-primary float-right">Agregar rol</button>
           </div>
         </div>
       </div>
+    </form>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Role</th>
+            <th scope="col">Descripcion</th>
+          </tr>
+        </thead>
+        <tbody>
+        @foreach ($rolesUser as $item)        
+          <tr>
+            <td>{{$item['name']}}</td>
+            <td>{{$item['description']}}</td>
+          </tr>
+        @endforeach
+        </tbody>
+      </table>
 </div>
 @endsection

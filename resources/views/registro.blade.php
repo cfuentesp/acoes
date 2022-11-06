@@ -7,9 +7,9 @@
           <div class="card-body p-5">
             <h2 class="text-uppercase text-center mb-5">CREAR CUENTA</h2>
 
-            <form method="POST" action="{{ route('register') }}">
+            <form action="{{ route('crearUsuario') }}"  method="GET">
               @csrf
-              
+              @method('GET')
               <div class="form-outline mb-4">
                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus />
                 <label class="form-label" for="name">Nombre</label>

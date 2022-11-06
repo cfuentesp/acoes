@@ -14,9 +14,6 @@
    </form>
     <br>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-	@if (session('mensaje'))
-	    <div class="alert alert-success">{{session('mensaje')}}</div>	
-	@endif
 <div class="container">
 <div class="row">
 	<div class="col-lg-12">
@@ -50,12 +47,12 @@
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-							  	{{-- <a href="" class="table-link danger">
+							  	<a href="{{route('eliminarRole',$item['id'])}}" class="table-link danger">
 							  		<span class="fa-stack">
 							  			<i class="fa fa-square fa-stack-2x"></i>
 							  			<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
 							  		</span>
-							  	</a> --}}
+							  	</a>
 							  </td>
 						</tr>
                         @endforeach
