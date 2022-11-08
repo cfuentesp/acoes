@@ -92,7 +92,13 @@ Route::get('/home/observacion/nuevo', [App\Http\Controllers\bitacoraController::
 Route::put('/home/observacion/insert/new', [App\Http\Controllers\bitacoraController::class, 'insertObservacion'])->name('agregarObservacion');
 
 //RUTAS MODULO MANTENIMIENTO
-Route::get('/home/mantenimiento', [App\Http\Controllers\HomeController::class, 'getMantenimiento'])->name('home/mantenimiento');
-Route::get('/home/mantenimiento/nuevo', [App\Http\Controllers\MantenimientoController::class, 'nuevoMantenimiento'])->name('nuevoMantenimiento');
-Route::get('/home/mantenimiento/{id}', [App\Http\Controllers\MantenimientoController::class, 'getDatosMantenimiento'])->name('editarMantenimiento');
-Route::get('/home/mantenimiento/editar/hello/', [App\Http\Controllers\MantenimientoController::class, 'actualizar'])->name('actualizarMantenimiento');
+Route::get('/home/mantenimiento', [App\Http\Controllers\MantenimientoController::class, 'getMantenimiento'])->name('getListaMantenimiento');
+
+Route::get('/home/mantenimiento/nuevo', [App\Http\Controllers\MantenimientoController::class, 'nuevoMantenimiento'])->name('abrirNuevoMantenimiento');
+
+Route::get('/home/mantenimiento/search/{id}', [App\Http\Controllers\MantenimientoController::class, 'getDatosMantenimiento'])->name('editarMantenimiento');
+
+Route::put('/home/mantenimiento/editar/{id}{sol}{eq}', [App\Http\Controllers\MantenimientoController::class, 'updateMantenimiento'])->name('actualizarMantenimiento');
+
+Route::get('/home/mantenimiento/eliminar/{id}', [App\Http\Controllers\mantenimientoController::class, 'deleteMantenimiento'])->name('eliminarMantenimiento');
+

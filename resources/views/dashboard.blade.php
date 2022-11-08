@@ -491,7 +491,7 @@ $(document).ready(function () {
 					Home </a><a
 						href="{{ route('getListaEquipos') }}" class="dashboard-nav-item active"><i class="bi bi-pc-display"></i> Inventario
 				</a><a
-						href="" class="dashboard-nav-item"><i class="bi bi-tools"></i>Mantenimiento</a>
+						href="{{route('getListaMantenimiento')}}" class="dashboard-nav-item"><i class="bi bi-tools"></i>Mantenimiento</a>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-chat-square-text"></i>Solicitudes</a>
 						<div class='dashboard-nav-dropdown-menu'><a style="color:white;" class="dashboard-nav-dropdown-item">Mantenimiento</a><a
