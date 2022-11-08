@@ -68,16 +68,6 @@ Route::put('/home/inventario/insert', [App\Http\Controllers\inventarioController
 
 Route::get('/home/inventario/eliminar/{id}', [App\Http\Controllers\inventarioController::class, 'deleteEquipo'])->name('eliminarEquipo');
 
-
-//RUTAS MODULO PERSONAS
-Route::get('/home/personas', [App\Http\Controllers\PersonaController::class, 'getPersona'])->name('getListaPersonas');
-
-Route::get('/home/persona/nuevo', [App\Http\Controllers\PersonaController::class, 'nuevoPersona'])->name('nuevoPersona');
-
-Route::get('/home/persona/{id}', [App\Http\Controllers\PersonaController::class, 'getDatosPersona'])->name('editarPersona');
-
-Route::put('/home/persona/{id}]', [App\Http\Controllers\PersonaController::class, 'updateDatosPersona'])->name('actualizarPersona');
-
 //RUTAS DE BITACORA DE MEJORA CONTINUA
 Route::get('/home/observacion', [App\Http\Controllers\bitacoraController::class, 'getObservacion'])->name('getListaObservacion');
 
@@ -91,6 +81,23 @@ Route::get('/home/observacion/nuevo', [App\Http\Controllers\bitacoraController::
 
 Route::put('/home/observacion/insert/new', [App\Http\Controllers\bitacoraController::class, 'insertObservacion'])->name('agregarObservacion');
 
+//RUTAS DE SOLICITUD DE PERMISOS
+Route::get('/home/permisos', [App\Http\Controllers\spermisoController::class, 'getPermisos'])->name('getListaPermisosLaborales');
+
+Route::get('/home/permisos/search/{id}', [App\Http\Controllers\spermisoController::class, 'getDatosPermiso'])->name('editarPermisos');
+
+Route::put('/home/permisos/update/{id}', [App\Http\Controllers\spermisoController::class, 'updateDatosPermiso'])->name('actualizarPermisos');
+
+Route::get('/home/permisos/eliminar/{id}', [App\Http\Controllers\spermisoController::class, 'deletePermiso'])->name('eliminarPermisos');
+
+Route::get('/home/permisos/nuevo', [App\Http\Controllers\spermisoController::class, 'nuevoPermiso'])->name('abrirNuevoPermiso');
+
+Route::put('/home/permisos/insert/new', [App\Http\Controllers\spermisoController::class, 'insertPermiso'])->name('agregarPermiso');
+
+
+
+
+
 //RUTAS MODULO MANTENIMIENTO
 Route::get('/home/mantenimiento', [App\Http\Controllers\MantenimientoController::class, 'getMantenimiento'])->name('getListaMantenimiento');
 
@@ -101,4 +108,13 @@ Route::get('/home/mantenimiento/search/{id}', [App\Http\Controllers\Mantenimient
 Route::put('/home/mantenimiento/editar/{id}{sol}{eq}', [App\Http\Controllers\MantenimientoController::class, 'updateMantenimiento'])->name('actualizarMantenimiento');
 
 Route::get('/home/mantenimiento/eliminar/{id}', [App\Http\Controllers\mantenimientoController::class, 'deleteMantenimiento'])->name('eliminarMantenimiento');
+
+//RUTAS MODULO PERSONAS
+Route::get('/home/personas', [App\Http\Controllers\PersonaController::class, 'getPersona'])->name('getListaPersonas');
+
+Route::get('/home/persona/nuevo', [App\Http\Controllers\PersonaController::class, 'nuevoPersona'])->name('nuevoPersona');
+
+Route::get('/home/persona/{id}', [App\Http\Controllers\PersonaController::class, 'getDatosPersona'])->name('editarPersona');
+
+Route::put('/home/persona/{id}]', [App\Http\Controllers\PersonaController::class, 'updateDatosPersona'])->name('actualizarPersona');
 

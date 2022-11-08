@@ -9,107 +9,102 @@ use Illuminate\Support\Facades\Validator;
 
 class spermisoController extends Controller
 {
-    public function getSolicitudPermiso(Request $request){
-        $SolicitudPermiso = Http::post('http://localhost:3004/SolicitudPermiso/get', [
+    public function getPermisos(Request $request){
+    if(Auth::user()->hasPermission('permisos')){
+        $data = Http::post('http://localhost:6000/permiso/get', [
             'funcion' => 's',
         ]);
-        $Permisos = $SolicitudPermiso->json();
-        return view('SolicitudPermiso',compact('Permisos'));
+        $permisos = $data->json();
+        $permisos = $permisos[0];
+        return view('spermisoLista',compact('permisos'));
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function nuevoPermiso(Request $request){
-        $header = "Agregar nueva Solicitud de Permiso";
-        return view('SolicitudPermisoNuevo',compact('header'));
+    if(Auth::user()->hasPermission('permisos-agregar')){
+        return view('spermisoNuevo');
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function insertPermiso(Request $request){
+    if(Auth::user()->hasPermission('permisos-agregar')){
         $validator = Validator::make($request->all(), [
-            'tip_solicitud' => 'required',
-            'des_solicitud' => 'required',
-            'fec_solicitud' => 'required',
-            'fec_inicio' => 'required',
-            'fec_final' => 'required',
-            'ind_final' => 'required',
-            'jst_solicitud' => 'required',
-
+            'tipo_solicitud' => 'required',
+            'descripcion' => 'required',
+            'fecha_solicitud' => 'required',
+            'inicio_permiso' => 'required',
+            'final_permiso' => 'required',
         ],[
-            'tip_solicitud.required' => 'Debe ingresar el tipo de solicitud de permiso.',
-            'des_solicitud.required' => 'Debe ingresar la descripcion de solicitud de permiso.',
-            'fec_solicitud.required' => 'Debe ingresar la fecha en que solicito el permiso.',
-            'fec_inicio.required' => 'Debe ingresar la fecha en que inicio el permiso.',
-            'fec_final.required' => 'Debe ingresar la fecha en que finaliza el permiso.',
-            'ind_final.required' => 'Debe ingresar el estado de la solicitud de permiso',
-            'jst_solicitud.required' => 'Debe ingresar la justificación del permiso',
+            'tipo_solicitud.required' => 'Debe ingresar el tipo de solicitud de permiso.',
+            'descripcion.required' => 'Debe ingresar la descripcion de solicitud de permiso.',
+            'fecha_solicitud.required' => 'Debe ingresar la fecha en que solicito el permiso.',
+            'inicio_permiso.required' => 'Debe ingresar la fecha en que inicia el permiso.',
+            'final_permiso.required' => 'Debe ingresar la fecha en que finaliza el permiso.',
         ]);
 
         if ($validator->fails()) {
             return back()->withInput()
-                        ->withErrors($validator);
-                        
+                        ->withErrors($validator);             
         }
 
-        HTTP::post('http://localhost:6000/SolicitudPermiso/insert',[
+        HTTP::post('http://localhost:6000/permiso/insert',[
             'funcion' => 'i',
             'usr_adicion' => auth()->user()->name,
+            'cod_persona' => 1,
             'tip_solicitud' => $request->tipo_solicitud,
-            'des_solicitud' => $request->descripcion_solicitud,
+            'des_solicitud' => $request->descripcion,
             'fec_solicitud' => $request->fecha_solicitud,
-            'fec_inicio' => $request->inicio_solicitud,
-            'fec_final' => $request->final_solicitud,
-            'ind_solicitud' => $request->estado_solicitud,
-            'jst_solicitud' => $request->justificación_solicitud
+            'fec_inicio' => $request->inicio_permiso,
+            'fec_final' => $request->final_permiso,
         ]);
-
-        $SolicitudPermiso = Http::post('http://localhost:3004/SolicitudPermiso/get', [
-            'funcion' => 's',
-        ]);
-        $Permisos = $SolicitudPermiso->json();
-        return view('SolicitudPermiso',compact('Permisos'));
-
+        return redirect()->route('getListaPermisosLaborales')->with('mensaje','Agregado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function deletePermiso(Request $request,$id){
-        $SolicitudPermiso = Http::post('http://localhost:6000/SolicitudPermiso/delete', [
+    if(Auth::user()->hasPermission('permisos-eliminar')){
+        Http::post('http://localhost:6000/permiso/delete', [
             'funcion' => 'd',
             'cod_sol_permiso' => $id,
         ]);
-
-        $SolicitudPermiso = Http::post('http://localhost:3004/SolicitudPermiso/get', [
-            'funcion' => 's',
-        ]);
-        $Perimisos = $SolicitudPermiso->json();
-        return view('SolicitudPermiso',compact('Permisos'));
-
+        return back()->with('mensaje','Eliminado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 
-    public function getDatosEquipo(Request $request, $id){
-        $datos = HTTP::post('http://localhost:3004/SolicitudPermiso/search',[
+    public function getDatosPermiso(Request $request, $id){
+    if(Auth::user()->hasPermission('permisos-editar')){
+        $data = HTTP::post('http://localhost:6000/permiso/search',[
             'funcion' => 'b',
             'cod_sol_permiso' => $id,
         ]);
-        $Permiso = $datos->json();
-        $Permiso = $Permiso[0];
-        return view('SolicitudPermisoEditar',compact('Permiso'));
+        $permiso = $data->json();
+        $permiso = $permiso[0];
+        $permiso[0]['FEC_SOLICITUD']=date("Y-m-d", strtotime($permiso[0]['FEC_SOLICITUD']));
+        $permiso[0]['FEC_INICIO']=date("Y-m-d", strtotime($permiso[0]['FEC_INICIO']));
+        $permiso[0]['FEC_FINAL']=date("Y-m-d", strtotime($permiso[0]['FEC_FINAL']));
+        return view('spermisoEditar',compact('permiso'));
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function updateDatosPermiso(Request $request, $id){
+    if(Auth::user()->hasPermission('permisos-editar')){
         $validator = Validator::make($request->all(), [
-           'tip_solicitud' => 'required',
-            'des_solicitud' => 'required',
-            'fec_solicitud' => 'required',
-            'fec_inicio' => 'required',
-            'fec_final' => 'required',
-            'ind_final' => 'required',
-            'jst_solicitud' => 'required',
-
+            'tipo_solicitud' => 'required',
+            'descripcion' => 'required',
+            'fecha_solicitud' => 'required',
+            'inicio_solicitud' => 'required',
+            'final_solicitud' => 'required',
         ],[
-            'tip_solicitud.required' => 'Debe ingresar el tipo de solicitud de permiso.',
-            'des_solicitud.required' => 'Debe ingresar la descripcion de solicitud de permiso.',
-            'fec_solicitud.required' => 'Debe ingresar la fecha en que solicito el permiso.',
-            'fec_inicio.required' => 'Debe ingresar la fecha en que inicio el permiso.',
-            'fec_final.required' => 'Debe ingresar la fecha en que finaliza el permiso.',
-            'ind_final.required' => 'Debe ingresar el estado de la solicitud de permiso',
-            'jst_solicitud.required' => 'Debe ingresar la justificación del permiso',
+            'tipo_solicitud.required' => 'Debe ingresar el tipo de solicitud de permiso.',
+            'descripcion.required' => 'Debe ingresar la descripcion de solicitud de permiso.',
+            'fecha_solicitud.required' => 'Debe ingresar la fecha en que solicito el permiso.',
+            'inicio_solicitud.required' => 'Debe ingresar la fecha en que inicio el permiso.',
+            'final_solicitud.required' => 'Debe ingresar la fecha en que finaliza el permiso.',
         ]);
 
         if ($validator->fails()) {
@@ -118,22 +113,20 @@ class spermisoController extends Controller
                         
         }
 
-        HTTP::post('http://localhost:3004/SolicitudPermiso/update',[
+        HTTP::post('http://localhost:6000/permiso/update',[
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
             'cod_sol_permiso' => $id,
+            'cod_persona' => 1,
             'tip_solicitud' => $request->tipo_solicitud,
-            'des_solicitud' => $request->descripcion_solicitud,
-            'fec_solicitud' => $request->fecha_solicitud,
+            'des_solicitud' => $request->descripcion,
             'fec_inicio' => $request->inicio_solicitud,
             'fec_final' => $request->final_solicitud,
             'ind_solicitud' => $request->estado_solicitud,
-            'jst_solicitud' => $request->justificación_solicitud
+            'jst_solicitud' => $request->justificacion_solicitud
         ]);
-        $SolicitudPermiso = Http::post('http://localhost:3004/SolicitudPermiso/get', [
-            'funcion' => 's',
-        ]);
-        $Permiso = $SolicitudPermiso->json();
-        return view('SolicitudPermiso',compact('Permisos'));
+        return redirect()->route('getListaPermisosLaborales')->with('mensaje','Actualizado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 }

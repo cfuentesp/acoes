@@ -495,9 +495,9 @@ $(document).ready(function () {
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-chat-square-text"></i>Solicitudes</a>
 						<div class='dashboard-nav-dropdown-menu'><a style="color:white;" class="dashboard-nav-dropdown-item">Mantenimiento</a><a
-								href="#" class="dashboard-nav-dropdown-item">Aprobacion de compra</a><a
+								href="#" class="dashboard-nav-dropdown-item">Aprobacion compra</a><a
 								href="#" class="dashboard-nav-dropdown-item">Compra</a><a
-								href="#" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
+								href="{{route('getListaPermisosLaborales')}}" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-card-checklist"></i> Sistema</a>
