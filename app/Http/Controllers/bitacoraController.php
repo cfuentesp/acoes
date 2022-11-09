@@ -17,6 +17,9 @@ class bitacoraController extends Controller
             'funcion' => 's',
         ]);
         $observaciones = $data->json();
+        $observaciones[0][0]['FEC_OBSERVACION']=date("Y-m-d", strtotime($observaciones[0][0]['FEC_OBSERVACION']));
+        
+        $observaciones = $data->json();
         return view('bitacoraLista',compact('observaciones'));
     }
     return back()->with('error','No tienes permisos');
@@ -96,6 +99,7 @@ class bitacoraController extends Controller
 
     public function insertObservacion(Request $request){
     if(Auth::user()->hasPermission('bitacora-agregar')){
+        dd($request->all());
         $validator = Validator::make($request->all(), [
             'cod_persona' => 'required',
             'descripcion' => 'required',

@@ -22,10 +22,8 @@
                 <table class="table user-list">
                     <thead>
                         <tr>
-                            <th><span>Tipo de Solicitud</span></th>
+                            <th><span>Solicitante</span></th>
                             <th><span>Fecha de Solicitud</span></th>
-                            <th><span>Fecha de Inicio</span></th>
-                            <th><span>Fecha Final</span></th>
                             <th><span>Estado de Solicitud</span></th>
                             <th>&nbsp;</th>
                         </tr>
@@ -39,12 +37,6 @@
 
                             <td>
                                 <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SOLICITUD']))}}</span>
-                            </td>
-                            <td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_INICIO']))}}</span>
-                            </td>
-                            <td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_FINAL']))}}</span>
                             </td>
                             <td>
                                 <span class="user-subhead">{{$item['IND_SOLICITUD']}}</span>

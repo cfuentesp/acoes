@@ -32,7 +32,7 @@
             <label for="exampleFormControlSelect12">Evaluador</label>
             <select class="form-control" name="cod_persona" value="{{$personas[0]['COD_PERSONA']}}">
               @foreach ($personas as $item)
-               <option value="{{$item['COD_PERSONA']}}">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</option>
+               <option value="{{!!$item['COD_PERSONA']!!}}">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</option>
               @endforeach
             </select>
           </div>

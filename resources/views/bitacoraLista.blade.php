@@ -31,7 +31,7 @@
                         @foreach ($observaciones[0] as $item)
 						<tr>
 							<td>
-								<span class="user-subhead">{{$item['DES_OBSERVACION']}}</span>
+								<span class="user-subhead">{{$persona['NOM_PERSONA'].' '.$persona['APLL_PERSONA']}}</span>
 							</td>
 							<td>
 								<span class="user-subhead">{{$item['FEC_OBSERVACION']}}</span>
