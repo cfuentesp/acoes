@@ -28,17 +28,11 @@
       </div>
       <div class="row">
         <div class="col">
-          <div class="form-group">
-            <label for="exampleFormControlSelect12">Evaluador</label>
-            <select class="form-control" name="cod_persona" value="{{$personas[0]['COD_PERSONA']}}">
-              @foreach ($personas as $item)
-               <option value="{{!!$item['COD_PERSONA']!!}}">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</option>
-              @endforeach
-            </select>
-          </div>
+          <label for="exampleFormControlSelect12">Evaluador</label>
+          <input type="text" readonly class="form-control" value="{{$persona[0]['NOM_PERSONA'].' '.$persona[0]['APLL_PERSONA']}}">
         </div>
         <div class="col">
-          <button type="submit" class="btn btn-primary float-right">Actualizar Observacion</button>
+          <button type="submit" class="btn btn-primary float-right">Actualizar observacion</button>
         </div>
       </div>
     </div>

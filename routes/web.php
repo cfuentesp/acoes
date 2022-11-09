@@ -94,6 +94,19 @@ Route::get('/home/permisos/nuevo', [App\Http\Controllers\spermisoController::cla
 
 Route::put('/home/permisos/insert/new', [App\Http\Controllers\spermisoController::class, 'insertPermiso'])->name('agregarPermiso');
 
+//RUTAS DE COMPRA
+Route::get('/home/compras', [App\Http\Controllers\scompraController::class, 'getCompras'])->name('getListaCompras');
+
+Route::get('/home/compras/search/{id}', [App\Http\Controllers\scompraController::class, 'getDatosCompra'])->name('editarCompra');
+
+Route::put('/home/compras/update/{id}', [App\Http\Controllers\scompraController::class, 'updateDatosCompra'])->name('actualizarCompra');
+
+Route::get('/home/compras/eliminar/{id}', [App\Http\Controllers\scompraController::class, 'deleteCompra'])->name('eliminarCompra');
+
+Route::get('/home/compras/nuevo', [App\Http\Controllers\scompraController::class, 'nuevaCompra'])->name('abrirNuevaCompra');
+
+Route::put('/home/compras/insert/new', [App\Http\Controllers\scompraController::class, 'insertCompra'])->name('agregarCompra');
+
 
 
 

@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Agregar nuevo permiso</h1>
+    <h1>Solicitar nueva compra</h1>
 </div>
 <div class='card-body'>
 <form action="{{ route('agregarCompra') }}" method="POST">
@@ -30,7 +30,7 @@
      <div class="mb-2">
         <div class="row">
           <div class="col">
-            <input type="text" name="estado_solicitud" class="form-control" placeholder="Estado de Solicitud">
+            <textarea type="text" name="descripcion" rows="3" class="form-control" placeholder="Descripion"></textarea>
           </div>
           <div class="col">
             <button type="submit" class="btn btn-primary float-right">Agregar equipo</button>

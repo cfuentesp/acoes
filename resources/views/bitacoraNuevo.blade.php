@@ -31,7 +31,7 @@
           <div class="col">
             <div class="form-group">
               <label for="exampleFormControlSelect12">Evaluador</label>
-              <select class="form-control" name="cod_persona" value="{{old('cod_persona')}}">
+              <select class="form-control selectpicker" data-live-search="true" id="cod_persona" name="cod_persona" value="{{old('cod_persona')}}">
                 @foreach ($personas as $item)
                  <option value="{{$item['COD_PERSONA']}}">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</option>
                 @endforeach

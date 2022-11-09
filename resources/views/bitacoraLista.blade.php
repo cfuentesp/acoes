@@ -7,7 +7,7 @@
 <div class='card-body'>
     <form action="{{route('abrirNuevo')}}" method="GET">
       <div>
-          <button type="submit" class="btn btn-primary float-right">Agregar nueva Observacion</button>
+          <button type="submit" class="btn btn-primary float-right">Agregar nueva observacion</button>
           <br>
           <br>
       </div>
@@ -22,7 +22,7 @@
 				<table class="table user-list">
 					<thead>
 						<tr>
-							<th><span>Descripcion de la Observacion</span></th>
+							<th><span>Evaluador</span></th>
 							<th><span>Fecha de la Observacion</span></th>
 							<th>&nbsp;</th>
 						</tr>
@@ -31,10 +31,10 @@
                         @foreach ($observaciones[0] as $item)
 						<tr>
 							<td>
-								<span class="user-subhead">{{$persona['NOM_PERSONA'].' '.$persona['APLL_PERSONA']}}</span>
+								<span class="user-subhead">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['FEC_OBSERVACION']}}</span>
+								<span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_OBSERVACION']))}}</span>
 							</td>
 							</td>
 							  <td style="width: 20%;">

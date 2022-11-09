@@ -489,14 +489,14 @@ $(document).ready(function () {
 						class="bi bi-display"></i> <span>MENU</span></a></header>
 				<nav class="dashboard-nav-list"><a href=" {{route('home')}} " class="dashboard-nav-item"><i class="bi bi-house-door-fill"></i>
 					Home </a><a
-						href="{{ route('getListaEquipos') }}" class="dashboard-nav-item active"><i class="bi bi-pc-display"></i> Inventario
+						href="{{ route('getListaEquipos') }}" class="dashboard-nav-item"><i class="bi bi-pc-display"></i> Inventario
 				</a><a
 						href="{{route('getListaMantenimiento')}}" class="dashboard-nav-item"><i class="bi bi-tools"></i>Mantenimiento</a>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
 							class="bi bi-chat-square-text"></i>Solicitudes</a>
 						<div class='dashboard-nav-dropdown-menu'><a style="color:white;" class="dashboard-nav-dropdown-item">Mantenimiento</a><a
 								href="#" class="dashboard-nav-dropdown-item">Aprobacion compra</a><a
-								href="#" class="dashboard-nav-dropdown-item">Compra</a><a
+								href="{{route('getListaCompras')}}" class="dashboard-nav-dropdown-item">Compra</a><a
 								href="{{route('getListaPermisosLaborales')}}" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
 					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
@@ -536,8 +536,10 @@ $(document).ready(function () {
 				</div>
 			</div>
 		</div>
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
     </body>
 </html>

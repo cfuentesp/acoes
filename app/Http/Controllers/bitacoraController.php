@@ -17,9 +17,6 @@ class bitacoraController extends Controller
             'funcion' => 's',
         ]);
         $observaciones = $data->json();
-        $observaciones[0][0]['FEC_OBSERVACION']=date("Y-m-d", strtotime($observaciones[0][0]['FEC_OBSERVACION']));
-        
-        $observaciones = $data->json();
         return view('bitacoraLista',compact('observaciones'));
     }
     return back()->with('error','No tienes permisos');
@@ -34,12 +31,13 @@ class bitacoraController extends Controller
         $observacion = $datos->json();
         $observacion = $observacion[0];
         $observacion[0]['FEC_OBSERVACION']=date("Y-m-d", strtotime($observacion[0]['FEC_OBSERVACION']));
-        $data = HTTP::post('http://localhost:6000/persona/get',[
-            'funcion' => 's',
+        $data = HTTP::post('http://localhost:6000/persona/search',[
+            'funcion' => 'b',
+            'cod_persona' => $observacion[0]['COD_PERSONA'],
         ]);
-        $personas = $data->json();
-        $personas = $personas[0];
-        return view('bitacoraEditar',compact('observacion','personas'));
+        $persona = $data->json();
+        $persona = $persona[0];
+        return view('bitacoraEditar',compact('observacion','persona'));
     }
     return back()->with('error','No tienes permisos');
     }
@@ -70,12 +68,10 @@ class bitacoraController extends Controller
     public function updateDatosObservacion(Request $request, $id){
         if(Auth::user()->hasPermission('bitacora-editar')){
         $validator = Validator::make($request->all(), [
-            'cod_persona' => 'required',
             'descripcion' => 'required',
             'fecha_observacion' => 'required',
 
         ],[
-            'cod_persona.required' => 'Debe ingresar el nombre del evaluador.',
             'descripcion.required' => 'Debe ingresar la descripcion de la observacion.',
             'fecha_observacion.required' => 'Debe ingresar la fecha de la observacion.',
         ]);
@@ -88,7 +84,6 @@ class bitacoraController extends Controller
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
             'cod_bit_mejora' => $id,
-            'cod_persona' => $request->cod_persona,
             'des_observacion' => $request->descripcion,
             'fec_observacion' => $request->fecha_observacion,
         ]);
@@ -99,14 +94,11 @@ class bitacoraController extends Controller
 
     public function insertObservacion(Request $request){
     if(Auth::user()->hasPermission('bitacora-agregar')){
-        dd($request->all());
         $validator = Validator::make($request->all(), [
-            'cod_persona' => 'required',
             'descripcion' => 'required',
             'fecha_observacion' => 'required',
 
         ],[
-            'cod_persona.required' => 'Debe ingresar el nombre del evaluador.',
             'descripcion.required' => 'Debe ingresar la descripcion de la observacion.',
             'fecha_observacion.required' => 'Debe ingresar la fecha de la observacion.',
         ]);
