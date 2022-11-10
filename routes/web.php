@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PersonaController;
 use App\Http\Controllers\inventarioController;
-use App\Http\Controllers\mantenimientoController;
+use App\Http\Controllers\MantenimientoController;
 
 
 
@@ -38,9 +38,9 @@ Route::get('/home/persona/editar/hello/', [App\Http\Controllers\PersonaControlle
 
 //RUTAS MODULO MANTENIMIENTO
 Route::get('/home/mantenimiento', [App\Http\Controllers\HomeController::class, 'getMantenimiento'])->name('home/mantenimiento');
-Route::get('/home/mantenimiento/nuevo', [App\Http\Controllers\mantenimientoController::class, 'nuevoMantenimiento'])->name('nuevoMantenimiento');
-Route::get('/home/mantenimiento/{id}', [App\Http\Controllers\mantenimientoController::class, 'getDatosMantenimiento'])->name('editarMantenimiento');
-Route::get('/home/mantenimiento/editar/hello/', [App\Http\Controllers\mantenimientoController::class, 'actualizar'])->name('actualizarMantenimiento');
+Route::get('/home/mantenimiento/nuevo', [App\Http\Controllers\MantenimientoController::class, 'nuevoMantenimiento'])->name('nuevoMantenimiento');
+Route::get('/home/mantenimiento/{id}', [App\Http\Controllers\MantenimientoController::class, 'getDatosMantenimiento'])->name('editarMantenimiento');
+Route::get('/home/mantenimiento/editar/hello/', [App\Http\Controllers\MantenimientoController::class, 'actualizar'])->name('actualizarMantenimiento');
 
 
 //

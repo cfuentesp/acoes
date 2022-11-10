@@ -35,7 +35,7 @@
 						</tr>
 					</thead>
 					<tbody>
-                        @foreach ($tiempo as $item)
+                        @foreach ($tiempo[0] as $item)
 						<tr>
 							<td>
 								<span class="user-subhead">{{$item['NOM_PERSONA']}}</span>
