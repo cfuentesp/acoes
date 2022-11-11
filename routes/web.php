@@ -108,15 +108,7 @@ Route::get('/home/compras/nuevo', [App\Http\Controllers\scompraController::class
 Route::put('/home/compras/insert/new', [App\Http\Controllers\scompraController::class, 'insertCompra'])->name('agregarCompra');
 
 //RUTAS MODULO PERSONAS
-Route::get('/home/personas', [App\Http\Controllers\personaController::class, 'getPersona'])->name('getListaPersonas');
 
-Route::get('/home/persona/nuevo', [App\Http\Controllers\personaController::class, 'nuevoPersona'])->name('nuevoPersona');
-
-Route::get('/home/persona/{id}', [App\Http\Controllers\personaController::class, 'getDatosPersona'])->name('editarPersona');
-
-Route::put('/home/persona/{id}]', [App\Http\Controllers\personaController::class, 'updateDatosPersona'])->name('actualizarPersona');
-
-Route::put('/home/compras/insert/new', [App\Http\Controllers\personaController::class, 'insertPersona'])->name('agregarPersona');
 
 
 
@@ -137,7 +129,16 @@ Route::get('/home/personas', [App\Http\Controllers\personaController::class, 'ge
 
 Route::get('/home/persona/nuevo', [App\Http\Controllers\personaController::class, 'nuevoPersona'])->name('nuevoPersona');
 
-Route::get('/home/persona/{id}', [App\Http\Controllers\personaController::class, 'getDatosPersona'])->name('editarPersona');
+Route::get('/home/persona/search/{id}', [App\Http\Controllers\personaController::class, 'getDatosPersona'])->name('editarPersona');
 
-Route::put('/home/persona/{id}]', [App\Http\Controllers\personaController::class, 'updateDatosPersona'])->name('actualizarPersona');
+Route::put('/home/persona/update/{id}]', [App\Http\Controllers\personaController::class, 'updateDatosPersona'])->name('actualizarPersona');
 
+Route::put('/home/persona/direccion/new/{id}]', [App\Http\Controllers\personaController::class, 'insertDireccion'])->name('agregarDireccion');
+
+Route::get('/home/persona/direccion/eliminar/{id}]', [App\Http\Controllers\personaController::class, 'deleteDireccion'])->name('eliminarDireccion');
+
+Route::put('/home/persona/telefono/new/{id}]', [App\Http\Controllers\personaController::class, 'insertTelefono'])->name('agregarTelefono');
+
+Route::get('/home/persona/telefono/eliminar/{id}]', [App\Http\Controllers\personaController::class, 'deleteTelefono'])->name('eliminarTelefono');
+
+Route::put('/home/compras/insert/new', [App\Http\Controllers\personaController::class, 'insertPersona'])->name('agregarPersona');

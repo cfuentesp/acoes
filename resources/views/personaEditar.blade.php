@@ -12,17 +12,18 @@
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active">
     <div class='card-body'>
-      <form action="{{ route('actualizarPersona', $personas[0]['COD_PERSONA']) }}" method="PUT">
+      <form action="{{ route('actualizarPersona', $personas[0]['COD_PERSONA']) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="mb-2">
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Nombres</label>
-                <input type="text" class="form-control" value="{{$personas[0]['NOM_PERSONA']}}">
+                <input type="text" class="form-control" name="nombres" value="{{$personas[0]['NOM_PERSONA']}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Apellidos</label>
-                <input type="text" class="form-control" value="{{$personas[0]['APLL_PERSONA']}}">
+                <input type="text" class="form-control" name="apellidos" value="{{$personas[0]['APLL_PERSONA']}}">
               </div>
             </div>
         </div>
@@ -30,11 +31,11 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Identidad</label>
-                <input type="text" class="form-control" value="{{$personas[0]['NUM_IDENTIDAD']}}">
+                <input type="text" class="form-control" name="identidad" value="{{$personas[0]['NUM_IDENTIDAD']}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Fecha de nacimiento</label>
-                <input type="text" class="form-control" value="{{$personas[0]['FEC_NACIMIENTO']}}">
+                <input type="date" class="form-control" name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($personas[0]['FEC_NACIMIENTO']))}}">
               </div>
             </div>
         </div>
@@ -42,11 +43,11 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Rol</label>
-                <input type="number" class="form-control"  value="{{$personas[0]['ROL_PERSONA']}}">
+                <input type="text" class="form-control" name="rol" value="{{$personas[0]['ROL_PERSONA']}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Correo</label>
-                <input type="text" class="form-control"  value="{{($personas[0]['COR_PERSONA'])}}">
+                <input type="email" class="form-control" name="correo" value="{{($personas[0]['COR_PERSONA'])}}">
               </div>
             </div>
         </div>
@@ -54,17 +55,19 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Numero de referencia personal</label>
-                <input type="number" class="form-control"  value="{{($personas[0]['NUM_REF_PERSONA'])}}">
+                <input type="number" class="form-control" name="numero_referencia" value="{{($personas[0]['NUM_REF_PERSONA'])}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Referencia personal</label>
-                <input type="text" class="form-control" value="{{($personas[0]['DES_REF_PERSONA'])}}">
+                <input type="text" class="form-control" name="referencia" value="{{($personas[0]['DES_REF_PERSONA'])}}">
             </div>
         </div>
         </div>
         <div class="mb-2">
           <div class="row">
             <div class="col">
+              <label for="exampleFormControlSelect12">Sexo persona</label>
+              <input type="text" class="form-control" name="sexo" value="{{($personas[0]['SEX_PERSONA'])}}">
             </div>
             <div class="col">
               <button type="submit" class="btn btn-primary float-right">Actualizar datos</button>
@@ -76,13 +79,38 @@
   </div>
   <div id="menu1" class="tab-pane fade">
     <div class='card-body'>
-      <form action="{{route('abrirNuevo')}}" method="GET">
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Nueva direccion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <form action="{{route('agregarDireccion', $personas[0]['COD_PERSONA'])}}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Direccion</label>
+                  <textarea class="form-control" name="direccion" rows="3" id="recipient-name"></textarea>
+                </div>
+             
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar direccion</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
         <div>
-            <button type="submit" class="btn btn-primary float-right">Agregar nueva observacion</button>
+          <button type="buttom" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar direccion</button>
             <br>
             <br>
         </div>
-     </form>
       <br>
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   <div class="container">
@@ -94,28 +122,26 @@
             <thead>
               <tr>
                 <th><span>Direccion</span></th>
-                <th><span>Fecha de la Observacion</span></th>
+                <th><span>Creado por</span></th>
+                <th><span>Creado el</span></th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
             <tbody>
-            @foreach ($observaciones[0] as $item)
+            @foreach ($direcciones as $item)
               <tr>
                 <td>
-                  <span class="user-subhead">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</span>
+                  <span class="user-subhead">{{$item['DES_DIRECCION']}}</span>
                 </td>
                 <td>
-                  <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_OBSERVACION']))}}</span>
+                  <span class="user-subhead">{{$item['USR_ADICION']}}</span>
+                </td>
+                <td>
+                  <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_ADICION']))}}</span>
                 </td>
                 </td>
                   <td style="width: 20%;">
-                    <a href="{{route('editarObservacion',$item['COD_BIT_MEJORA'])}}" class="table-link">
-                                      <span class="fa-stack">
-                                          <i class="fa fa-square fa-stack-2x"></i>
-                                          <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                      </span>
-                                  </a>
-                    <a href="{{route('eliminarObservacion',$item['COD_BIT_MEJORA'])}}" class="table-link danger">
+                    <a href="{{route('eliminarDireccion',$item['COD_DIRECCION'])}}" class="table-link danger">
                       <span class="fa-stack">
                         <i class="fa fa-square fa-stack-2x"></i>
                         <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
@@ -134,8 +160,85 @@
   </div>
   </div>
   <div id="menu2" class="tab-pane fade">
-    <h3>Menu 2</h3>
-    <p>Some content in menu 2.</p>
+    <div class='card-body'>
+      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Nuevo telefono</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <form action="{{route('agregarTelefono', $personas[0]['COD_PERSONA'])}}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Telefono</label>
+                  <input type="number" class="form-control" name="telefono">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar telefono</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+        <div>
+          <button type="buttom" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Agregar telefono</button>
+            <br>
+            <br>
+        </div>
+      <br>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="main-box clearfix">
+        <div class="table-responsive">
+          <table class="table user-list">
+            <thead>
+              <tr>
+                <th><span>Telefono</span></th>
+                <th><span>Creado por</span></th>
+                <th><span>Creado el</span></th>
+                <th>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+            @foreach ($telefonos as $item)
+              <tr>
+                <td>
+                  <span class="user-subhead">{{$item['NUM_TELEFONO']}}</span>
+                </td>
+                <td>
+                  <span class="user-subhead">{{$item['USR_ADICION']}}</span>
+                </td>
+                <td>
+                  <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_ADICION']))}}</span>
+                </td>
+                </td>
+                  <td style="width: 20%;">
+                    <a href="{{route('eliminarTelefono',$item['COD_TELEFONO'])}}" class="table-link danger">
+                      <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
   </div>
 </div>
 @endsection

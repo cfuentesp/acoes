@@ -27,28 +27,40 @@ class PersonaController extends Controller
         ]);
         $personas = $data->json();
         $personas = $personas[0];
-        return view('personaEditar',compact('personas'));
+
+        $dataDos = HTTP::post('http://localhost:6000/direcciones/get',[
+            'funcion' => 's',
+            'cod_persona' => $id,
+        ]);
+        $direcciones = $dataDos->json();
+        $direcciones = $direcciones[0];
+
+        $dataTres = HTTP::post('http://localhost:6000/telefonos/get',[
+            'funcion' => 's',
+            'cod_persona' => $id,
+        ]);
+        $telefonos = $dataTres->json();
+        $telefonos = $telefonos[0];
+        return view('personaEditar',compact('personas','direcciones','telefonos'));
     }
 
    
     public function updateDatosPersona(Request $request, $id){
-        HTTP::post('http://localhost:3004/persona/update',[
+        HTTP::post('http://localhost:6000/persona/update',[
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
             'cod_persona' => $id,
-            'tip_equipo' => $request->tipo_equipo,
-            'mrc_equipo' => $request->marca_equipo,
-            'mdl_serie' => $request->modelo_serie,
-            'ecf_tecnicas' => $request->especificaciones,
-            'clr_equipo' => $request->clr_equipo,
-            'num_equipo' => $request->num_equipo,
-            'fec_ingreso' => $request->fec_ingreso
+            'rol_persona' => $request->rol,
+            'nom_persona' => $request->nombres,
+            'apll_persona' => $request->apellidos,
+            'num_identidad' => $request->identidad,
+            'fec_nacimiento' => $request->fecha_nacimiento,
+            'des_ref_persona' => $request->referencia,
+            'num_ref_persona' => $request->numero_referencia,
+            'cor_persona' => $request->correo,
+            'sex_persona' => $request->sexo
         ]);
-        $inventario = Http::post('http://localhost:3004/persona/get', [
-            'funcion' => 's',
-        ]);
-        $equipos = $inventario->json();
-        return view('inventario',compact('equipos'));
+        return redirect()->route('getListaPersonas')->with('mensaje','Actualizado exitosamente');
     }
 
     public function insertPersona(Request $request){
@@ -103,4 +115,64 @@ class PersonaController extends Controller
     }
    // return back()->with('error','No tienes permisos');
    // }
+
+   public function insertDireccion(Request $request,$id){
+    $validator = Validator::make($request->all(), [
+        'direccion' => 'required',
+    ],[
+        'direccion.required' => 'Debe ingresar el direccion.',
+    ]);
+
+    if ($validator->fails()) {
+        return back()->withInput()
+                    ->withErrors($validator);            
+    }
+
+    HTTP::post('http://localhost:6000/direcciones/insert',[
+        'funcion' => 'i',
+        'usr_adicion' => auth()->user()->name,
+        'cod_persona' => $id,
+        'direccion' => $request->direccion,
+    ]);
+
+    return back()->with('mensaje','Agregado exitosamente');
+   }
+
+   public function deleteDireccion(Request $request,$id){
+    HTTP::post('http://localhost:6000/direcciones/delete',[
+        'funcion' => 'd',
+        'cod_direccion' => $id
+    ]);
+    return back()->with('mensaje','Eliminado exitosamente');
+   }
+
+   public function insertTelefono(Request $request,$id){
+    $validator = Validator::make($request->all(), [
+        'telefono' => 'required',
+    ],[
+        'telefono.required' => 'Debe ingresar el telefono.',
+    ]);
+
+    if ($validator->fails()) {
+        return back()->withInput()
+                    ->withErrors($validator);            
+    }
+
+    HTTP::post('http://localhost:6000/telefonos/insert',[
+        'funcion' => 'i',
+        'usr_adicion' => auth()->user()->name,
+        'cod_persona' => $id,
+        'telefono' => $request->telefono,
+    ]);
+
+    return back()->with('mensaje','Agregado exitosamente');
+   }
+
+   public function deleteTelefono(Request $request,$id){
+    HTTP::post('http://localhost:6000/telefonos/delete',[
+        'funcion' => 'd',
+        'cod_telefono' => $id
+    ]);
+    return back()->with('mensaje','Eliminado exitosamente');
+   }
 }
