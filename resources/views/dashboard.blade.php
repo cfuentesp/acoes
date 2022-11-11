@@ -484,7 +484,7 @@ $(document).ready(function () {
 			@endif
             
 			<div class="dashboard-nav">
-				<header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a style="color:white;"
+				<header><a style="color:black;" href="" class="menu-toggle"><i class="fas fa-bars"></i></a><a style="color:white;"
 																						   class="brand-logo"><i
 						class="bi bi-display"></i> <span>MENU</span></a></header>
 				<nav class="dashboard-nav-list"><a href=" {{route('home')}} " class="dashboard-nav-item"><i class="bi bi-house-door-fill"></i>

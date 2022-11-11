@@ -107,6 +107,16 @@ Route::get('/home/compras/nuevo', [App\Http\Controllers\scompraController::class
 
 Route::put('/home/compras/insert/new', [App\Http\Controllers\scompraController::class, 'insertCompra'])->name('agregarCompra');
 
+//RUTAS MODULO PERSONAS
+Route::get('/home/personas', [App\Http\Controllers\personaController::class, 'getPersona'])->name('getListaPersonas');
+
+Route::get('/home/persona/nuevo', [App\Http\Controllers\personaController::class, 'nuevoPersona'])->name('nuevoPersona');
+
+Route::get('/home/persona/{id}', [App\Http\Controllers\personaController::class, 'getDatosPersona'])->name('editarPersona');
+
+Route::put('/home/persona/{id}]', [App\Http\Controllers\personaController::class, 'updateDatosPersona'])->name('actualizarPersona');
+
+Route::put('/home/compras/insert/new', [App\Http\Controllers\personaController::class, 'insertPersona'])->name('agregarPersona');
 
 
 
@@ -123,11 +133,11 @@ Route::put('/home/mantenimiento/editar/{id}{sol}{eq}', [App\Http\Controllers\Man
 Route::get('/home/mantenimiento/eliminar/{id}', [App\Http\Controllers\mantenimientoController::class, 'deleteMantenimiento'])->name('eliminarMantenimiento');
 
 //RUTAS MODULO PERSONAS
-Route::get('/home/personas', [App\Http\Controllers\PersonaController::class, 'getPersona'])->name('getListaPersonas');
+Route::get('/home/personas', [App\Http\Controllers\personaController::class, 'getPersona'])->name('getListaPersonas');
 
-Route::get('/home/persona/nuevo', [App\Http\Controllers\PersonaController::class, 'nuevoPersona'])->name('nuevoPersona');
+Route::get('/home/persona/nuevo', [App\Http\Controllers\personaController::class, 'nuevoPersona'])->name('nuevoPersona');
 
-Route::get('/home/persona/{id}', [App\Http\Controllers\PersonaController::class, 'getDatosPersona'])->name('editarPersona');
+Route::get('/home/persona/{id}', [App\Http\Controllers\personaController::class, 'getDatosPersona'])->name('editarPersona');
 
-Route::put('/home/persona/{id}]', [App\Http\Controllers\PersonaController::class, 'updateDatosPersona'])->name('actualizarPersona');
+Route::put('/home/persona/{id}]', [App\Http\Controllers\personaController::class, 'updateDatosPersona'])->name('actualizarPersona');
 
