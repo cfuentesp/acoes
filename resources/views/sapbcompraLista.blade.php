@@ -19,7 +19,9 @@
     <div class="col-lg-12">
         <div class="main-box clearfix">
             <div class="table-responsive">
-                <table class="table user-list">
+                <input class="form-control" style="width:500px;" id="myInput" type="text" placeholder="Buscar..">
+				<br>
+                <table id="myTable" class="table user-list">
                     <thead>
                         <tr>
                             <th><span>Cotizacion Compra</span></th>

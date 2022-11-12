@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Equipos en mantenimiento</h1>
+    <h1>Lista de solicitudes</h1>
 </div>
 <div class='card-body'>
     <br>
@@ -17,32 +17,36 @@
 				<table id="myTable" class="table user-list">
 					<thead>
 						<tr>
-							<th><span>Descripcion De Falla</span></th>
-                            <th><span>Estado Del Equipo</span></th>
-                            <th><span>Fecha De Ingreso</span></th>
+							<th><span>Tipo de solicitud</span></th>
+							<th><span>Numero de equipo</span></th>
+							<th><span>Fecha de solicitud</span></th>
+                            <th><span>Area</span></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-                        @foreach ($equipos as $item)
+                        @foreach ($solicitudes[0] as $item)
 						<tr>
 							<td>
-								<span class="user-subhead">{{$item['DES_FALLA']}}</span>
+								<span class="user-subhead">{{$item['TIP_SOLICITUD']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['EST_EQUIPO']}}</span>
+								<span class="user-subhead">{{$item['NUM_EQUIPO']}}</span>
 							</td>
 							<td>
-                                <span class="user-subhead">{{$item['FEC_INGRESO']}}</span>
+								<span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SOLICITUD']))}}</span>
+							</td>
+							<td>
+								<span class="user-subhead">{{$item['ARA_SOLICITUD']}}</span>
 							</td>
 							  <td style="width: 20%;">
-							  	<a href="{{route('editarMantenimiento',$item['COD_REPARACION'])}}" class="table-link">
+							  	<a href="{{route('editarSolicitud',$item['COD_SOL_MANTENIMIENTO'])}}" class="table-link">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-							  	<a href="{{route('eliminarMantenimiento',$item['COD_REPARACION'])}}" class="table-link danger">
+							  	<a href="{{route('eliminarSolicitud',$item['COD_SOL_MANTENIMIENTO'])}}" class="table-link danger">
 							  		<span class="fa-stack">
 							  			<i class="fa fa-square fa-stack-2x"></i>
 							  			<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
