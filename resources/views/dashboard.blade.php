@@ -499,21 +499,15 @@ $(document).ready(function () {
 								href="{{route('getListaCompras')}}" class="dashboard-nav-dropdown-item">Compra</a><a
 								href="{{route('getListaPermisosLaborales')}}" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
-					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
-							class="bi bi-card-checklist"></i> Sistema</a>
-						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
-																	class="dashboard-nav-dropdown-item">Usuarios</a><a
-								href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a></div>
-					</div>
-					<div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
-							class="bi bi-people-fill"></i> Personas </a>
-						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaPersonas')}}"
-																	class="dashboard-nav-dropdown-item">Personal</a><a
-								href="#" class="dashboard-nav-dropdown-item">Direcciones</a><a
-								href="#" class="dashboard-nav-dropdown-item">Telefonos</a>
-						</div>
-					</div>
+                    <a href="{{route('getListaPersonas')}}" class="dashboard-nav-item"><i class="bi bi-people-fill"></i> Personas</a>
 					<a href="{{route('getListaObservacion')}}" class="dashboard-nav-item"><i class="bi bi-card-checklist"></i> Bitacora</a>
+
+            <div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+                        class="bi bi-tools"></i> Sistema</a>
+                <div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
+                                                                class="dashboard-nav-dropdown-item">Usuarios</a><a
+                            href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a></div>
+                </div>
 				  <div class="nav-item-divider"></div>
 				  <a
 							href="{{route('logout')}}" class="dashboard-nav-item"><i class="bi bi-box-arrow-right"></i> Cerrar Sesion </a>
