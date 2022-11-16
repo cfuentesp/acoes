@@ -14,12 +14,22 @@ class sapbcompraController extends Controller
             'funcion' => 's',
         ]);
         $datos = $data->json();
-        return view('sapbcompraLista',compact('datos'));
+        $dataDos = HTTP::post('http://localhost:6000/mantenimiento/get',[
+            'funcion' => 'r'
+        ]);
+        $equipos = $dataDos->json();
+        $equipos = $equipos[0];
+        return view('sapbcompraLista',compact('datos','equipos'));
     }
 
-    public function nuevaAprovacionC(Request $request){
-        $header = "Agregar nueva Aprobación de Compra";
-        return view('SolicitudApbCompraNuevo',compact('header'));
+    public function nuevaAprobacionCompra(Request $request){
+        $dataDos = HTTP::post('http://localhost:6000/mantenimiento/search',[
+            'funcion' => 'b',
+            'cod_reparacion' => $request->cod_reparacion
+        ]);
+        $datos = $dataDos->json();
+        $datos = $datos[0];       
+        return view('sapbcompraNuevo',compact('datos'));
     }
 
     public function insertAprobacionC(Request $request){

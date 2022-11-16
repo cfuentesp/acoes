@@ -145,9 +145,10 @@ Route::put('/home/aprobacion/update/{id}', [App\Http\Controllers\sapbcompraContr
 
 Route::get('/home/aprobacion/eliminar/{id}', [App\Http\Controllers\sapbcompraController::class, 'deleteAprobacion'])->name('eliminarAprobacion');
 
-Route::get('/home/aprobacion/nuevo', [App\Http\Controllers\sapbcompraController::class, 'nuevaCompra'])->name('abrirNuevaAprobacion');
+Route::get('/home/aprobacion/nuevo', [App\Http\Controllers\sapbcompraController::class, 'nuevaAprobacionCompra'])->name('abrirNuevaAprobacion');
 
 Route::put('/home/aprobacion/insert/new', [App\Http\Controllers\sapbcompraController::class, 'insertAprobacion'])->name('agregarAprobacion');
+
 
 
 //RUTAS DE COMPRA
