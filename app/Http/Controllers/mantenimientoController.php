@@ -13,10 +13,9 @@ class mantenimientoController extends Controller
         $data = HTTP::post('http://localhost:6000/mantenimiento/get',[
             'funcion' => 's'
         ]);
-        $equipos = $data->json();
-        $equipos = $equipos[0];
-        $equipos[0]['FEC_INGRESO']=date("Y-m-d", strtotime($equipos[0]['FEC_INGRESO']));
-        return view('mantenimientoLista',compact('equipos'));
+        $datos = $data->json();
+        $datos = $datos[0];
+        return view('mantenimientoLista',compact('datos'));
     }
     return back()->with('error','No tienes permisos');
     }
@@ -27,36 +26,22 @@ class mantenimientoController extends Controller
             'funcion' => 'b',
             'cod_reparacion' => $id,
         ]);
-        $equipo = $data->json();
-        $equipo = $equipo[0];
-        $dataDos = HTTP::post('http://localhost:6000/persona/get',[
-            'funcion' => 's',
-        ]);
-        $personas = $dataDos->json();
-        $personas = $personas[0];
-
-        $dataTres = HTTP::post('http://localhost:6000/solicitud/search',[
-            'funcion' => 'b',
-            'cod_sol_mantenimiento' =>$equipo[0]['COD_SOL_MANTENIMIENTO']
-        ]);
-        $solicitud = $dataTres->json();
-        $solicitud = $solicitud[0];
+        $datos = $data->json();
+        $datos = $datos[0];
         $id = $id;
-        $equipo[0]['FEC_INGRESO']=date("Y-m-d", strtotime($equipo[0]['FEC_INGRESO']));
-        $equipo[0]['FEC_SALIDA']=date("Y-m-d", strtotime($equipo[0]['FEC_SALIDA']));
-        return view('mantenimientoEditar',compact('equipo','personas','solicitud','id'));
+        return view('mantenimientoEditar',compact('datos','id'));
     }
     return back()->with('error','No tienes permisos');
     }
 
-    public function updateMantenimiento(Request $request,$id,$sol,$eq){
+    public function updateMantenimiento(Request $request,$id){
         if(Auth::user()->hasPermission('mantenimiento-editar')){
         $validator = Validator::make($request->all(), [
             'descripcion_falla' => 'required',
-            'estado_equipo' => 'required',
+            'solucion_problema' => 'required',
         ],[
             'descripcion_falla.required' => 'Debe ingresar el tipo de equipo.',
-            'estado_equipo.required' => 'Debe ingresar la marca del equipo.',
+            'solucion_problema.required' => 'Debe ingresar la solucion.',
         ]);
 
         if ($validator->fails()) {
@@ -68,14 +53,8 @@ class mantenimientoController extends Controller
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
             'cod_reparacion' => $id,
-            'cod_equipo' => $eq,
-            'cod_persona' => $request->cod_persona,
-            'cod_sol_mantenimiento' => $sol,
             'des_falla' => $request->descripcion_falla,
             'sol_problema' => $request->solucion_problema,
-            'est_equipo' => $request->estado_equipo,
-            'fec_ingreso' => $request->fecha_ingreso,
-            'fec_salida' => $request->fecha_salida
         ]);
         return redirect()->route('getListaMantenimiento')->with('mensaje','Actualizado exitosamente');
     }

@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class sapbcompraController extends Controller
 {
-    public function getSolicitudApbCompra(Request $request){
-        $SolicitudApbCompra = Http::post('http://localhost:3004/SolicitudApbCompra/get', [
+    public function getAprobacion(Request $request){
+        $data = Http::post('http://localhost:6000/aprobacion/get', [
             'funcion' => 's',
         ]);
-        $AprobacionCo = $SolicitudApbCompra->json();
-        return view('SolicitudApbCompra',compact('AprobacionCo'));
+        $datos = $data->json();
+        return view('sapbcompraLista',compact('datos'));
     }
 
     public function nuevaAprovacionC(Request $request){

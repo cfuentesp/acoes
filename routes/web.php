@@ -126,8 +126,28 @@ Route::get('/home/solicitud/search/{id}', [App\Http\Controllers\smantenimientoCo
 
 Route::get('/home/solicitud/eliminar/{id}', [App\Http\Controllers\smantenimientoController::class, 'deleteSolicitud'])->name('eliminarSolicitud');
 
+//RUTAS MODULO MANTENIMIENTO
+Route::get('/home/mantenimiento', [App\Http\Controllers\mantenimientoController::class, 'getMantenimiento'])->name('getListaMantenimiento');
+
+Route::get('/home/mantenimiento/search/{id}', [App\Http\Controllers\mantenimientoController::class, 'getDatosMantenimiento'])->name('editarMantenimiento');
+
+Route::put('/home/mantenimiento/editar/equipo/{id}', [App\Http\Controllers\mantenimientoController::class, 'updateMantenimiento'])->name('actualizarMantenimiento');
+
+Route::get('/home/mantenimiento/eliminar/{id}', [App\Http\Controllers\mantenimientoController::class, 'deleteMantenimiento'])->name('eliminarMantenimiento');
 
 
+//SOLICITUD APROBACIONDE COMPRA
+Route::get('/home/aprobacion', [App\Http\Controllers\sapbcompraController::class, 'getAprobacion'])->name('getListaAprobacion');
+
+Route::get('/home/aprobacion/search/{id}', [App\Http\Controllers\sapbcompraController::class, 'getAprobacion'])->name('editarAprobacion');
+
+Route::put('/home/aprobacion/update/{id}', [App\Http\Controllers\sapbcompraController::class, 'updateAprobacion'])->name('actualizarAprobacion');
+
+Route::get('/home/aprobacion/eliminar/{id}', [App\Http\Controllers\sapbcompraController::class, 'deleteAprobacion'])->name('eliminarAprobacion');
+
+Route::get('/home/aprobacion/nuevo', [App\Http\Controllers\sapbcompraController::class, 'nuevaCompra'])->name('abrirNuevaAprobacion');
+
+Route::put('/home/aprobacion/insert/new', [App\Http\Controllers\sapbcompraController::class, 'insertAprobacion'])->name('agregarAprobacion');
 
 
 //RUTAS DE COMPRA
@@ -144,15 +164,6 @@ Route::get('/home/compras/nuevo', [App\Http\Controllers\scompraController::class
 Route::put('/home/compras/insert/new', [App\Http\Controllers\scompraController::class, 'insertCompra'])->name('agregarCompra');
 
 
-//RUTAS MODULO MANTENIMIENTO
-Route::get('/home/mantenimiento', [App\Http\Controllers\MantenimientoController::class, 'getMantenimiento'])->name('getListaMantenimiento');
 
-Route::get('/home/mantenimiento/nuevo', [App\Http\Controllers\MantenimientoController::class, 'nuevoMantenimiento'])->name('abrirNuevoMantenimiento');
-
-Route::get('/home/mantenimiento/search/{id}', [App\Http\Controllers\MantenimientoController::class, 'getDatosMantenimiento'])->name('editarMantenimiento');
-
-Route::put('/home/mantenimiento/editar/{id}{sol}{eq}', [App\Http\Controllers\MantenimientoController::class, 'updateMantenimiento'])->name('actualizarMantenimiento');
-
-Route::get('/home/mantenimiento/eliminar/{id}', [App\Http\Controllers\mantenimientoController::class, 'deleteMantenimiento'])->name('eliminarMantenimiento');
 
 

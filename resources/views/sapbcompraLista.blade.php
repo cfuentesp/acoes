@@ -5,7 +5,7 @@
     <h1>Lista de Aprobación de Compra</h1>
 </div>
 <div class='card-body'>
-    <form action="{{route('nuevoAprobacionC')}}" method="GET">
+    <form action="{{route('abrirNuevaAprobacion')}}" method="GET">
       <div>
           <button type="submit" class="btn btn-primary float-right">Agregar nueva Aprobación de Compra</button>
           <br>
@@ -31,10 +31,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($AprobacionCo[0] as $item)
+                        @foreach ($datos[0] as $item)
                         <tr>
                             <td>
-                                <span class="user-subhead">{{$item['CUZ_EQUIPO']}}</span>
+                                <span class="user-subhead">{{$item['COZ_EQUIPO']}}</span>
                             </td>
                             <td>
                                 <span class="user-subhead">{{$item['FEC_SOLICITUD']}}</span>
@@ -44,13 +44,13 @@
                             </td>
                             <td>
                               <td style="width: 20%;">
-                                <a href="{{route('editarAprobacionC',$item['COD_AprobacionC'])}}" class="table-link">
+                                <a href="{{route('editarAprobacion',$item['COD_SOL_APB_COMPRA'])}}" class="table-link">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-                                <a href="{{route('eliminarAprobacionC',$item['COD_AprobacionC'])}}" class="table-link danger">
+                                <a href="{{route('editarAprobacion',$item['COD_SOL_APB_COMPRA'])}}" class="table-link danger">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
