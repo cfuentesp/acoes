@@ -56,6 +56,7 @@ class mantenimientoController extends Controller
             'des_falla' => $request->descripcion_falla,
             'sol_problema' => $request->solucion_problema,
         ]);
+        
         return redirect()->route('getListaMantenimiento')->with('mensaje','Actualizado exitosamente');
     }
     return back()->with('error','No tienes permisos');
