@@ -87,16 +87,14 @@ class sapbcompraController extends Controller
         return view(' sapbcompraEditar',compact('datos'));
     }
 
-    public function updateDatosAprobacionC(Request $request, $id){
+    public function updateAprobacion(Request $request, $id){
         $validator = Validator::make($request->all(), [
-            'coz_equipo' => 'required',
-            'fec_solicitud' => 'required',
-            'ind_solicitud' => 'required',
+            'cotizacion' => 'required',
+            'fecha_solicitud' => 'required',
 
         ],[
-            'coz_equipo.required' => 'Debe ingresar el precio o cotizacion del equipo requerido.',
-            'fec_solicitud.required' => 'Debe ingresar la fecha de solicitud de aprobación de compra del equipo.',
-            'ind_solicitud.required' => 'Debe ingresar el estado de solicitud de aprobación de compra del equipo',
+            'cotizacion.required' => 'Debe ingresar el precio o cotizacion del equipo requerido.',
+            'fecha_solicitud.required' => 'Debe ingresar la fecha de solicitud de aprobación de compra del equipo.',
             
         ]);
 
@@ -106,18 +104,13 @@ class sapbcompraController extends Controller
                         
         }
 
-        HTTP::post('http://localhost:3004/SolicitudApbCompra/update',[
+        HTTP::post('http://localhost:6000/aprobacion/update',[
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
             'cod_sol_apb_compra' => $id,
-            'coz_equipo' => $request->cotizacion_equipo,
+            'coz_equipo' => $request->cotizacion,
             'fec_solicitud' => $request->fecha_solicitud,
-            'ind_solicitud' => $request->estado_solicitud,
         ]);
-        $SolicitudApbCompra = Http::post('http://localhost:3004/SolicitudApbCompra/get', [
-            'funcion' => 's',
-        ]);
-        $AprobacionC = $SolicitudApbCompra->json();
-        return view('SolicitudApbCompra',compact('AprobacionC'));
+        return redirect()->route('getListaAprobacion')->with('mensaje','Actualizado exitosamente');
     }
 }

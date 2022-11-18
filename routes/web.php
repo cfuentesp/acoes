@@ -136,7 +136,7 @@ Route::put('/home/mantenimiento/editar/equipo/{id}', [App\Http\Controllers\mante
 Route::get('/home/mantenimiento/eliminar/{id}', [App\Http\Controllers\mantenimientoController::class, 'deleteMantenimiento'])->name('eliminarMantenimiento');
 
 
-//SOLICITUD APROBACIONDE COMPRA
+//RUTAS SOLICITUD APROBACIONDE COMPRA
 Route::get('/home/aprobacion', [App\Http\Controllers\sapbcompraController::class, 'getAprobacion'])->name('getListaAprobacion');
 
 Route::get('/home/aprobacion/search/{id}', [App\Http\Controllers\sapbcompraController::class, 'getDatosAprobacion'])->name('editarAprobacion');
@@ -149,9 +149,10 @@ Route::get('/home/aprobacion/nuevo', [App\Http\Controllers\sapbcompraController:
 
 Route::put('/home/aprobacion/insert/new/{id}', [App\Http\Controllers\sapbcompraController::class, 'insertAprobacion'])->name('agregarAprobacion');
 
+Route::put('/home/aprobacion/generar/email/{id}', [App\Http\Controllers\sapbcompraController::class, 'emailAprobacion'])->name('generarCorreoAprobacion');
 
 
-//RUTAS DE COMPRA
+//RUTAS SOLICITUD DE COMPRA
 Route::get('/home/compras', [App\Http\Controllers\scompraController::class, 'getCompras'])->name('getListaCompras');
 
 Route::get('/home/compras/search/{id}', [App\Http\Controllers\scompraController::class, 'getDatosCompra'])->name('editarCompra');

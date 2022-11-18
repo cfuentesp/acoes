@@ -29,7 +29,7 @@
               <div class="row">
                 <div class="col">
                   <label for="exampleFormControlSelect12">Cotizacion de equipo</label>
-                  <textarea rows="5" name="cotizacion" readonly class="form-control" >{{$datos[0]['COZ_EQUIPO']}}</textarea>
+                  <textarea rows="5" name="cotizacion" class="form-control" >{{$datos[0]['COZ_EQUIPO']}}</textarea>
                 </div>
                 <div class="col">
                   <label for="exampleFormControlSelect12">Fecha de solicitud</label>
@@ -40,6 +40,40 @@
               </div>
             </div>
           </form>
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Generar correo electronico</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                <form action="{{ route('generarCorreoAprobacion',$datos[0]['COD_SOL_APB_COMPRA']) }}" method="GET">
+                    @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                  @endif 
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+            <div>
+              <button type="buttom" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Enviar correo electronico</button>
+                <br>
+                <br>
+              </div>
       </div>
   </div>
   <div id="menu1" class="tab-pane fade">
