@@ -15,11 +15,23 @@ class scompraController extends Controller
             'funcion' => 's',
         ]);
         $compras = $data->json();
-        return view('scompraLista',compact('compras'));
+        $dataDos = Http::post('http://localhost:6000/aprobacion/get', [
+            'funcion' => 'a',
+        ]);
+        $solicitudes = $dataDos->json();
+        $solicitudes = $solicitudes[0];
+        return view('scompraLista',compact('compras','solicitudes'));
     }
 
     public function nuevaCompra(Request $request){
-        return view('scompraNuevo');
+        $dataDos = HTTP::post('http://localhost:6000/aprobacion/search',[
+            'funcion' => 'b',
+            'cod_sol_apb_compra' => $request->cod_solicitud
+        ]);
+        $datos = $dataDos->json();
+        $datos = $datos[0]; 
+        $id = $request->cod_solicitud; 
+        return view('scompraNuevo', compact('datos','id'));
     }
 
     public function insertCompra(Request $request){

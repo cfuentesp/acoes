@@ -48,7 +48,7 @@ class smantenimientoController extends Controller
 
     ////////////////////////////
     public function getSolicitud(Request $request){
-        if(Auth::user()->hasPermission('inventario')){
+    if(Auth::user()->hasPermission('solicitud')){
         $data = Http::post('http://localhost:6000/solicitud/get', [
             'funcion' => 's',
         ]);
@@ -59,7 +59,7 @@ class smantenimientoController extends Controller
     }
 
     public function getDatosSolicitud(Request $request, $id){
-        if(Auth::user()->hasPermission('inventario-eliminar')){
+    if(Auth::user()->hasPermission('solicitud-editar')){
         $data = HTTP::post('http://localhost:6000/solicitud/search',[
             'funcion' => 'b',
             'cod_sol_mantenimiento' => $id,
@@ -73,7 +73,7 @@ class smantenimientoController extends Controller
     }
 
     public function deleteSolicitud(Request $request,$id){
-        if(Auth::user()->hasPermission('inventario-eliminar')){
+    if(Auth::user()->hasPermission('solicitud-eliminar')){
         Http::post('http://localhost:6000/solicitud/delete', [
             'funcion' => 'd',
             'cod_sol_mantenimiento' => $id,
