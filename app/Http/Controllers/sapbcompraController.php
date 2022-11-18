@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class sapbcompraController extends Controller
 {
     public function getAprobacion(Request $request){
+    if(Auth::user()->hasPermission('aprobacion')){
         $data = Http::post('http://localhost:6000/aprobacion/get', [
             'funcion' => 's',
         ]);
@@ -21,8 +22,11 @@ class sapbcompraController extends Controller
         $equipos = $equipos[0];
         return view('sapbcompraLista',compact('datos','equipos'));
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function nuevaAprobacionCompra(Request $request){
+    if(Auth::user()->hasPermission('aprobacion-agregar')){
         $dataDos = HTTP::post('http://localhost:6000/mantenimiento/search',[
             'funcion' => 'b',
             'cod_reparacion' => $request->cod_reparacion
@@ -32,8 +36,11 @@ class sapbcompraController extends Controller
         $id = $request->cod_reparacion;      
         return view('sapbcompraNuevo',compact('datos','id'));
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function insertAprobacion(Request $request,$id){
+    if(Auth::user()->hasPermission('aprobacion-agregar')){
         $validator = Validator::make($request->all(), [
             'cotizacion' => 'required',
             'fecha_solicitud' => 'required',
@@ -67,8 +74,11 @@ class sapbcompraController extends Controller
 
         return redirect()->route('getListaAprobacion')->with('mensaje','Agregado exitosamente');
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function deleteAprobacion(Request $request,$id){
+    if(Auth::user()->hasPermission('aprobacion-eliminar')){
         Http::post('http://localhost:6000/aprobacion/delete', [
             'funcion' => 'd',
             'cod_sol_apb_compra' => $id,
@@ -76,8 +86,11 @@ class sapbcompraController extends Controller
 
         return redirect()->route('getListaAprobacion')->with('mensaje','Eliminado exitosamente');
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function getDatosAprobacion(Request $request, $id){
+    if(Auth::user()->hasPermission('aprobacion-editar')){
         $datos = HTTP::post('http://localhost:6000/aprobacion/search',[
             'funcion' => 'b',
             'cod_sol_apb_compra' => $id,
@@ -86,8 +99,11 @@ class sapbcompraController extends Controller
         $datos = $datos[0];
         return view(' sapbcompraEditar',compact('datos'));
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function updateAprobacion(Request $request, $id){
+    if(Auth::user()->hasPermission('aprobacion-editar')){
         $validator = Validator::make($request->all(), [
             'cotizacion' => 'required',
             'fecha_solicitud' => 'required',
@@ -112,5 +128,7 @@ class sapbcompraController extends Controller
             'fec_solicitud' => $request->fecha_solicitud,
         ]);
         return redirect()->route('getListaAprobacion')->with('mensaje','Actualizado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 }
