@@ -28,20 +28,19 @@ class sapbcompraController extends Controller
             'cod_reparacion' => $request->cod_reparacion
         ]);
         $datos = $dataDos->json();
-        $datos = $datos[0];       
-        return view('sapbcompraNuevo',compact('datos'));
+        $datos = $datos[0]; 
+        $id = $request->cod_reparacion;      
+        return view('sapbcompraNuevo',compact('datos','id'));
     }
 
-    public function insertAprobacionC(Request $request){
+    public function insertAprobacion(Request $request,$id){
         $validator = Validator::make($request->all(), [
-            'coz_equipo' => 'required',
-            'fec_solicitud' => 'required',
-            'ind_solicitud' => 'required',
+            'cotizacion' => 'required',
+            'fecha_solicitud' => 'required',
 
         ],[
-            'coz_equipo.required' => 'Debe ingresar la cotización o precio del equipo requerido.',
-            'fec_solicitud.required' => 'Debe ingresar la fecha de solicitud de aprobación de compra del equipo.',
-            'ind_solicitud.required' => 'Debe ingresar el estado de solicitud de aprobación de compra del equipo.',
+            'cotizacion.required' => 'Debe ingresar la cotización o precio del equipo requerido.',
+            'fecha_solicitud.required' => 'Debe ingresar la fecha de solicitud de aprobación de compra del equipo.',
         ]);
 
         if ($validator->fails()) {
@@ -50,44 +49,42 @@ class sapbcompraController extends Controller
                         
         }
 
-        HTTP::post('http://localhost:6000/inventario/insert',[
+        $dataDos = HTTP::post('http://localhost:6000/mantenimiento/search',[
+            'funcion' => 'b',
+            'cod_reparacion' => $id
+        ]);
+        $datos = $dataDos->json();
+        $datos = $datos[0][0]; 
+
+        HTTP::post('http://localhost:6000/aprobacion/insert',[
             'funcion' => 'i',
             'usr_adicion' => auth()->user()->name,
-            'coz_equipo' => $request->cotizacion_equipo,
+            'cod_equipo' => $datos['COD_EQUIPO'],
+            'cod_reparacion' => $datos['COD_REPARACION'],
+            'coz_equipo' => $request->cotizacion,
             'fec_solicitud' => $request->fecha_solicitud,
-            'ind_solicitud' => $request->estado_solicitud
         ]);
 
-        $SolicitudApbCompra = Http::post('http://localhost:3004/inventario/get', [
-            'funcion' => 's',
-        ]);
-        $AprobacionCo = $SolicitudApbCompra->json();
-        return view('SolicitudApbCompra',compact('AprobacionCo'));
-
+        return redirect()->route('getListaAprobacion')->with('mensaje','Agregado exitosamente');
     }
 
-    public function deleteAprobacionC(Request $request,$id){
-        $SolicitudApbCompra = Http::post('http://localhost:6000/SolicitudApbCompra/delete', [
+    public function deleteAprobacion(Request $request,$id){
+        Http::post('http://localhost:6000/aprobacion/delete', [
             'funcion' => 'd',
             'cod_sol_apb_compra' => $id,
         ]);
 
-        $inventario = Http::post('http://localhost:3004/ SolicitudApbCompra /get', [
-            'funcion' => 's',
-        ]);
-        $AprobacionCo = $SolicitudApbCompra->json();
-        return view('SolicitudApbCompra',compact('AprobacionCo'));
-
+        return redirect()->route('getListaAprobacion')->with('mensaje','Eliminado exitosamente');
     }
 
-    public function getDatosAprobacionC(Request $request, $id){
-        $datos = HTTP::post('http://localhost:3004/ SolicitudApbCompra /search',[
+    public function getDatosAprobacion(Request $request, $id){
+        $datos = HTTP::post('http://localhost:6000/aprobacion/search',[
             'funcion' => 'b',
             'cod_sol_apb_compra' => $id,
         ]);
-        $AprobacionC = $datos->json();
-        $AprobacionC = $AprobacionC[0];
-        return view(' SolicitudApbCompraEditar',compact('AprobacionC'));
+        $datos = $datos->json();
+        $datos = $datos[0];
+        return view(' sapbcompraEditar',compact('datos'));
     }
 
     public function updateDatosAprobacionC(Request $request, $id){

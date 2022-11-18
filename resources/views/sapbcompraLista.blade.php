@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de Aprobación de Compra</h1>
+    <h1>Lista de aprobación de compra</h1>
 </div>
 <div class='card-body'>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,7 +46,7 @@
         </div>
       </div>
         <div>
-          <button type="buttom" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar nueva Aprobación de Compra</button>
+          <button type="buttom" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar nueva aprobación de compra</button>
             <br>
             <br>
         </div>
@@ -88,7 +88,7 @@
                                         <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-                                <a href="{{route('editarAprobacion',$item['COD_SOL_APB_COMPRA'])}}" class="table-link danger">
+                                <a href="{{route('eliminarAprobacion',$item['COD_SOL_APB_COMPRA'])}}" class="table-link danger">
                                     <span class="fa-stack">
                                         <i class="fa fa-square fa-stack-2x"></i>
                                         <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>

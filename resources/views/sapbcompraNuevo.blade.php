@@ -13,7 +13,7 @@
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active">
     <div class='card-body'>
-      <form action="{{ route('agregarEquipo') }}" method="POST">
+      <form action="{{ route('agregarAprobacion',$id) }}" method="POST">
           @csrf
           @method('PUT')
           @if ($errors->any())
@@ -33,7 +33,7 @@
                 </div>
                 <div class="col">
                   <label for="exampleFormControlSelect12">Fecha de solicitud</label>
-                  <input type="texdatet" name="fecha_solicitud" class="form-control" value="{{ old('fecha_solicitud') }}">
+                  <input type="date" name="fecha_solicitud" class="form-control" value="{{ old('fecha_solicitud') }}">
                   <br>
                   <button type="submit" class="btn btn-primary float-right">Agregar solicitud</button>
                 </div>
