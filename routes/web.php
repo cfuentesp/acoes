@@ -163,7 +163,7 @@ Route::get('/home/compras/eliminar/{id}', [App\Http\Controllers\scompraControlle
 
 Route::get('/home/compras/nuevo', [App\Http\Controllers\scompraController::class, 'nuevaCompra'])->name('abrirNuevaCompra');
 
-Route::put('/home/compras/insert/new', [App\Http\Controllers\scompraController::class, 'insertCompra'])->name('agregarCompra');
+Route::put('/home/compras/insert/new/{id}', [App\Http\Controllers\scompraController::class, 'insertCompra'])->name('agregarCompra');
 
 
 

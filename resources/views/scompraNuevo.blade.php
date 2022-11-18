@@ -13,7 +13,7 @@
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active">
     <div class='card-body'>
-      <form action="{{ route('agregarAprobacion',$id) }}" method="POST">
+      <form action="{{ route('agregarCompra',$id) }}" method="POST">
           @csrf
           @method('PUT')
           @if ($errors->any())
@@ -29,7 +29,7 @@
               <div class="row">
                 <div class="col">
                   <label for="exampleFormControlSelect12">Descripcion de solicitud</label>
-                  <textarea rows="5" name="cotizacion" class="form-control" >{{old('solicitud')}}</textarea>
+                  <textarea rows="5" name="descripcion" class="form-control" >{{old('solicitud')}}</textarea>
                 </div>
                 <div class="col">
                   <label for="exampleFormControlSelect12">Fecha de solicitud</label>

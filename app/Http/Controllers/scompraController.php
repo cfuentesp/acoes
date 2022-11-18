@@ -34,15 +34,13 @@ class scompraController extends Controller
         return view('scompraNuevo', compact('datos','id'));
     }
 
-    public function insertCompra(Request $request){
+    public function insertCompra(Request $request, $id){
         $validator = Validator::make($request->all(), [
-            'fec_solicitud' => 'required',
-            'des_solicitud' => 'required',
-            'ind_solicitud' => 'required',
+            'fecha_solicitud' => 'required',
+            'descripcion' => 'required',
         ],[
-            'fec_solicitud.required' => 'Debe ingresar la fecha de la solicitud de compra.',
-            'desc_solicitud.required' => 'Debe ingresar la descripción de la solicitud de compra.',
-            'ind_solicitud.required' => 'Debe ingresar el estado de la solicitud de compra.',
+            'fecha_solicitud.required' => 'Debe ingresar la fecha de la solicitud de compra.',
+            'descripcion.required' => 'Debe ingresar la descripción de la solicitud de compra.',
         ]);
 
         if ($validator->fails()) {
@@ -51,20 +49,23 @@ class scompraController extends Controller
                         
         }
 
-        HTTP::post('http://localhost:6000/inventario/insert',[
+        $dataDos = HTTP::post('http://localhost:6000/aprobacion/search',[
+            'funcion' => 'b',
+            'cod_sol_apb_compra' => $id
+        ]);
+        $datos = $dataDos->json();
+        $datos = $datos[0][0];  
+
+        HTTP::post('http://localhost:6000/compra/insert',[
             'funcion' => 'i',
             'usr_adicion' => auth()->user()->name,
+            'cod_sol_apb_compra' => $datos['COD_SOL_APB_COMPRA'],
+            'cod_reparacion' => $datos['COD_REPARACION'],
             'fec_solicitud' => $request->fecha_solicitud,
-            'des_solicitud' => $request->descripcion_solicitud,
-            'ind_solicitud' => $request->estado_solicitud,
+            'des_solicitud' => $request->descripcion,
         ]);
 
-        $SolicitudCompra = Http::post('http://localhost:3004/inventario/get', [
-            'funcion' => 's',
-        ]);
-        $Compras = $SolicitudCompra->json();
-        return view('SolicitudCompra',compact('Compras'));
-
+        return redirect()->route('getListaCompras')->with('mensaje','Agregado exitosamente');
     }
 
     public function deleteCompra(Request $request,$id){
