@@ -11,6 +11,7 @@ use Termwind\Components\Dd;
 class scompraController extends Controller
 {
     public function getCompras (Request $request){
+    if(Auth::user()->hasPermission('compras')){
         $data = Http::post('http://localhost:6000/compra/get', [
             'funcion' => 's',
         ]);
@@ -22,8 +23,11 @@ class scompraController extends Controller
         $solicitudes = $solicitudes[0];
         return view('scompraLista',compact('compras','solicitudes'));
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function nuevaCompra(Request $request){
+    if(Auth::user()->hasPermission('compras-agregar')){
         $dataDos = HTTP::post('http://localhost:6000/aprobacion/search',[
             'funcion' => 'b',
             'cod_sol_apb_compra' => $request->cod_solicitud
@@ -33,8 +37,11 @@ class scompraController extends Controller
         $id = $request->cod_solicitud; 
         return view('scompraNuevo', compact('datos','id'));
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function insertCompra(Request $request, $id){
+    if(Auth::user()->hasPermission('compras-agregar')){
         $validator = Validator::make($request->all(), [
             'fecha_solicitud' => 'required',
             'descripcion' => 'required',
@@ -67,43 +74,47 @@ class scompraController extends Controller
 
         return redirect()->route('getListaCompras')->with('mensaje','Agregado exitosamente');
     }
+    return back()->with('error','No tienes permisos');
+    }
 
     public function deleteCompra(Request $request,$id){
-        $SolicitudCompra = Http::post('http://localhost:6000/SolicitudCompra/delete', [
+    if(Auth::user()->hasPermission('compras-eliminar')){
+        Http::post('http://localhost:6000/compra/delete', [
             'funcion' => 'd',
             'cod_sol_compra' => $id,
         ]);
 
-        $SolicitudCompra = Http::post('http://localhost:3004/SolicitudCompra/get', [
-            'funcion' => 's',
-        ]);
-        $Compras = $SolicitudCompra->json();
-        return view('SolicitudCompra',compact('Compras'));
-
+        return back()->with('mensaje','Eliminado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function getDatosCompra(Request $request, $id){
-        $datos = HTTP::post('http://localhost:6000/compra/search',[
+    if(Auth::user()->hasPermission('compras-editar')){
+        $data = HTTP::post('http://localhost:6000/compra/search',[
             'funcion' => 'b',
             'cod_sol_compra' => $id,
         ]);
-        $compra = $datos->json();
-        $compra = $compra[0];
-        $compra[0]['FEC_INGRESO']=date("Y-m-d", strtotime($compra[0]['FEC_INGRESO']));
-        return view('scompraEditar',compact('compra'));
+        $datos = $data->json();
+        $datos = $datos[0];
+        return view('scompraEditar',compact('datos'));
+    }
+    return back()->with('error','No tienes permisos');
     }
 
     public function updateDatosCompra(Request $request, $id){
+    if(Auth::user()->hasPermission('compras-editar')){
         $validator = Validator::make($request->all(), [
             'descripcion' => 'required',
+            'fecha_solicitud' => 'required'
         ],[
             'descripcion.required' => 'Debe ingresar la descripcion',
+            'fecha_solicitud.required' => 'Debe ingresar la fecha de la solicitud',
         ]);
 
         if ($validator->fails()) {
             return back()->withInput()
-                        ->withErrors($validator);
-                        
+                        ->withErrors($validator);             
         }
 
         HTTP::post('http://localhost:6000/compra/update',[
@@ -111,11 +122,11 @@ class scompraController extends Controller
             'usr_adicion' => auth()->user()->name,
             'cod_sol_compra' => $id,
             'des_solicitud' => $request->descripcion,
+            'fec_solicitud' => $request->fecha_solicitud
         ]);
-        $SolicitudCompra = Http::post('http://localhost:3004/SolicitudCompra/get', [
-            'funcion' => 's',
-        ]);
-        $Compras = $SolicitudCompra->json();
-        return view('SolicitudCompra',compact('Compras'));
+
+        return redirect()->route('getListaCompras')->with('mensaje','Actualizado exitosamente');
+    }
+    return back()->with('error','No tienes permisos');
     }
 }
