@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+
 
 class sapbcompraController extends Controller
 {
@@ -97,7 +100,15 @@ class sapbcompraController extends Controller
         ]);
         $datos = $datos->json();
         $datos = $datos[0];
-        return view(' sapbcompraEditar',compact('datos'));
+
+        $data = HTTP::post('http://localhost:6000/correos/search',[
+            'funcion' => 'b',
+            'cod_correo' => 2
+        ]);
+        $correo = $data->json();
+        $correo = $correo[0];
+
+        return view(' sapbcompraEditar',compact('datos','correo'));
     }
     return back()->with('error','No tienes permisos');
     }
@@ -129,6 +140,31 @@ class sapbcompraController extends Controller
         ]);
         return redirect()->route('getListaAprobacion')->with('mensaje','Actualizado exitosamente');
     }
+    return back()->with('error','No tienes permisos');
+    }
+
+    public function sendEmailAprobacion(Request $request,$id){
+    if(Auth::user()->hasPermission('aprobacion-eliminar')){
+            $data = Http::post('http://localhost:6000/correos/search', [
+                'funcion' => 'b',
+                'cod_correo' => 2,
+            ]);
+
+            $correo = $data->json();
+            $email = $correo[0][0]['CORREO'];
+
+
+             $mailData = [
+                 "name" => "Test NAME",
+                 "dob" => "12/12/1990"
+             ];
+
+             //Mail::to($email)->send(new TestEmail($mailData));
+
+             dd("Mail Sent Successfully!");
+    
+            return redirect()->route('getListaAprobacion')->with('mensaje','Correo enviado exitosamente');
+        }
     return back()->with('error','No tienes permisos');
     }
 }

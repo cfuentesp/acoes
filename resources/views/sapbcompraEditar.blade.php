@@ -60,6 +60,8 @@
                         </ul>
                     </div>
                   @endif 
+                  <label for="exampleFormControlSelect12">La solicitud de aprobacion se enviara al siguiente correo:</label>
+                  <input type="text" name="email" readonly class="form-control" value="{{$correo[0]['CORREO']}}">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
