@@ -52,12 +52,15 @@
             <textarea rows="5" name="cotizacion" readonly class="form-control" >{{$datos[0]['COZ_EQUIPO']}}</textarea>
           </div>
           <div class="col">
-            <label for="exampleFormControlSelect12">Fecha de solicitud</label>
+            <label for="exampleFormControlSelect12">Fecha de solicitud de aprobacion</label>
             <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
+            <br>              
+            <label for="exampleFormControlSelect12">Estado de solicitud</label>
+            <input type="text" name="tipo_equipo" class="form-control" readonly placeholder="TIpo de equipo" value="{{$datos[0]['IND_SOLICITUD']}}">
+            </div>
             <br>
           </div>
         </div>
-      </div>
   </div>
   </div>
   <div id="menu2" class="tab-pane fade">
@@ -93,7 +96,7 @@
           <div class="row">
             <div class="col">
               <label for="exampleFormControlSelect12">Fecha de ingreso</label>
-              <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{$datos[0]['FEC_INGRESO']}}">
+              <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_EQUIPO']))}}">
             </div>
             <div class="col">
               <label for="exampleFormControlSelect12">Numero de equipo</label>
@@ -125,7 +128,7 @@
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de ingreso a mantenimiento</label>
-            <input type="date" readonly class="form-control" name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO']))}}">
+            <input type="date" readonly class="form-control" name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_MANTENIMIENTO']))}}">
           </div>
         </div>
     </div>

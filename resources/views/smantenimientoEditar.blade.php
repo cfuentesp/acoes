@@ -70,7 +70,7 @@
               <div class="row">
                 <div class="col">
                   <label for="exampleFormControlSelect12">Fecha de ingreso</label>
-                  <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{$datos[0]['FEC_INGRESO']}}">
+                  <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO']))}}">
                 </div>
                 <div class="col">
                   <label for="exampleFormControlSelect12">Numero de equipo</label>

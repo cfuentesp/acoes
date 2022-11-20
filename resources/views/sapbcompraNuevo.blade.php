@@ -49,11 +49,11 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Descripcion de falla</label>
-                <textarea class="form-control" rows="5" name="identidad">{{$datos[0]['DES_FALLA']}}</textarea>
+                <textarea class="form-control" rows="5" readonly name="identidad">{{$datos[0]['DES_FALLA']}}</textarea>
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Solucion al problema</label>
-                <textarea class="form-control" rows="5" name="identidad">{{$datos[0]['SOL_PROBLEMA']}}</textarea>
+                <textarea class="form-control" rows="5" readonly name="identidad">{{$datos[0]['SOL_PROBLEMA']}}</textarea>
               </div>
             </div>
         </div>
@@ -61,11 +61,11 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Estado del equipo</label>
-                <input type="text" class="form-control" name="rol" value="{{$datos[0]['EST_EQUIPO']}}">
+                <input type="text" class="form-control" readonly name="rol" value="{{$datos[0]['EST_EQUIPO']}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Fecha de ingreso a mantenimiento</label>
-                <input type="date" class="form-control" name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO']))}}">
+                <input type="date" class="form-control" readonly name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_MANTENIMIENTO']))}}">
               </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
           <div class="row">
             <div class="col">
               <label for="exampleFormControlSelect12">Fecha de ingreso</label>
-              <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{$datos[0]['FEC_INGRESO']}}">
+              <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_EQUIPO']))}}">
             </div>
             <div class="col">
               <label for="exampleFormControlSelect12">Numero de equipo</label>

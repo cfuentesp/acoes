@@ -29,6 +29,7 @@
                   <div class="form-group">
                     <label for="exampleFormControlSelect12">Seleccione una solicitud aprobada</label>
                     <select class="form-control selectpicker" data-live-search="true" id="cod_solicitud" name="cod_solicitud" value="{{old('cod_solicitud')}}">
+                      <option selected>{{""}}</option>
                       @foreach ($solicitudes as $item)
                        <option value="{{$item['COD_SOL_APB_COMPRA']}}">{{'Numero de equipo: '.$item['NUM_EQUIPO'].'  Estado de solicitud: '.$item['IND_SOLICITUD'] }}</option>
                       @endforeach

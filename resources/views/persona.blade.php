@@ -26,7 +26,7 @@
 						<tr>
 							<th><span>Nombres</span></th>
                             <th><span>Apellidos</span></th>
-							<th><span>DNI/#Identidad </span></th>
+							<th><span>#Identidad </span></th>
                             <th><span>Correo </span></th>
 							<th>&nbsp;</th>
 						</tr>

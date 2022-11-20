@@ -20,7 +20,8 @@
         <div class="col">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Roles</label>
-              <select class="form-control" name="role">
+              <select class="form-control selectpicker" data-live-search="true" name="role">
+                <option selected>{{""}}</option>
                 @foreach ($roles as $rol)
                  <option value="{{$rol['id']}}">{{$rol['name']}}</option>
                 @endforeach

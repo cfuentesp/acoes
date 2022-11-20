@@ -29,6 +29,7 @@
                   <div class="form-group">
                     <label for="exampleFormControlSelect12">Seleccione un dispositivo</label>
                     <select class="form-control selectpicker" data-live-search="true" id="cod_reparacion" name="cod_reparacion" value="{{old('COD_REPARACION')}}">
+                      <option selected>{{""}}</option>
                       @foreach ($equipos as $item)
                        <option value="{{$item['COD_REPARACION']}}">{{'Numero de equipo: '.$item['NUM_EQUIPO']}}</option>
                       @endforeach

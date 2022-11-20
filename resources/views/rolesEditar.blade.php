@@ -20,7 +20,8 @@
         <div class="col">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Permisos</label>
-              <select class="form-control" name="permiso">
+              <select class="form-control selectpicker" data-live-search="true" id="select" name="permiso">
+                 <option selected>{{""}}</option>
                 @foreach ($permission as $permisos)
                  <option value="{{$permisos['id']}}">{{$permisos['name']}}</option>
                 @endforeach
@@ -38,18 +39,24 @@
         </div>
       </div>
     </form>
-    <table class="table">
+    <table class="table user-list">
         <thead>
           <tr>
-            <th scope="col">Permiso</th>
-            <th scope="col">Descripcion</th>
+            <th><span>Permiso</span></th>
+						<th><span>Descripcion</span></th>
+						<th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
         @foreach ($permissionRole as $permisoRole)        
           <tr>
-            <td>{{$permisoRole['name']}}</td>
-            <td>{{$permisoRole['description']}}</td>
+            <td>
+              <span class="user-subhead">{{$permisoRole['name']}}</span>
+            </td>
+            <td>
+              <span class="user-subhead"> {{$permisoRole['description']}}</span>
+             
+            </td>
           </tr>
         @endforeach
         </tbody>

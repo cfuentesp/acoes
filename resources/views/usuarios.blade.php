@@ -40,7 +40,7 @@
 								<span class="user-subhead">{{$item['email']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['created_at']}}</span>
+								<span class="user-subhead">{{date("Y-m-d", strtotime($item['created_at']))}}</span>
 							</td>
 							  <td style="width: 20%;">
 							  	<a href="{{route('editarUsuario',[$item['name'],$item['id']])}}" class="table-link">

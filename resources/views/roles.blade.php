@@ -19,7 +19,9 @@
 	<div class="col-lg-12">
 		<div class="main-box clearfix">
 			<div class="table-responsive">
-				<table class="table user-list">
+				<input class="form-control" style="width:500px;" id="myInput" type="text" placeholder="Buscar..">
+				<br>
+				<table id="myTable" class="table user-list">
 					<thead>
 						<tr>
 							<th><span>Nombre rol</span></th>
@@ -38,7 +40,7 @@
 								<span class="user-subhead">{{$item['description']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['created_at']}}</span>
+								<span class="user-subhead">{{date("Y-m-d", strtotime($item['created_at']))}}</span>
 							</td>
 							  <td style="width: 20%;">
 							  	<a href="{{route('getListaPermisos',[$item['name'],$item['id']])}}" class="table-link">
@@ -64,4 +66,14 @@
 </div>
 </div>
 </div>
+<script>
+	$(document).ready(function(){
+	  $("#myInput").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#myTable tr").filter(function() {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	  });
+	});
+	</script>
 @endsection
