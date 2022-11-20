@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\TestEmail;
+use App\Models\Subscriber;
+use App\Mail\Subscribe;
 
 
 class sapbcompraController extends Controller
@@ -152,18 +153,15 @@ class sapbcompraController extends Controller
 
             $correo = $data->json();
             $email = $correo[0][0]['CORREO'];
-
-
-             $mailData = [
-                 "name" => "Test NAME",
-                 "dob" => "12/12/1990"
-             ];
-
-             //Mail::to($email)->send(new TestEmail($mailData));
-
-             dd("Mail Sent Successfully!");
     
-            return redirect()->route('getListaAprobacion')->with('mensaje','Correo enviado exitosamente');
+            if ($email==null) {
+                return back()->withInput()
+                            ->withErrors(["Correo no configurado, consulte a sistemas"]);             
+            }
+
+            Mail::to($email)->send(new Subscribe($email));
+
+        return redirect()->route('getListaAprobacion')->with('mensaje','Correo enviado exitosamente');
         }
     return back()->with('error','No tienes permisos');
     }

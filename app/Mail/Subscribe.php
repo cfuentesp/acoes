@@ -31,7 +31,7 @@ class Subscribe extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Subscribe',
+            subject: 'Solicitud del area de mantenimiento',
         );
     }
 

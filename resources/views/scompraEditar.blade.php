@@ -87,7 +87,7 @@
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de solicitud</label>
-            <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['SOL.FEC_SOLICITUD']))}}">
+            <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
             <br>
           </div>
         </div>

@@ -156,7 +156,10 @@ Route::get('/home/aprobacion/nuevo', [App\Http\Controllers\sapbcompraController:
 
 Route::put('/home/aprobacion/insert/new/{id}', [App\Http\Controllers\sapbcompraController::class, 'insertAprobacion'])->name('agregarAprobacion');
 
-Route::get('/home/aprobacion/generar/email/{id}', [App\Http\Controllers\SubscriberController::class, 'subscribe'])->name('generarCorreoAprobacion');
+//Route::get('/home/aprobacion/generar/email/{id}', [App\Http\Controllers\SubscriberController::class, 'subscribe'])->name('generarCorreoAprobacion');
+
+Route::get('/home/aprobacion/generar/email/{id}', [App\Http\Controllers\sapbcompraController::class, 'sendEmailAprobacion'])->name('generarCorreoAprobacion');
+
 
 
 //RUTAS SOLICITUD DE COMPRA

@@ -18,7 +18,7 @@ class SubscriberController extends Controller
                     'success' => false, 
                     'message' => $validator->errors()
                 ], 422
-            );
+            );                           
         }
         $email = $request->all()['email'];
         $subscriber = Subscriber::create([
