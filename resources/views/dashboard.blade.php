@@ -515,7 +515,7 @@ $(document).ready(function () {
 				</nav>
 			</div>
 			<div class='dashboard-app'>
-				<header class='dashboard-toolbar'><a href="#!" class="menu-toggle"><i class="bi bi-list"></i></a></header>
+				<header class='dashboard-toolbar'><a style="color: black;" class="menu-toggle"><i class="bi bi-list"></i></a></header>
 				<div class='dashboard-content'>
 					<div class='container'>
 						<div class='card'>
