@@ -148,4 +148,42 @@ class usuariosController extends Controller
     }
     return back()->with('error','No tienes permisos');
     }
+
+    public function getCorreos(Request $request){
+    if(Auth::user()->hasPermission('admin')){
+          $data = Http::post('http://localhost:6000/correos/get',[
+            'funcion' => 's'
+          ]);
+          $correos = $data->json();
+          return view('correos',compact('correos'));
+        }
+        return back()->with('error','No tienes permisos');
+    }
+
+    public function getDatosCorreo(Request $request, $id){
+    if(Auth::user()->hasPermission('admin')){
+          $data = Http::post('http://localhost:6000/correos/search',[
+            'funcion' => 'b',
+            'cod_correo' => $id
+          ]);
+          $correo = $data->json();
+          $correo = $correo[0];
+          return view('correosEditar',compact('correo'));
+        }
+        return back()->with('error','No tienes permisos');
+    }
+
+    public function updateCorreo(Request $request, $id){
+    if(Auth::user()->hasPermission('admin')){
+          Http::post('http://localhost:6000/correos/update',[
+            'funcion' => 'u',
+            'usr_adicion' => auth()->user()->name,
+            'cod_correo' => $id,
+            'correo' => $request->correo
+          ]);
+          
+          return redirect()->route('getListaCorreos')->with('mensaje','Correo actualizado exitosamente.');
+        }
+         return back()->with('error','No tienes permisos');
+    }
 }

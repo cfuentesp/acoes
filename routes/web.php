@@ -57,6 +57,13 @@ Route::get('/home/usuarios/deleteUser/{id}', [App\Http\Controllers\usuariosContr
 
 Route::get('/home/usuarios/createUser', [App\Http\Controllers\usuariosController::class, 'createUser'])->name('crearUsuario');
 
+//RUTAS CORREOS
+Route::get('/home/correos', [App\Http\Controllers\usuariosController::class, 'getCorreos'])->name('getListaCorreos');
+
+Route::get('/home/correos/editar/{id}', [App\Http\Controllers\usuariosController::class, 'getDatosCorreo'])->name('editarCorreo');
+
+Route::put('/home/correos/update/{id}', [App\Http\Controllers\usuariosController::class, 'updateCorreo'])->name('actualizarCorreo');
+
 // RUTAS INVENTARIO
 
 Route::get('/home/inventario', [App\Http\Controllers\inventarioController::class, 'getInventario'])->name('getListaEquipos');

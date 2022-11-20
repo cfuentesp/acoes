@@ -506,7 +506,8 @@ $(document).ready(function () {
                         class="bi bi-tools"></i> Sistema</a>
                 <div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
                                                                 class="dashboard-nav-dropdown-item">Usuarios</a><a
-                            href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a></div>
+                            href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a><a
+                            href="{{route('getListaCorreos')}}" class="dashboard-nav-dropdown-item">Correos</a></div>
                 </div>
 				  <div class="nav-item-divider"></div>
 				  <a
