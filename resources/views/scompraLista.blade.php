@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de Compra</h1>
+    <h1>Lista de solicitudes de compra</h1>
 </div>
 <div class='card-body'>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
