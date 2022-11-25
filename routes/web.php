@@ -104,6 +104,12 @@ Route::get('/home/permisos/nuevo', [App\Http\Controllers\spermisoController::cla
 
 Route::put('/home/permisos/insert/new', [App\Http\Controllers\spermisoController::class, 'insertPermiso'])->name('agregarPermiso');
 
+Route::get('/home/permisos/generar/email/{id}', [App\Http\Controllers\sapbcompraController::class, 'sendEmailPermiso'])->name('generarCorreoPermiso');
+
+Route::get('/permiso/aprobar/{id}', [App\Http\Controllers\sapbcompraController::class, 'aprobarSolicitudper']);
+
+Route::get('/permiso/rechazar/{id}', [App\Http\Controllers\sapbcompraController::class, 'rechazarSolicitudper']);
+
 //RUTAS MODULO PERSONAS
 Route::get('/home/personas', [App\Http\Controllers\personaController::class, 'getPersona'])->name('getListaPersonas');
 
@@ -156,10 +162,11 @@ Route::get('/home/aprobacion/nuevo', [App\Http\Controllers\sapbcompraController:
 
 Route::put('/home/aprobacion/insert/new/{id}', [App\Http\Controllers\sapbcompraController::class, 'insertAprobacion'])->name('agregarAprobacion');
 
-//Route::get('/home/aprobacion/generar/email/{id}', [App\Http\Controllers\SubscriberController::class, 'subscribe'])->name('generarCorreoAprobacion');
-
 Route::get('/home/aprobacion/generar/email/{id}', [App\Http\Controllers\sapbcompraController::class, 'sendEmailAprobacion'])->name('generarCorreoAprobacion');
 
+Route::get('/aprobacion/aprobar/{id}', [App\Http\Controllers\sapbcompraController::class, 'aprobarSolicitudapb']);
+
+Route::get('/aprobacion/rechazar/{id}', [App\Http\Controllers\sapbcompraController::class, 'rechazarSolicitudapb']);
 
 
 //RUTAS SOLICITUD DE COMPRA

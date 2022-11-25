@@ -24,11 +24,11 @@
             <input type="text" name="tipo_solicitud" class="form-control" readonly placeholder="Tipo de Solicitud" value="{{$permiso[0]['TIP_SOLICITUD']}}">
             <br>
             <label for="exampleFormControlSelect12">Solicitante</label>
-            <input type="text" name="fecha_solicitud" class="form-control" readonly placeholder="Fecha de Solicitud" value="{{$persona[0]['NOM_PERSONA'].' '.$persona[0]['APLL_PERSONA']}}">
+            <input type="text" name="fecha_solicitud" class="form-control" readonly placeholder="Fecha de Solicitud" value="{{$permiso[0]['NOM_PERSONA'].' '.$persona[0]['APLL_PERSONA']}}">
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Descripcion</label>
-            <textarea name="descripcion" readonly class="form-control" rows="3" placeholder="Descripcion">{{$permiso[0]['DES_SOLICITUD']}}</textarea>
+            <textarea name="descripcion"  class="form-control" rows="3" placeholder="Descripcion">{{$permiso[0]['DES_SOLICITUD']}}</textarea>
           </div>
         </div>
       </div>
@@ -36,11 +36,11 @@
         <div class="row">
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha final</label>
-            <input type="text" name="final_solicitud" class="form-control" readonly placeholder="Finalizo Permiso" value="{{$permiso[0]['FEC_FINAL']}}">
+            <input type="text" name="final_solicitud" class="form-control"  placeholder="Finalizo Permiso" value="{{$permiso[0]['FEC_FINAL']}}">
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de inicio</label>
-            <input type="text" name="inicio_solicitud" class="form-control"  readonly placeholder="Inicio Permiso" value="{{$permiso[0]['FEC_INICIO']}}">
+            <input type="text" name="inicio_solicitud" class="form-control"  placeholder="Inicio Permiso" value="{{$permiso[0]['FEC_INICIO']}}">
           </div>
         </div>
       </div>
@@ -48,32 +48,60 @@
         <div class="row">
           <div class="col">
             <label for="exampleFormControlSelect12">Justificacion de solicitud</label>
-            <textarea type="text" name="justificacion" class="form-control" rows="3" placeholder="Justificacion de Solicitud">{{$permiso[0]['JST_SOLICITUD']}}</textarea>
+            <textarea type="text" name="justificacion" readonly class="form-control" rows="3" placeholder="Justificacion de Solicitud">{{$permiso[0]['JST_SOLICITUD']}}</textarea>
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Indicador de solicitud</label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="estado"  value="Aprobado">
-              <label class="form-check-label" for="exampleRadios1">
-                Aprobada
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="estado" value="Rechazado">
-              <label class="form-check-label" for="exampleRadios2">
-                Rechazada
-              </label>
-            </div>
+            <input type="text" name="inicio_solicitud" class="form-control"  readonly placeholder="Inicio Permiso" value="{{$permiso[0]['IND_SOLICITUD']}}">
           </div>
         </div>
       </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Generar correo electronico</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <form action="{{ route('generarCorreoPermiso',$datos[0]['COD_SOL_PERMISO']) }}" method="GET">
+                @if ($errors->any())
+                <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+              @endif 
+              <label for="exampleFormControlSelect12">La solicitud de permiso se enviara al siguiente correo:</label>
+              <input type="text" name="email" readonly class="form-control" value="{{$correo[0]['CORREO']}}">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+        <div>
+          @if($datos[0]['IND_SOLICITUD']=='Pendiente')
+          <button type="buttom" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Enviar correo electronico</button>
+          @endif  
+          <br>
+            <br>
+          </div>
       <div class="mb-3">
         <div class="row">
-          <div class="col">
-           
+          <div class="col"> 
           </div>
           <div class="col">
+            @if($datos[0]['IND_SOLICITUD']=='Pendiente')
             <button type="submit" class="btn btn-primary float-right">Actualizar datos</button>
+            @endif
           </div>
         </div>
       </div>

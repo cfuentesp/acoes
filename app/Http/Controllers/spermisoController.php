@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\permiso;
 
 class spermisoController extends Controller
 {
@@ -87,16 +88,15 @@ class spermisoController extends Controller
         ]);
         $permiso = $data->json();
         $permiso = $permiso[0];
-        $permiso[0]['FEC_INICIO']=date("Y-m-d", strtotime($permiso[0]['FEC_INICIO']));
-        $permiso[0]['FEC_FINAL']=date("Y-m-d", strtotime($permiso[0]['FEC_FINAL']));
 
-        $dataDos = HTTP::post('http://localhost:6000/persona/search',[
+        $dataTres = HTTP::post('http://localhost:6000/correos/search',[
             'funcion' => 'b',
-            'cod_persona' => $permiso[0]['COD_PERSONA'],
+            'cod_correo' => 1
         ]);
-        $persona = $dataDos->json();
-        $persona = $persona[0];
-        return view('spermisoEditar',compact('permiso','persona'));
+        $correo = $dataTres->json();
+        $correo = $correo[0];
+
+        return view('spermisoEditar',compact('permiso','correo'));
     }
     return back()->with('error','No tienes permisos');
     }
@@ -133,4 +133,66 @@ class spermisoController extends Controller
     }
     return back()->with('error','No tienes permisos');
     }
+
+    public function sendEmailPermiso(Request $request,$id){
+        if(Auth::user()->hasPermission('permisos')){
+                $data = Http::post('http://localhost:6000/correos/search', [
+                    'funcion' => 'b',
+                    'cod_correo' => 1,
+                ]);
+    
+                $correo = $data->json();
+                $email = $correo[0][0]['CORREO'];
+        
+                if ($email==null) {
+                    return back()->withInput()
+                                ->withErrors(["Correo no configurado, consulte a sistemas"]);             
+                }
+    
+                $datos = Http::post('http://localhost:6000/permiso/search', [
+                    'funcion' => 'b',
+                    'cod_sol_permiso' => $id,
+                ]);
+    
+                $solicitud = $datos->json();
+                $solicitud = $solicitud[0];
+    
+                $body = [
+                    'header' => 'SOLICITUD DE PERMISO LABORAL',
+                    'tipo' => $solicitud[0]['TIP_SOLICITUD'],
+                    'descripcion' => $solicitud[0]['DES_SOLICITUD'],
+                    'solicitante' => $solicitud[0]['NOM_PERSONA'].' '.$solicitud[0]['APLL_PERSONA'],
+                    'inicio' => $solicitud[0]['FEC_INICIO'],
+                    'final' => $solicitud[0]['FEC_FINAL'],
+                    'urlapb' => 'http://127.0.0.1:8000/permiso/aprobar/'.$id, 
+                    'urlrch' => 'http://127.0.0.1:8000/permiso/rechazar'.$id,
+                ];
+            
+                Mail::to($email)->send(new permiso($body));
+    
+            return redirect()->route('getListaPermisosLaborales')->with('mensaje','Correo enviado exitosamente');
+            }
+        return back()->with('error','No tienes permisos');
+        }
+    
+        public function aprobarSolicitudper(Request $request, $id){
+            Http::post('http://localhost:6000/permiso/result', [
+                'funcion' => 'r',
+                'cod_sol_permiso' => $id,
+                'ind_solicitud' => "Aprobado",
+            ]);
+    
+            $estado = "Aprobada";
+            return view('dictamen',compact('estado'));
+        }
+    
+        public function rechazarSolicitudper(Request $request, $id){
+            Http::post('http://localhost:6000/permiso/result', [
+                'funcion' => 'r',
+                'cod_sol_permiso' => $id,
+                'ind_solicitud' => "Rechazado",
+            ]);
+            $estado = "Rechazada";
+            return view('dictamen',compact('estado'));
+        }
 }

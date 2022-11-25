@@ -1,0 +1,1 @@
+<h2>Solicitud {{$estado}} exitosamente...!!!</h2>

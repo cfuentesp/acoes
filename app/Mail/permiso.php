@@ -9,18 +9,20 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Subscribe extends Mailable
+class permiso extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $body;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($body)
     {
-        //
+        $this->body = $body;
     }
 
     /**
@@ -31,7 +33,7 @@ class Subscribe extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Solicitud del area de mantenimiento',
+            subject: 'ACOES',
         );
     }
 
@@ -43,7 +45,7 @@ class Subscribe extends Mailable
     public function content()
     {
         return new Content(
-            markdown: 'emails.subscribers',
+            markdown: 'emails.permiso',
         );
     }
 

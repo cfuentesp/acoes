@@ -34,9 +34,8 @@
                         @foreach ($permisos as $item)
                         <tr>
                             <td>
-                                <span class="user-subhead">{{$item['TIP_SOLICITUD']}}</span>
+                                <span class="user-subhead">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</span>
                             </td>
-
                             <td>
                                 <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SOLICITUD']))}}</span>
                             </td>

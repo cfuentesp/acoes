@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Subscriber;
-use App\Mail\Subscribe;
-
+use App\Mail\apbcompra;
 
 class sapbcompraController extends Controller
 {
@@ -159,10 +157,49 @@ class sapbcompraController extends Controller
                             ->withErrors(["Correo no configurado, consulte a sistemas"]);             
             }
 
-            Mail::to($email)->send(new Subscribe($email));
+            $datos = Http::post('http://localhost:6000/aprobacion/search', [
+                'funcion' => 'b',
+                'cod_sol_apb_compra' => $id,
+            ]);
+
+            $solicitud = $datos->json();
+            $solicitud = $solicitud[0];
+
+            $body = [
+                'header' => 'SOLICITUD DE APROBACION DE COMPRA',
+                'falla' => $solicitud[0]['DES_FALLA'],
+                'solucion' => $solicitud[0]['SOL_PROBLEMA'],
+                'cotizacion' => $solicitud[0]['COZ_EQUIPO'],
+                'equipo' => $solicitud[0]['NUM_EQUIPO'],
+                'urlapb' => 'http://127.0.0.1:8000/aprobacion/aprobar/'.$id, 
+                'urlrch' => 'http://127.0.0.1:8000/aprobacion/rechazar'.$id,
+            ];
+        
+            Mail::to($email)->send(new apbcompra($body));
 
         return redirect()->route('getListaAprobacion')->with('mensaje','Correo enviado exitosamente');
         }
     return back()->with('error','No tienes permisos');
+    }
+
+    public function aprobarSolicitudapb(Request $request, $id){
+        Http::post('http://localhost:6000/aprobacion/result', [
+            'funcion' => 'r',
+            'cod_sol_apb_compra' => $id,
+            'ind_solicitud' => "Aprobada",
+        ]);
+
+        $estado = "Aprobada";
+        return view('dictamen',compact('estado'));
+    }
+
+    public function rechazarSolicitudapb(Request $request, $id){
+        Http::post('http://localhost:6000/aprobacion/result', [
+            'funcion' => 'r',
+            'cod_sol_apb_compra' => $id,
+            'ind_solicitud' => "Rechazada",
+        ]);
+        $estado = "Rechazada";
+        return view('dictamen',compact('estado'));
     }
 }
