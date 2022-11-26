@@ -31,7 +31,7 @@
                     <select class="form-control selectpicker" data-live-search="true" id="cod_reparacion" name="cod_reparacion" value="{{old('COD_REPARACION')}}">
                       <option selected>{{""}}</option>
                       @foreach ($equipos as $item)
-                       <option value="{{$item['COD_REPARACION']}}">{{'Numero de equipo: '.$item['NUM_EQUIPO']}}</option>
+                       <option value="{{$item['COD_REPARACION']}}">{{'Numero de equipo: '.$item['NUM_EQUIPO'].' Estado del equipo: '.$item['EST_EQUIPO'] }}</option>
                       @endforeach
                     </select>
                   </div>

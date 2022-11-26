@@ -40,7 +40,7 @@ class inventarioController extends Controller
         ],[
             'tipo_equipo.required' => 'Debe ingresar el tipo de equipo.',
             'marca_equipo.required' => 'Debe ingresar la marca del equipo.',
-            'modelo_Serie.required' => 'Debe ingresar el modelo/serie del equipo.',
+            'modelo_serie.required' => 'Debe ingresar el modelo/serie del equipo.',
             'especificaciones.required' => 'Debe ingresar las especificaciones tecnicas del equipo.',
             'color_equipo.required' => 'Debe ingresar el color del equipo.',
             'numero_equipo.required' => 'Debe ingresar el numero del equipo.',
@@ -108,7 +108,7 @@ class inventarioController extends Controller
         ],[
             'tipo_equipo.required' => 'Debe ingresar el tipo de equipo.',
             'marca_equipo.required' => 'Debe ingresar la marca del equipo.',
-            'modelo_Serie.required' => 'Debe ingresar el modelo/serie del equipo.',
+            'modelo_serie.required' => 'Debe ingresar el modelo/serie del equipo.',
             'especificaciones.required' => 'Debe ingresar las especificaciones tecnicas del equipo.',
             'color_equipo.required' => 'Debe ingresar el color del equipo.',
             'numero_equipo.required' => 'Debe ingresar el numero del equipo.',

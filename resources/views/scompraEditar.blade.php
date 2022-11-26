@@ -35,7 +35,9 @@
                   <label for="exampleFormControlSelect12">Fecha de solicitud</label>
                   <input type="date" name="fecha_solicitud" class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
                   <br>
+                  @if ($datos[0]['IND_SOLICITUD_COM']=="Pendiente")
                   <button type="submit" class="btn btn-primary float-right">Actualizar solicitud</button>
+                  @endif
                 </div>
               </div>
             </div>
@@ -50,7 +52,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                <form action="{{ route('generarCorreoAprobacion',$datos[0]['COD_SOL_APB_COMPRA']) }}" method="GET">
+                <form action="{{ route('generarCorreoCompra',$datos[0]['COD_SOL_COMPRA']) }}" method="GET">
                     @if ($errors->any())
                     <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
                         <ul>
@@ -60,6 +62,8 @@
                         </ul>
                     </div>
                   @endif 
+                  <label for="exampleFormControlSelect12">La solicitud de compra se enviara al siguiente correo:</label>
+                  <input type="text" name="email" readonly class="form-control" value="{{$correo[0]['CORREO']}}">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -70,8 +74,10 @@
             </div>
           </div>
             <div>
+              @if ($datos[0]['IND_SOLICITUD_COM']=="Pendiente")
               <button type="buttom" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Enviar correo electronico</button>
-                <br>
+              @endif 
+              <br>
                 <br>
               </div>
       </div>
@@ -87,7 +93,7 @@
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de solicitud</label>
-            <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
+            <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD_APB']))}}">
             <br>
           </div>
         </div>
@@ -127,7 +133,7 @@
           <div class="row">
             <div class="col">
               <label for="exampleFormControlSelect12">Fecha de ingreso</label>
-              <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{$datos[0]['FEC_INGRESO']}}">
+              <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_EQU']))}}">
             </div>
             <div class="col">
               <label for="exampleFormControlSelect12">Numero de equipo</label>
@@ -159,7 +165,7 @@
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de ingreso a mantenimiento</label>
-            <input type="date" readonly class="form-control" name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO']))}}">
+            <input type="date" readonly class="form-control" name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_MANT']))}}">
           </div>
         </div>
     </div>

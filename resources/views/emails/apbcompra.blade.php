@@ -22,5 +22,5 @@ Rechazar solicitud
 @endcomponent
 
 Saludos cordiales,<br>
-ACOES MANTENIMIENTO
+{{ config('app.name') }}
 </x-mail::message>

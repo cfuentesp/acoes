@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use Termwind\Components\Dd;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\compra;
 
 class scompraController extends Controller
 {
@@ -97,7 +98,15 @@ class scompraController extends Controller
         ]);
         $datos = $data->json();
         $datos = $datos[0];
-        return view('scompraEditar',compact('datos'));
+
+        $dataDos = HTTP::post('http://localhost:6000/correos/search',[
+            'funcion' => 'b',
+            'cod_correo' => 2
+        ]);
+        $correo = $dataDos->json();
+        $correo = $correo[0];
+
+        return view('scompraEditar',compact('datos','correo'));
     }
     return back()->with('error','No tienes permisos');
     }
@@ -129,4 +138,47 @@ class scompraController extends Controller
     }
     return back()->with('error','No tienes permisos');
     }
+
+    public function sendEmailCompra(Request $request,$id){
+        if(Auth::user()->hasPermission('compras-correo')){
+                $data = Http::post('http://localhost:6000/correos/search', [
+                    'funcion' => 'b',
+                    'cod_correo' => 3,
+                ]);
+    
+                $correo = $data->json();
+                $email = $correo[0][0]['CORREO'];
+        
+                if ($email==null) {
+                    return back()->withInput()
+                                ->withErrors(["Correo no configurado, consulte a sistemas"]);             
+                }
+    
+                $datos = Http::post('http://localhost:6000/compra/search', [
+                    'funcion' => 'b',
+                    'cod_sol_compra' => $id,
+                ]);
+    
+                $solicitud = $datos->json();
+                $solicitud = $solicitud[0];
+    
+                $body = [
+                    'header' => 'SOLICITUD DE COMPRA DE EQUIPO',
+                    'descripcion' => $solicitud[0]['DES_SOLICITUD'],
+                    'cotizacion' => $solicitud[0]['COZ_EQUIPO'],
+                    'solucion' => $solicitud[0]['SOL_PROBLEMA'],
+                ];
+            
+                Mail::to($email)->send(new compra($body));
+                
+                $datos = Http::post('http://localhost:6000/compra/result', [
+                    'funcion' => 'r',
+                    'cod_sol_compra' => $id,
+                    'ind_solicitud' => "Enviada",
+                ]);
+    
+            return redirect()->route('getListaCompras')->with('mensaje','Correo enviado exitosamente');
+            }
+        return back()->with('error','No tienes permisos');
+        }
 }

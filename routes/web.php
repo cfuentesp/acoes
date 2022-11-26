@@ -182,7 +182,7 @@ Route::get('/home/compras/nuevo', [App\Http\Controllers\scompraController::class
 
 Route::put('/home/compras/insert/new/{id}', [App\Http\Controllers\scompraController::class, 'insertCompra'])->name('agregarCompra');
 
-
+Route::get('/home/compras/generar/email/{id}', [App\Http\Controllers\scompraController::class, 'sendEmailCompra'])->name('generarCorreoCompra');
 
 
 

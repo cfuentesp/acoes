@@ -143,7 +143,7 @@ class sapbcompraController extends Controller
     }
 
     public function sendEmailAprobacion(Request $request,$id){
-    if(Auth::user()->hasPermission('aprobacion-eliminar')){
+    if(Auth::user()->hasPermission('aprobacion-correo')){
             $data = Http::post('http://localhost:6000/correos/search', [
                 'funcion' => 'b',
                 'cod_correo' => 2,
@@ -176,6 +176,12 @@ class sapbcompraController extends Controller
             ];
         
             Mail::to($email)->send(new apbcompra($body));
+
+            $datos = Http::post('http://localhost:6000/aprobacion/result', [
+                'funcion' => 'r',
+                'cod_sol_apb_compra' => $id,
+                'ind_solicitud' => "Enviada",
+            ]);
 
         return redirect()->route('getListaAprobacion')->with('mensaje','Correo enviado exitosamente');
         }

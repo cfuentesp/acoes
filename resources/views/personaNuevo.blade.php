@@ -49,7 +49,7 @@
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Correo electronico</label>
-            <input type="text" class="form-control" name="correo" value="{{old('correo')}}">
+            <input type="email" class="form-control" name="correo" value="{{old('correo')}}">
           </div>
         </div>
       </div>

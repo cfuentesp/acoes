@@ -1,15 +1,14 @@
 <x-mail::message>
-# {{$body['header']}}
+<h2 style="font-weight: bold; text-align:center;">{{$body['header']}}</h2>
 
-{{$body['cuerpo']}}
+# Descripcion de la solicitud
+{{$body['descripcion']}}
 
-@component('mail::button', ['url' => $body['urlapb'], 'color' => 'success'])
-Aprobar solicitud
-@endcomponent
+# Solucion al problema del equipo
+{{$body['solucion']}}
 
-@component('mail::button', ['url' => $body['urlrch'], 'color' => 'error'])
-Rechazar solicitud
-@endcomponent
+# Cotizacion del equipo requerido
+{{$body['cotizacion']}}
 
 Saludos cordiales,<br>
 {{ config('app.name') }}

@@ -150,8 +150,8 @@ class PersonaController extends Controller
             'rol_persona' => $request->rol,
             'telefono' => $request->telefono,
             'direccion' => $request->direccion,
-            'referencia' => $request->num_referencia,
-            'num_referencia' => $request->referencia,
+            'referencia' => $request->referencia,
+            'num_referencia' => $request->num_referencia,
             'cor_persona' => $request->correo
         ]);
 

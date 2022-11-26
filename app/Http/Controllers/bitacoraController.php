@@ -97,10 +97,11 @@ class bitacoraController extends Controller
         $validator = Validator::make($request->all(), [
             'descripcion' => 'required',
             'fecha_observacion' => 'required',
-
+            'cod_persona' => 'required',
         ],[
             'descripcion.required' => 'Debe ingresar la descripcion de la observacion.',
             'fecha_observacion.required' => 'Debe ingresar la fecha de la observacion.',
+            'cod_persona.required' => 'Debe ingresar el nombre del evaluador.',        
         ]);
 
         if ($validator->fails()) {

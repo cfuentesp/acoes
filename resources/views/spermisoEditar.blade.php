@@ -21,10 +21,10 @@
         <div class="row">
           <div class="col">
             <label for="exampleFormControlSelect12">Tipo de permiso</label>
-            <input type="text" name="tipo_solicitud" class="form-control" readonly placeholder="Tipo de Solicitud" value="{{$permiso[0]['TIP_SOLICITUD']}}">
+            <input type="text" name="tipo_solicitud" class="form-control" placeholder="Tipo de Solicitud" value="{{$permiso[0]['TIP_SOLICITUD']}}">
             <br>
             <label for="exampleFormControlSelect12">Solicitante</label>
-            <input type="text" name="fecha_solicitud" class="form-control" readonly placeholder="Fecha de Solicitud" value="{{$permiso[0]['NOM_PERSONA'].' '.$permiso[0]['APLL_PERSONA']}}">
+            <input type="text" name="cod_persona" class="form-control" readonly placeholder="Fecha de Solicitud" value="{{$permiso[0]['NOM_PERSONA'].' '.$permiso[0]['APLL_PERSONA']}}">
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Descripcion</label>
@@ -47,15 +47,17 @@
       <div class="mb-3">
         <div class="row">
           <div class="col">
-            <label for="exampleFormControlSelect12">Justificacion de solicitud</label>
-            <textarea type="text" name="justificacion" readonly class="form-control" rows="3" placeholder="Justificacion de Solicitud">{{$permiso[0]['JST_SOLICITUD']}}</textarea>
+            <label for="exampleFormControlSelect12">Indicador de solicitud</label>
+            <input type="text" class="form-control"  readonly placeholder="Inicio Permiso" value="{{$permiso[0]['IND_SOLICITUD']}}">
           </div>
           <div class="col">
-            <label for="exampleFormControlSelect12">Indicador de solicitud</label>
-            <input type="text" name="inicio_solicitud" class="form-control"  readonly placeholder="Inicio Permiso" value="{{$permiso[0]['IND_SOLICITUD']}}">
+            @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
+            <button type="submit" class="btn btn-primary float-right">Actualizar datos</button>
+            @endif
           </div>
         </div>
       </div>
+    </form>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -94,18 +96,6 @@
           <br>
             <br>
           </div>
-      <div class="mb-3">
-        <div class="row">
-          <div class="col"> 
-          </div>
-          <div class="col">
-            @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
-            <button type="submit" class="btn btn-primary float-right">Actualizar datos</button>
-            @endif
-          </div>
-        </div>
-      </div>
-    </form>
 </div>
 @endsection
 

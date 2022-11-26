@@ -29,7 +29,7 @@
               <div class="row">
                 <div class="col">
                   <label for="exampleFormControlSelect12">Descripcion de solicitud</label>
-                  <textarea rows="5" name="descripcion" class="form-control" >{{old('solicitud')}}</textarea>
+                  <textarea rows="5" name="descripcion" class="form-control">{{old('descripcion')}}</textarea>
                 </div>
                 <div class="col">
                   <label for="exampleFormControlSelect12">Fecha de solicitud</label>

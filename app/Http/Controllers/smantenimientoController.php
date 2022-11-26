@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\compra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -43,7 +44,8 @@ class smantenimientoController extends Controller
             'tipo' => $request->tip_solicitud,
             'area' => $request->area,
         ]);
-        return back()->with('mensaje','Solicitud enviada exitosamente');
+        $estado = "realizada";
+        return view('dictamen',compact('estado'));
     }
 
     ////////////////////////////

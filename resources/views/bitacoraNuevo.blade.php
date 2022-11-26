@@ -20,7 +20,7 @@
       <div class="row mb-4">
           <div class="col">
             <label for="exampleFormControlSelect12">Descripcion</label>
-              <textarea class="form-control" name="descripcion" rows="3" value="{{old('descripcion')}}"></textarea>
+              <textarea class="form-control" name="descripcion" rows="3" >{{old('descripcion')}}</textarea>
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de la observacion</label>

@@ -50,11 +50,13 @@ class spermisoController extends Controller
             'descripcion' => 'required',
             'inicio_permiso' => 'required',
             'final_permiso' => 'required',
+            'cod_persona' => 'required',
         ],[
             'tipo_solicitud.required' => 'Debe ingresar el tipo de solicitud de permiso.',
             'descripcion.required' => 'Debe ingresar la descripcion de solicitud de permiso.',
             'inicio_permiso.required' => 'Debe ingresar la fecha en que inicia el permiso.',
             'final_permiso.required' => 'Debe ingresar la fecha en que finaliza el permiso.',
+            'cod_persona.required' => 'Debe ingresar el nombre solicitante.',
         ]);
 
         if ($validator->fails()) {
@@ -110,7 +112,13 @@ class spermisoController extends Controller
     
         Mail::to($email)->send(new permiso($body));
 
-        return redirect()->route('getListaPermisosLaborales')->with('mensaje','Agregado exitosamente');
+        Http::post('http://localhost:6000/permiso/result', [
+            'funcion' => 'r',
+            'cod_sol_permiso' => $id,
+            'ind_solicitud' => "Enviada",
+        ]);
+
+        return redirect()->route('getListaPermisosLaborales')->with('mensaje','Correo enviado exitosamente');
     }
     return back()->with('error','No tienes permisos');
     }
@@ -151,14 +159,14 @@ class spermisoController extends Controller
     if(Auth::user()->hasPermission('permisos-editar')){
         $validator = Validator::make($request->all(), [
             'descripcion' => 'required',
-            'tipo' => 'required',
-            'inicio' => 'required',
-            'final' => 'required',
+            'tipo_solicitud' => 'required',
+            'inicio_solicitud' => 'required',
+            'final_solicitud' => 'required',
         ],[
             'descripcion.required' => 'Debe ingresar la descripcion.',
-            'tipo.required' => 'Debe ingresar el tipo.',
-            'inicio.required' => 'Debe ingresar la fecha de inicio.',
-            'final.required' => 'Debe ingresar la fecha final.',
+            'tipo_solicitud.required' => 'Debe ingresar el tipo.',
+            'inicio_solicitud.required' => 'Debe ingresar la fecha de inicio.',
+            'final_solicitud.required' => 'Debe ingresar la fecha final.',
         ]);
 
         if ($validator->fails()) {
@@ -174,8 +182,7 @@ class spermisoController extends Controller
             'des_solicitud' => $request->descripcion,
             'fec_inicio' => $request->inicio_solicitud,
             'fec_final' => $request->final_solicitud,
-            'ind_solicitud' => $request->estado,
-            'jst_solicitud' => $request->justificacion
+            'ind_solicitud' => $request->estado
         ]);
         return redirect()->route('getListaPermisosLaborales')->with('mensaje','Actualizado exitosamente');
     }
@@ -183,7 +190,7 @@ class spermisoController extends Controller
     }
 
     public function sendEmailPermiso(Request $request,$id){
-        if(Auth::user()->hasPermission('permisos')){
+        if(Auth::user()->hasPermission('permisos-correo')){
                 $data = Http::post('http://localhost:6000/correos/search', [
                     'funcion' => 'b',
                     'cod_correo' => 1,
@@ -217,6 +224,12 @@ class spermisoController extends Controller
                 ];
             
                 Mail::to($email)->send(new permiso($body));
+
+                Http::post('http://localhost:6000/permiso/result', [
+                    'funcion' => 'r',
+                    'cod_sol_permiso' => $id,
+                    'ind_solicitud' => "Enviada",
+                ]);
     
             return redirect()->route('getListaPermisosLaborales')->with('mensaje','Correo enviado exitosamente');
             }
