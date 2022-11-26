@@ -104,11 +104,11 @@ Route::get('/home/permisos/nuevo', [App\Http\Controllers\spermisoController::cla
 
 Route::put('/home/permisos/insert/new', [App\Http\Controllers\spermisoController::class, 'insertPermiso'])->name('agregarPermiso');
 
-Route::get('/home/permisos/generar/email/{id}', [App\Http\Controllers\sapbcompraController::class, 'sendEmailPermiso'])->name('generarCorreoPermiso');
+Route::get('/home/permisos/generar/email/{id}', [App\Http\Controllers\spermisoController::class, 'sendEmailPermiso'])->name('generarCorreoPermiso');
 
-Route::get('/permiso/aprobar/{id}', [App\Http\Controllers\sapbcompraController::class, 'aprobarSolicitudper']);
+Route::get('/permiso/aprobar/{id}', [App\Http\Controllers\spermisoController::class, 'aprobarSolicitudper']);
 
-Route::get('/permiso/rechazar/{id}', [App\Http\Controllers\sapbcompraController::class, 'rechazarSolicitudper']);
+Route::get('/permiso/rechazar/{id}', [App\Http\Controllers\spermisoController::class, 'rechazarSolicitudper']);
 
 //RUTAS MODULO PERSONAS
 Route::get('/home/personas', [App\Http\Controllers\personaController::class, 'getPersona'])->name('getListaPersonas');

@@ -24,7 +24,7 @@
             <input type="text" name="tipo_solicitud" class="form-control" readonly placeholder="Tipo de Solicitud" value="{{$permiso[0]['TIP_SOLICITUD']}}">
             <br>
             <label for="exampleFormControlSelect12">Solicitante</label>
-            <input type="text" name="fecha_solicitud" class="form-control" readonly placeholder="Fecha de Solicitud" value="{{$permiso[0]['NOM_PERSONA'].' '.$persona[0]['APLL_PERSONA']}}">
+            <input type="text" name="fecha_solicitud" class="form-control" readonly placeholder="Fecha de Solicitud" value="{{$permiso[0]['NOM_PERSONA'].' '.$permiso[0]['APLL_PERSONA']}}">
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Descripcion</label>
@@ -36,11 +36,11 @@
         <div class="row">
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha final</label>
-            <input type="text" name="final_solicitud" class="form-control"  placeholder="Finalizo Permiso" value="{{$permiso[0]['FEC_FINAL']}}">
+            <input type="date" name="final_solicitud" class="form-control"  placeholder="Finalizo Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_FINAL']))}}">
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de inicio</label>
-            <input type="text" name="inicio_solicitud" class="form-control"  placeholder="Inicio Permiso" value="{{$permiso[0]['FEC_INICIO']}}">
+            <input type="date" name="inicio_solicitud" class="form-control"  placeholder="Inicio Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_INICIO']))}}">
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
               </button>
             </div>
             <div class="modal-body">
-            <form action="{{ route('generarCorreoPermiso',$datos[0]['COD_SOL_PERMISO']) }}" method="GET">
+            <form action="{{ route('generarCorreoPermiso',$permiso[0]['COD_SOL_PERMISO']) }}" method="GET">
                 @if ($errors->any())
                 <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
                     <ul>
@@ -88,7 +88,7 @@
         </div>
       </div>
         <div>
-          @if($datos[0]['IND_SOLICITUD']=='Pendiente')
+          @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
           <button type="buttom" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Enviar correo electronico</button>
           @endif  
           <br>
@@ -99,7 +99,7 @@
           <div class="col"> 
           </div>
           <div class="col">
-            @if($datos[0]['IND_SOLICITUD']=='Pendiente')
+            @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
             <button type="submit" class="btn btn-primary float-right">Actualizar datos</button>
             @endif
           </div>
