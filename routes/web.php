@@ -148,6 +148,10 @@ Route::put('/home/mantenimiento/editar/equipo/{id}', [App\Http\Controllers\mante
 
 Route::get('/home/mantenimiento/eliminar/{id}', [App\Http\Controllers\mantenimientoController::class, 'deleteMantenimiento'])->name('eliminarMantenimiento');
 
+Route::get('/home/mantenimiento/revisado/{id}', [App\Http\Controllers\mantenimientoController::class, 'mantenimientoComplete'])->name('salidaMantenimiento');
+
+Route::get('/home/mantenimiento/reparados/', [App\Http\Controllers\mantenimientoController::class, 'mantenimientoReparados'])->name('getListaEquiposReparados');
+
 
 //RUTAS SOLICITUD APROBACIONDE COMPRA
 Route::get('/home/aprobacion', [App\Http\Controllers\sapbcompraController::class, 'getAprobacion'])->name('getListaAprobacion');

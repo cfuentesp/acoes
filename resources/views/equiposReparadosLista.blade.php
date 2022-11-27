@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Equipos en mantenimiento</h1>
+    <h1>Lista de equipos reparados</h1>
 </div>
 <div class='card-body'>
     <br>
@@ -18,10 +18,10 @@
 					<thead>
 						<tr>
 							<th><span>Numero de equipo</span></th>
-                            <th><span>Marca</span></th>
 							<th><span>Area de equipo</span></th>
 							<th><span>Estado</span></th>
-                            <th><span>Fecha de solicitud</span></th>
+							<th><span>Fecha de ingreso</span></th>
+                            <th><span>Fecha de salida</span></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
@@ -32,31 +32,17 @@
 								<span class="user-subhead">{{$item['NUM_EQUIPO']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['MRC_EQUIPO']}}</span>
-							</td>
-							<td>
 								<span class="user-subhead">{{$item['ARA_SOLICITUD']}}</span>
 							</td>
 							<td>
 								<span class="user-subhead">{{$item['EST_EQUIPO']}}</span>
 							</td>
 							<td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SOLICITUD']))}}</span>
+                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_INGRESO_MANT']))}}</span>
 							</td>
-							  <td style="width: 20%;">
-							  	<a href="{{route('editarMantenimiento',$item['COD_REPARACION'])}}" class="table-link">
-                                    <span class="fa-stack">
-                                        <i class="fa fa-square fa-stack-2x"></i>
-                                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-							  	<a href="{{route('eliminarMantenimiento',$item['COD_REPARACION'])}}" class="table-link danger">
-							  		<span class="fa-stack">
-							  			<i class="fa fa-square fa-stack-2x"></i>
-							  			<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-							  		</span>
-							  	</a>
-							  </td>
+							<td>
+                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SALIDA']))}}</span>
+							</td>
                             </form>
 						</tr>
                         @endforeach

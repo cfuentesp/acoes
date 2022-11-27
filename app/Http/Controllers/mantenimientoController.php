@@ -72,4 +72,29 @@ class mantenimientoController extends Controller
     }
     return back()->with('error','No tienes permisos');
     }
+
+    public function mantenimientoComplete(Request $request, $id){
+        if(Auth::user()->hasPermission('mantenimiento-editar')){
+            Http::post('http://localhost:6000/mantenimiento/revisado', [
+                'funcion' => 'a',
+                'cod_reparacion' => $id,
+            ]);
+
+            return redirect()->route('getListaMantenimiento')->with('mensaje','Dispositivo marcado como reparado exitosamente');
+        }
+        return back()->with('error','No tienes permisos');
+    }
+
+    public function mantenimientoReparados(){
+        if(Auth::user()->hasPermission('admin')){
+            $data = HTTP::post('http://localhost:6000/mantenimiento/get',[
+                'funcion' => 'h'
+            ]);
+            $datos = $data->json();
+            $datos = $datos[0];
+            return view('equiposReparadosLista',compact('datos'));
+        }
+        return back()->with('error','No tienes permisos');
+
+    }
 }

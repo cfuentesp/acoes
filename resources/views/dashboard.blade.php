@@ -507,7 +507,8 @@ $(document).ready(function () {
                 <div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
                                                                 class="dashboard-nav-dropdown-item">Usuarios</a><a
                             href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a><a
-                            href="{{route('getListaCorreos')}}" class="dashboard-nav-dropdown-item">Correos</a></div>
+                            href="{{route('getListaCorreos')}}" class="dashboard-nav-dropdown-item">Correos</a><a
+                            href="{{route('getListaEquiposReparados')}}" class="dashboard-nav-dropdown-item">Equipos reparados</a></div>
                 </div>
 				  <div class="nav-item-divider"></div>
 				  <a
