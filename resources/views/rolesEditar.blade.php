@@ -23,7 +23,7 @@
               <select class="form-control selectpicker" data-live-search="true" id="select" name="permiso">
                  <option selected>{{""}}</option>
                 @foreach ($permission as $permisos)
-                 <option value="{{$permisos['id']}}">{{$permisos['name']}}</option>
+                 <option value="{{$permisos['id']}}">{{$permisos['name'].' - '.$permisos['description']}}</option>
                 @endforeach
               </select>
             </div>
@@ -51,10 +51,10 @@
         @foreach ($permissionRole as $permisoRole)        
           <tr>
             <td>
-              <span class="user-subhead">{{$permisoRole['name']}}</span>
+              <span class="user-subhead">{{$permisoRole->name}}</span>
             </td>
             <td>
-              <span class="user-subhead"> {{$permisoRole['description']}}</span>
+              <span class="user-subhead"> {{$permisoRole->description}}</span>
              
             </td>
           </tr>

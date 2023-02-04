@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+
 class HomeController extends Controller
 {
     /**
@@ -21,7 +23,35 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $mantenimiento = DB::select('SELECT * FROM dis_mantenimiento WHERE ESTATUS = 0');
+        $aprobacion = DB::select("SELECT * FROM sol_apb_compra WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD = 'Enviada'");
+        $compras = DB::select("SELECT * FROM sol_compra WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD = 'Enviada'");
+        $permisos = DB::select("SELECT * FROM sol_prm_laboral WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD ='Enviada'");
+
+        $array = [
+            count($mantenimiento),
+            count($aprobacion),
+            count($compras),
+            count($permisos)
+        ];
+        
+        $Totalpermisos = DB::select("SELECT * FROM sol_prm_laboral");
+        $Totalpersonas = DB::select("SELECT * FROM personas");
+        $Totalequipos = DB::select("SELECT * FROM inventario");
+        $Totalcompras = DB::select("SELECT * FROM sol_compra");
+        $Totalusers = DB::select("SELECT * FROM users");
+        $Totalreparados = DB::select("SELECT * FROM dis_mantenimiento WHERE ESTATUS=3");
+
+        $array2 = [
+            count($Totalequipos), 
+            count($Totalreparados),
+            count($Totalpersonas),
+            count($Totalpermisos),
+            count($Totalcompras),
+            count($Totalusers),
+        ];
+
+        return view('home', compact('array','array2'));
     }
 
 }

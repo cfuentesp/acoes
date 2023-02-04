@@ -67,19 +67,55 @@ class bitacoraController extends Controller
 
     public function updateDatosObservacion(Request $request, $id){
         if(Auth::user()->hasPermission('bitacora-editar')){
-        $validator = Validator::make($request->all(), [
-            'descripcion' => 'required',
-            'fecha_observacion' => 'required',
+             //Validar campos nulos
+             $validator = Validator::make($request->all(), [
+                'descripcion' => 'required',
+                'fecha_observacion' => 'required',
+            ],[
+                'descripcion.required' => 'Debe ingresar la descripcion de la observacion.',
+                'fecha_observacion.required' => 'Debe ingresar la fecha de la observacion.',
+            ]);
+    
+            if ($validator->fails()) {
+                return back()->withInput()
+                            ->withErrors($validator);        
+            }
+    
+            //Validar caracteres especiales
+            $validator = Validator::make($request->all(), [
+                'descripcion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+                'fecha_observacion' => 'required|date|after:2000-01-01',
+            ],[
+                'descripcion.regex' => 'Descripcion de la observacion solo debe contener letras y numeros.',
+                'fecha_observacion.after' => 'Ingrese una fecha valida.',
+            ]);
+    
+            if ($validator->fails()) {
+                return back()->withInput()
+                            ->withErrors($validator);        
+            }
+    
+            //Validar cantidad caracteres
+            $validator = Validator::make($request->all(), [
+                'descripcion' => 'max:1499',
+                'fecha_observacion' => 'before:01/01/2050',
+            ],[
+                'descripcion.max' => 'Descripcion de la observacion contiene demasiados caracteres.',
+                'fecha_observacion.before' => 'Ingrese una fecha valida.',
+            ]);
+    
+            if ($validator->fails()) {
+                return back()->withInput()
+                            ->withErrors($validator);        
+            }
+    
+            $pieces = explode("-", $request->fecha_observacion);
+            if (strlen($pieces[0])>4) {
+                return back()->withInput()
+                            ->with('error','Ingrese una fecha valida');
+                            
+            }
 
-        ],[
-            'descripcion.required' => 'Debe ingresar la descripcion de la observacion.',
-            'fecha_observacion.required' => 'Debe ingresar la fecha de la observacion.',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withInput()
-                        ->withErrors($validator);        
-        }
         HTTP::post('http://localhost:6000/bitacora/update',[
             'funcion' => 'u',
             'usr_adicion' => auth()->user()->name,
@@ -94,6 +130,7 @@ class bitacoraController extends Controller
 
     public function insertObservacion(Request $request){
     if(Auth::user()->hasPermission('bitacora-agregar')){
+        //Validar campos nulos
         $validator = Validator::make($request->all(), [
             'descripcion' => 'required',
             'fecha_observacion' => 'required',
@@ -108,6 +145,48 @@ class bitacoraController extends Controller
             return back()->withInput()
                         ->withErrors($validator);        
         }
+
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'descripcion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+            'fecha_observacion' => 'required|date|after:2000-01-01',
+        ],[
+            'descripcion.regex' => 'Descripcion de la observacion solo debe contener letras y numeros.',
+            'fecha_observacion.after' => 'Ingrese una fecha valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);        
+        }
+
+        //Validar cantidad caracteres
+        $validator = Validator::make($request->all(), [
+            'descripcion' => 'max:1499',
+            'fecha_observacion' => 'before:01/01/2050',
+        ],[
+            'descripcion.max' => 'Descripcion de la observacion contiene demasiados caracteres.',
+            'fecha_observacion.before' => 'Ingrese una fecha valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);        
+        }
+
+        if ($request->cod_persona==null) {
+            return back()->withInput()
+                        ->with('error','Debe seleccionar un evaluador');        
+        }
+
+        
+        $pieces = explode("-", $request->fecha_observacion);
+        if (strlen($pieces[0])>4) {
+            return back()->withInput()
+                        ->with('error','Ingrese una fecha valida');
+                        
+        }
+
         HTTP::post('http://localhost:6000/bitacora/insert',[
             'funcion' => 'i',
             'usr_adicion' => auth()->user()->name,

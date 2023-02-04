@@ -45,6 +45,7 @@ class spermisoController extends Controller
 
     public function insertPermiso(Request $request){
     if(Auth::user()->hasPermission('permisos-agregar')){
+        //Validar campos vacios
         $validator = Validator::make($request->all(), [
             'tipo_solicitud' => 'required',
             'descripcion' => 'required',
@@ -63,6 +64,60 @@ class spermisoController extends Controller
             return back()->withInput()
                         ->withErrors($validator);             
         }
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'tipo_solicitud' => 'regex:/^[a-zA-Z\s]+$/u',
+            'descripcion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+            'inicio_permiso' => 'required|date|after:2000-01-01',
+            'final_permiso' => 'required|date|after:2000-01-01',
+        ],[
+            'tipo_solicitud.regex' => 'Tipo de solicitud solo debe contener letras.',
+            'descripcion.regex' => 'Descripcion de solicitud solo debe tener letras y numeros.',
+            'inicio_permiso.after' => 'Ingrese una fecha de inicio valida.',
+            'final_permiso.after' => 'Ingrese una fecha  final valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);             
+        }
+
+        $pieces = explode("-", $request->inicio_permiso);
+        if (strlen($pieces[0])>4) {
+            return back()->withInput()
+                        ->with('error','Ingrese una fecha de inicio valida');
+                        
+        }
+
+          //Validar caracteres especiales
+          $validator = Validator::make($request->all(), [
+            'tipo_solicitud' => 'max:60',
+            'descripcion' => 'max:1499',
+            'inicio_permiso' => 'before:01/01/2050',
+            'final_permiso' => 'before:01/01/2050',
+        ],[
+            'tipo_solicitud.max' => 'Tipo de solicitud contiene demasiados caracteres.',
+            'descripcion.max' => 'Descripcion de solicitud contiene demasiados caracteres.',
+            'inicio_permiso.before' => 'Ingrese una fecha de inicio valida.',
+            'final_permiso.before' => 'Ingrese una fecha final valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);             
+        }
+
+        $pieces = explode("-", $request->final_permiso);
+        if (strlen($pieces[0])>4) {
+            return back()->withInput()
+                        ->with('error','Ingrese una fecha final valida');
+                        
+        }
+
+        if ($request->inicio_permiso>$request->final_permiso) {
+            return back()->withInput()
+                        ->with('error','La fecha de inicio no puede ser mayor a la fecha final del permiso');             
+        }
 
         $codigo = HTTP::post('http://localhost:6000/permiso/insert',[
             'funcion' => 'i',
@@ -77,7 +132,8 @@ class spermisoController extends Controller
 
         $dato = $codigo->json();
         $id = $dato[0][0]['id'];
-
+        
+        if($request->checkbox=='on'){
         $data = Http::post('http://localhost:6000/correos/search', [
             'funcion' => 'b',
             'cod_correo' => 1,
@@ -106,8 +162,8 @@ class spermisoController extends Controller
             'solicitante' => $solicitud[0]['NOM_PERSONA'].' '.$solicitud[0]['APLL_PERSONA'],
             'inicio' => date("Y-m-d", strtotime($solicitud[0]['FEC_INICIO'])),
             'final' => date("Y-m-d", strtotime($solicitud[0]['FEC_FINAL'])),
-            'urlapb' => 'http://127.0.0.1:8000/permiso/aprobar/'.$id, 
-            'urlrch' => 'http://127.0.0.1:8000/permiso/rechazar/'.$id,
+            'urlapb' => 'http://acoes-apps.eastus.cloudapp.azure.com/acoes-admin/permiso/aprobar/'.$id, 
+            'urlrch' => 'http://acoes-apps.eastus.cloudapp.azure.com/acoes-admin/permiso/rechazar/'.$id,
         ];
     
         Mail::to($email)->send(new permiso($body));
@@ -119,6 +175,9 @@ class spermisoController extends Controller
         ]);
 
         return redirect()->route('getListaPermisosLaborales')->with('mensaje','Correo enviado exitosamente');
+    }
+
+        return redirect()->route('getListaPermisosLaborales')->with('mensaje','Agregado exitosamente');
     }
     return back()->with('error','No tienes permisos');
     }
@@ -157,21 +216,78 @@ class spermisoController extends Controller
 
     public function updateDatosPermiso(Request $request, $id){
     if(Auth::user()->hasPermission('permisos-editar')){
+               //Validar campos vacios
         $validator = Validator::make($request->all(), [
-            'descripcion' => 'required',
             'tipo_solicitud' => 'required',
-            'inicio_solicitud' => 'required',
-            'final_solicitud' => 'required',
+            'descripcion' => 'required',
+            'inicio_permiso' => 'required',
+            'final_permiso' => 'required',
+            'cod_persona' => 'required',
         ],[
-            'descripcion.required' => 'Debe ingresar la descripcion.',
-            'tipo_solicitud.required' => 'Debe ingresar el tipo.',
-            'inicio_solicitud.required' => 'Debe ingresar la fecha de inicio.',
-            'final_solicitud.required' => 'Debe ingresar la fecha final.',
+            'tipo_solicitud.required' => 'Debe ingresar el tipo de solicitud de permiso.',
+            'descripcion.required' => 'Debe ingresar la descripcion de solicitud de permiso.',
+            'inicio_permiso.required' => 'Debe ingresar la fecha en que inicia el permiso.',
+            'final_permiso.required' => 'Debe ingresar la fecha en que finaliza el permiso.',
+            'cod_persona.required' => 'Debe ingresar el nombre solicitante.',
         ]);
 
         if ($validator->fails()) {
             return back()->withInput()
-                        ->withErrors($validator);     
+                        ->withErrors($validator);             
+        }
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'tipo_solicitud' => 'regex:/^[a-zA-Z\s]+$/u',
+            'descripcion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+            'inicio_permiso' => 'required|date|after:2000-01-01',
+            'final_permiso' => 'required|date|after:2000-01-01',
+        ],[
+            'tipo_solicitud.regex' => 'Tipo de solicitud solo debe contener letras.',
+            'descripcion.regex' => 'Descripcion de solicitud solo debe tener letras y numeros.',
+            'inicio_permiso.after' => 'Ingrese una fecha valida.',
+            'final_permiso.after' => 'Ingrese una fecha valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);             
+        }
+
+        $pieces = explode("-", $request->inicio_permiso);
+        if (strlen($pieces[0])>4) {
+            return back()->withInput()
+                        ->with('error','Ingrese una fecha de inicio valida');
+                        
+        }
+
+          //Validar caracteres especiales
+          $validator = Validator::make($request->all(), [
+            'tipo_solicitud' => 'max:60',
+            'descripcion' => 'max:1499',
+            'inicio_permiso' => 'before:01/01/2050',
+            'final_permiso' => 'before:01/01/2050',
+        ],[
+            'tipo_solicitud.max' => 'Tipo de solicitud contiene demasiados caracteres.',
+            'descripcion.max' => 'Descripcion de solicitud contiene demasiados caracteres.',
+            'inicio_permiso.before' => 'Ingrese una fecha valida.',
+            'final_permiso.before' => 'Ingrese una fecha valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);             
+        }
+
+        $pieces = explode("-", $request->final_permiso);
+        if (strlen($pieces[0])>4) {
+            return back()->withInput()
+                        ->with('error','Ingrese una fecha final valida');
+                        
+        }
+
+        if ($request->inicio_permiso>$request->final_permiso) {
+            return back()->withInput()
+                        ->with('error','La fecha de inicio no puede ser mayor a la fecha final del permiso');             
         }
 
         HTTP::post('http://localhost:6000/permiso/update',[
@@ -180,8 +296,8 @@ class spermisoController extends Controller
             'cod_sol_permiso' => $id,
             'tip_solicitud' => $request->tipo_solicitud,
             'des_solicitud' => $request->descripcion,
-            'fec_inicio' => $request->inicio_solicitud,
-            'fec_final' => $request->final_solicitud,
+            'fec_inicio' => $request->inicio_permiso,
+            'fec_final' => $request->final_permiso,
             'ind_solicitud' => $request->estado
         ]);
         return redirect()->route('getListaPermisosLaborales')->with('mensaje','Actualizado exitosamente');

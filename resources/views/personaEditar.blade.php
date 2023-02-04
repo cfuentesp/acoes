@@ -28,11 +28,11 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Nombres</label>
-                <input type="text" class="form-control" name="nombres" value="{{$personas[0]['NOM_PERSONA']}}">
+                <input type="text" class="form-control" name="nombre" value="{{$personas[0]['NOM_PERSONA']}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Apellidos</label>
-                <input type="text" class="form-control" name="apellidos" value="{{$personas[0]['APLL_PERSONA']}}">
+                <input type="text" class="form-control" name="apellido" value="{{$personas[0]['APLL_PERSONA']}}">
               </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Rol</label>
-                <input type="text" class="form-control" name="rol" value="{{$personas[0]['ROL_PERSONA']}}">
+                <input type="text" class="form-control" readonly name="rol" value="{{$personas[0]['ROL_PERSONA']}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Correo</label>
@@ -64,7 +64,7 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect12">Numero de referencia personal</label>
-                <input type="number" class="form-control" name="numero_referencia" value="{{($personas[0]['NUM_REF_PERSONA'])}}">
+                <input type="number" class="form-control" name="num_referencia" value="{{($personas[0]['NUM_REF_PERSONA'])}}">
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Referencia personal</label>
@@ -101,15 +101,6 @@
             <form action="{{route('agregarDireccion', $personas[0]['COD_PERSONA'])}}" method="POST">
                 @csrf
                 @method('PUT')
-                @if ($errors->any())
-                <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-              @endif
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Direccion</label>
                   <textarea class="form-control" name="direccion" rows="3" id="recipient-name"></textarea>

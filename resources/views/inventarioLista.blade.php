@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de equipos</h1>
+    <h1>Equipos</h1>
 </div>
 <div class='card-body'>
     <form action="{{route('nuevoEquipo')}}" method="GET">

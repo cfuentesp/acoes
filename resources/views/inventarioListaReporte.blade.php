@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Equipos reparados</h1>
+    <h1>Equipos</h1>
 </div>
 <div class='card-body'>
 @if ($errors->any())
@@ -18,12 +18,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de equipos reparados</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de inventario</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-			<form action="{{route('generarReporteReparadosEXCEL')}}" method="GET">
+			<form action="{{route('generarReporteInventarioEXCEL')}}" method="GET">
             <div class="modal-body">
 			<div class="row">
 		<div class="col">
@@ -54,12 +54,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de equipos reparados</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de inventario</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-			<form action="{{route('generarReporteReparadosPDF')}}" method="GET">
+			<form action="{{route('generarReporteInventarioPDF')}}" method="GET">
             <div class="modal-body">
 			<div class="row">
 		<div class="col">
@@ -97,33 +97,28 @@
 				<table id="myTable" class="table user-list">
 					<thead>
 						<tr>
-							<th><span>Numero de equipo</span></th>
-							<th><span>Area de equipo</span></th>
-							<th><span>Estado</span></th>
-							<th><span>Fecha de ingreso</span></th>
-                            <th><span>Fecha de salida</span></th>
+							<th><span>Numero equipo</span></th>
+							<th><span>Tipo de equipo</span></th>
+                            <th><span>Marca</span></th>
+                            <th><span>Modelo/serie</span></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-                        @foreach ($datos as $item)
+                        @foreach ($equipos[0] as $item)
 						<tr>
 							<td>
 								<span class="user-subhead">{{$item['NUM_EQUIPO']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['ARA_SOLICITUD']}}</span>
+								<span class="user-subhead">{{$item['TIP_EQUIPO']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['EST_EQUIPO']}}</span>
+								<span class="user-subhead">{{$item['MRC_EQUIPO']}}</span>
 							</td>
 							<td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_INGRESO_MANT']))}}</span>
+                                <span class="user-subhead">{{$item['MDL_SERIE']}}</span>
 							</td>
-							<td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SALIDA']))}}</span>
-							</td>
-                            </form>
 						</tr>
                         @endforeach
 					</tbody>

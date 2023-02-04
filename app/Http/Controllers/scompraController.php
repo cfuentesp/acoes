@@ -29,6 +29,11 @@ class scompraController extends Controller
 
     public function nuevaCompra(Request $request){
     if(Auth::user()->hasPermission('compras-agregar')){
+        if ($request->cod_solicitud==null) {
+            return back()->withInput()
+                        ->with('error','Seleccione una solicitud aprobada.');
+                        
+        }
         $dataDos = HTTP::post('http://localhost:6000/aprobacion/search',[
             'funcion' => 'b',
             'cod_sol_apb_compra' => $request->cod_solicitud
@@ -43,6 +48,7 @@ class scompraController extends Controller
 
     public function insertCompra(Request $request, $id){
     if(Auth::user()->hasPermission('compras-agregar')){
+        //Validar campos vacios
         $validator = Validator::make($request->all(), [
             'fecha_solicitud' => 'required',
             'descripcion' => 'required',
@@ -54,6 +60,43 @@ class scompraController extends Controller
         if ($validator->fails()) {
             return back()->withInput()
                         ->withErrors($validator);
+                        
+        }
+
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'fecha_solicitud' => 'required|date|after:2000-01-01',
+            'descripcion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+        ],[
+            'fecha_solicitud.after' => 'Ingrese una fecha valida.',
+            'descripcion.regex' => 'Descripcion de la solicitud solo debe contener letras y numeros.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
+        }
+
+         //Validar cantidad caracteres
+         $validator = Validator::make($request->all(), [
+            'fecha_solicitud' => 'before:01/01/2050',
+            'descripcion' => 'max:1499',
+        ],[
+            'fecha_solicitud.before' => 'Ingrese una fecha valida.',
+            'descripcion.max' => 'Descripcion de la solicitud contiene demasiados caracteres.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
+        }
+
+        $pieces = explode("-", $request->fecha_solicitud);
+        if (strlen($pieces[0])>4) {
+            return back()->withInput()
+                        ->with('error','Ingrese una fecha valida');
                         
         }
 
@@ -114,16 +157,47 @@ class scompraController extends Controller
     public function updateDatosCompra(Request $request, $id){
     if(Auth::user()->hasPermission('compras-editar')){
         $validator = Validator::make($request->all(), [
+            'fecha_solicitud' => 'required',
             'descripcion' => 'required',
-            'fecha_solicitud' => 'required'
         ],[
-            'descripcion.required' => 'Debe ingresar la descripcion',
-            'fecha_solicitud.required' => 'Debe ingresar la fecha de la solicitud',
+            'fecha_solicitud.required' => 'Debe ingresar la fecha de la solicitud de compra.',
+            'descripcion.required' => 'Debe ingresar la descripción de la solicitud de compra.',
         ]);
 
         if ($validator->fails()) {
             return back()->withInput()
-                        ->withErrors($validator);             
+                        ->withErrors($validator);
+                        
+        }
+
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'fecha_solicitud' => 'required|date|after:2000-01-01',
+            'descripcion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+        ],[
+            'fecha_solicitud.after' => 'Ingrese una fecha valida.',
+            'descripcion.regex' => 'Descripcion de la solicitud solo debe contener letras y numeros.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
+        }
+
+         //Validar cantidad caracteres
+         $validator = Validator::make($request->all(), [
+            'fecha_solicitud' => 'before:01/01/2050',
+            'descripcion' => 'max:1499',
+        ],[
+            'fecha_solicitud.before' => 'Ingrese una fecha valida.',
+            'descripcion.max' => 'Descripcion de la solicitud contiene demasiados caracteres.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
         }
 
         HTTP::post('http://localhost:6000/compra/update',[

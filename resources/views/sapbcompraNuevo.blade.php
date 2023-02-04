@@ -29,7 +29,7 @@
               <div class="row">
                 <div class="col">
                   <label for="exampleFormControlSelect12">Cotizacion de equipo</label>
-                  <textarea rows="5" name="cotizacion" class="form-control" >{{old('cotizacion')}}</textarea>
+                  <textarea rows="5" name="cotizacion" class="form-control">{{old('cotizacion')}}</textarea>
                 </div>
                 <div class="col">
                   <label for="exampleFormControlSelect12">Fecha de solicitud</label>

@@ -36,12 +36,41 @@ class mantenimientoController extends Controller
 
     public function updateMantenimiento(Request $request,$id){
         if(Auth::user()->hasPermission('mantenimiento-editar')){
+        //Validar campos vacios
         $validator = Validator::make($request->all(), [
             'descripcion_falla' => 'required',
             'solucion_problema' => 'required',
         ],[
             'descripcion_falla.required' => 'Debe ingresar el tipo de equipo.',
             'solucion_problema.required' => 'Debe ingresar la solucion.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);               
+        }
+
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'descripcion_falla' => 'regex:/^[A-Za-z0-9\s]+$/u',
+            'solucion_problema' => 'regex:/^[A-Za-z0-9\s]+$/u',
+        ],[
+            'descripcion_falla.regex' => 'Descipcion del problema solo debe contener letras y numeros.',
+            'solucion_problema.regex' => 'Solucion al problema solo debe contener letras y numeros.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);               
+        }
+
+         //Validar cantidad de caracteres
+         $validator = Validator::make($request->all(), [
+            'descripcion_falla' => 'max:1499',
+            'solucion_problema' => 'max:1499',
+        ],[
+            'descripcion_falla.max' => 'Descipcion del problema contiene demasiados caracteres.',
+            'solucion_problema.max' => 'Solucion al problema contiene demasiados caracteres.',
         ]);
 
         if ($validator->fails()) {

@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Equipos reparados</h1>
+    <h1>Personas</h1>
 </div>
 <div class='card-body'>
 @if ($errors->any())
@@ -18,24 +18,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de equipos reparados</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de personas</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-			<form action="{{route('generarReporteReparadosEXCEL')}}" method="GET">
-            <div class="modal-body">
-			<div class="row">
-		<div class="col">
-         <label>Fecha desde</label>
-		 <input type="date" name="fecha_desde" class="form-control" value="{{old('fecha_desde')}}">
-		</div>
-		<div class="col">
-		<label>Fecha hasta</label>
-		 <input type="date" name="fecha_hasta" class="form-control" value="{{old('fecha_hasta')}}">
-		</div>
-	</div>
-            </div>
+			<form action="{{route('generarReportepersonasEXCEL')}}" method="GET">
             <div class="modal-footer">            
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success">Generar</button>
@@ -54,24 +42,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de equipos reparados</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de personas</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-			<form action="{{route('generarReporteReparadosPDF')}}" method="GET">
-            <div class="modal-body">
-			<div class="row">
-		<div class="col">
-         <label>Fecha desde</label>
-		 <input type="date" name="fecha_desde" class="form-control" value="{{old('fecha_desde')}}">
-		</div>
-		<div class="col">
-		<label>Fecha hasta</label>
-		 <input type="date" name="fecha_hasta" class="form-control" value="{{old('fecha_hasta')}}">
-		</div>
-	</div>
-            </div>
+			<form action="{{route('generarReportepersonasPDF')}}" method="GET">
             <div class="modal-footer">            
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-primary">Generar</button>
@@ -97,33 +73,27 @@
 				<table id="myTable" class="table user-list">
 					<thead>
 						<tr>
-							<th><span>Numero de equipo</span></th>
-							<th><span>Area de equipo</span></th>
-							<th><span>Estado</span></th>
-							<th><span>Fecha de ingreso</span></th>
-                            <th><span>Fecha de salida</span></th>
+							<th><span>Nombres</span></th>
+                            <th><span>Apellidos</span></th>
+							<th><span>#Identidad </span></th>
+                            <th><span>Correo </span></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-                        @foreach ($datos as $item)
+                        @foreach ($personas[0] as $item)
 						<tr>
 							<td>
-								<span class="user-subhead">{{$item['NUM_EQUIPO']}}</span>
+								<span class="user-subhead">{{$item['NOM_PERSONA']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['ARA_SOLICITUD']}}</span>
+								<span class="user-subhead">{{$item['APLL_PERSONA']}}</span>
 							</td>
 							<td>
-								<span class="user-subhead">{{$item['EST_EQUIPO']}}</span>
+								<span class="user-subhead">{{$item['NUM_IDENTIDAD']}}</span>
 							</td>
-							<td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_INGRESO_MANT']))}}</span>
-							</td>
-							<td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SALIDA']))}}</span>
-							</td>
-                            </form>
+                            <td>
+                                <span class="user-subhead">{{$item['COR_PERSONA']}}</span>
 						</tr>
                         @endforeach
 					</tbody>

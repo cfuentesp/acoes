@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Equipos reparados</h1>
+    <h1>Permisos laborales</h1>
 </div>
 <div class='card-body'>
 @if ($errors->any())
@@ -18,12 +18,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de equipos reparados</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de permisos</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-			<form action="{{route('generarReporteReparadosEXCEL')}}" method="GET">
+			<form action="{{route('generarReportePermisoEXCEL')}}" method="GET">
             <div class="modal-body">
 			<div class="row">
 		<div class="col">
@@ -54,12 +54,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de equipos reparados</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Generar reporte de permisos</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-			<form action="{{route('generarReporteReparadosPDF')}}" method="GET">
+			<form action="{{route('generarReportePermisoPDF')}}" method="GET">
             <div class="modal-body">
 			<div class="row">
 		<div class="col">
@@ -86,51 +86,42 @@
             <br>
         </div>
 	<br>
+
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
 <div class="row">
-	<div class="col-lg-12">
-		<div class="main-box clearfix">
-			<div class="table-responsive">
-				<input class="form-control" style="width:500px;" id="myInput" type="text" placeholder="Buscar..">
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <div class="table-responsive">
+                <input class="form-control" style="width:500px;" id="myInput" type="text" placeholder="Buscar..">
 				<br>
-				<table id="myTable" class="table user-list">
-					<thead>
-						<tr>
-							<th><span>Numero de equipo</span></th>
-							<th><span>Area de equipo</span></th>
-							<th><span>Estado</span></th>
-							<th><span>Fecha de ingreso</span></th>
-                            <th><span>Fecha de salida</span></th>
-							<th>&nbsp;</th>
-						</tr>
-					</thead>
-					<tbody>
-                        @foreach ($datos as $item)
-						<tr>
-							<td>
-								<span class="user-subhead">{{$item['NUM_EQUIPO']}}</span>
-							</td>
-							<td>
-								<span class="user-subhead">{{$item['ARA_SOLICITUD']}}</span>
-							</td>
-							<td>
-								<span class="user-subhead">{{$item['EST_EQUIPO']}}</span>
-							</td>
-							<td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_INGRESO_MANT']))}}</span>
-							</td>
-							<td>
-                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SALIDA']))}}</span>
-							</td>
-                            </form>
-						</tr>
+                <table id="myTable" class="table user-list">
+                    <thead>
+                        <tr>
+                            <th><span>Solicitante</span></th>
+                            <th><span>Fecha de Solicitud</span></th>
+                            <th><span>Estado de Solicitud</span></th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($permisos as $item)
+                        <tr>
+                            <td>
+                                <span class="user-subhead">{{$item['NOM_PERSONA'].' '.$item['APLL_PERSONA']}}</span>
+                            </td>
+                            <td>
+                                <span class="user-subhead">{{date("Y-m-d", strtotime($item['FEC_SOLICITUD']))}}</span>
+                            </td>
+                            <td>
+                                <span class="user-subhead">{{$item['IND_SOLICITUD']}}</span>
+                        </tr>
                         @endforeach
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>

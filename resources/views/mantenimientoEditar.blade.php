@@ -15,6 +15,15 @@
       <form action="{{ route('actualizarMantenimiento', $id) }}" method="POST">
         @csrf
         @method('PUT')
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+      @endif
         <div class="mb-2">
             <div class="row">
               <div class="col">
@@ -23,7 +32,7 @@
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Solucion Del Problema</label>
-                <textarea rows="5" class="form-control" name="solucion_problema" >{{$datos[0]['SOL_PROBLEMA']}}</textarea>
+                <textarea rows="5" class="form-control" name="solucion_problema">{{$datos[0]['SOL_PROBLEMA']}}</textarea>
               </div>
             </div>
         </div>
@@ -38,25 +47,22 @@
                 <input type="text" class="form-control" name="estado_equipo" readonly value="{{$datos[0]['EST_EQUIPO']}}">
                 <br>
                 <label for="exampleFormControlSelect12">Fecha de ingreso a mantenimiento</label>
-                <input type="date" class="form-control" readonly name="fecha_ingreso" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_MANTENIMIENTO']))}}">
+                <input type="date" class="form-control" readonly name="fecha_ingreso" value="{{date('Y-m-d', strtotime($datos[0]['FEC_INGRESO_MANTENIMIENTO']))}}">
               </div>
             </div>
           </div>
           <div class="mb-2">
             <div class="row">
               <div class="col"> 
+              <button type="submit" class="btn btn-primary float-right">Actualizar</button>
+              </form>
               </div>
               <div class="col">
-                <br>
-                @if ($datos[0]['EST_EQUIPO']=="Pendiente de revision")
-                <button type="submit" class="btn btn-primary float-right">Marcar como revisado</button>
-                @endif
-              </form>
-                @if ($datos[0]['EST_EQUIPO']=="Revisado")
+              @if ($datos[0]['EST_EQUIPO']=="Revisado")
                 <form action="{{ route('salidaMantenimiento', $id)}}" method="GET">
                   <button type="submit" class="btn btn-success float-right">Marcar como reparado</button> 
                 </form>
-                @endif 
+                @endif               
               </div>
             </div>
           </div>

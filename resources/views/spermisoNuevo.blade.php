@@ -42,17 +42,22 @@
         <div class="row">
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de inicio</label>
-            <input type="date" name="inicio_permiso" class="form-control" data-live-search="true" placeholder="Finalizo Permiso" value="{{old('final_permiso')}}">
+            <input type="date" name="inicio_permiso" class="form-control" data-live-search="true"  value="{{old('inicio_permiso')}}">
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha final</label>
-            <input type="date" name="final_permiso" class="form-control" placeholder="Inicio Permiso" value="{{old('inicio_permiso')}}">
+            <input type="date" name="final_permiso" class="form-control" placeholder="Inicio Permiso" value="{{old('final_permiso')}}">
           </div>
         </div>
       </div>
       <div class="mb-2">
         <div class="row">
           <div class="col">
+          <div class="form-check">
+            <br>
+            <label class="form-check-label" for="exampleCheck1">Enviar por correo</label><br>
+            <input type="checkbox" name="checkbox" class="form-check-input" id="exampleCheck1">
+          </div>
           </div>
           <div class="col">
           </div>
@@ -68,22 +73,13 @@
             </button>
           </div>
           <div class="modal-body">
-              @if ($errors->any())
-              <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <ul>
-                      @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
-              </div>
-            @endif 
             <label for="exampleFormControlSelect12">Confirme los datos de la solicitud de permiso.!</label>
-            <label for="exampleFormControlSelect12">La solicitud de permiso se enviara al siguiente correo:</label>
+            <label for="exampleFormControlSelect12">Si selecciono la opcion "enviar por correo" la solicitud de permiso se enviara al siguiente correo:</label>
             <input type="text" name="email" readonly class="form-control" value="{{$correo[0]['CORREO']}}">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-success">Enviar</button>
+            <button type="submit" class="btn btn-success">Agregar</button>
           </div>
         </form>
         </div>

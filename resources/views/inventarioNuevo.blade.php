@@ -40,7 +40,7 @@
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Especificaciones tecnicas</label>
-            <textarea type="text" name="especificaciones" rows="5" class="form-control" value="{{ old('especificaciones') }}"></textarea>
+            <textarea type="text" name="especificaciones" rows="5" class="form-control">{{ old('especificaciones') }}</textarea>
           </div>
         </div>
       </div>

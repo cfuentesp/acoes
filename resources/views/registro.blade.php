@@ -11,7 +11,7 @@
               @csrf
               @method('GET')
               <div class="form-outline mb-4">
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus />
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus value="{{old('name')}}"/>
                 <label class="form-label" for="name">Nombre</label>
                 @error('name')
                    <span class="invalid-feedback" role="alert">
@@ -19,9 +19,8 @@
                    </span>
                  @enderror
               </div>
-
               <div class="form-outline mb-4">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email"/>
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" value="{{old('email')}}"/>
                 <label class="form-label" for="email">Correo</label>
                 @error('email')
                    <span class="invalid-feedback" role="alert">
@@ -31,7 +30,7 @@
               </div>
 
               <div class="form-outline mb-4">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password"/>
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" value="{{old('password')}}"/>
                 <label class="form-label" for="password">Contraseña</label>
                 @error('password')
                    <span class="invalid-feedback" role="alert">
@@ -41,7 +40,7 @@
               </div>
 
               <div class="form-outline mb-4">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" />
+                <input id="password-confirm" type="password" class="form-control" name="password_confirm" required autocomplete="new-password" value="{{old('password_confirm')}}"/>
                 <label class="form-label" for="password-confirm">Repite la contraseña</label>
               </div>
 

@@ -21,26 +21,43 @@
         <div class="row">
           <div class="col">
             <label for="exampleFormControlSelect12">Tipo de permiso</label>
+            @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
             <input type="text" name="tipo_solicitud" class="form-control" placeholder="Tipo de Solicitud" value="{{$permiso[0]['TIP_SOLICITUD']}}">
             <br>
+            @else
+            <input type="text" name="tipo_solicitud" readonly class="form-control" placeholder="Tipo de Solicitud" value="{{$permiso[0]['TIP_SOLICITUD']}}">
+            <br>
+            @endif
             <label for="exampleFormControlSelect12">Solicitante</label>
             <input type="text" name="cod_persona" class="form-control" readonly placeholder="Fecha de Solicitud" value="{{$permiso[0]['NOM_PERSONA'].' '.$permiso[0]['APLL_PERSONA']}}">
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Descripcion</label>
+            @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
             <textarea name="descripcion"  class="form-control" rows="3" placeholder="Descripcion">{{$permiso[0]['DES_SOLICITUD']}}</textarea>
+            @else
+            <textarea name="descripcion"  class="form-control" readonly rows="3" placeholder="Descripcion">{{$permiso[0]['DES_SOLICITUD']}}</textarea>
+            @endif
           </div>
         </div>
       </div>
       <div  class="mb-3">
         <div class="row">
-          <div class="col">
-            <label for="exampleFormControlSelect12">Fecha final</label>
-            <input type="date" name="final_solicitud" class="form-control"  placeholder="Finalizo Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_FINAL']))}}">
+        <div class="col">
+            <label for="exampleFormControlSelect12">Fecha de inicio</label>
+            @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
+            <input type="date" name="inicio_permiso" class="form-control"  placeholder="Inicio Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_INICIO']))}}">
+            @else
+            <input type="date" name="inicio_permiso" class="form-control" readonly  placeholder="Inicio Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_INICIO']))}}">
+            @endif
           </div>
           <div class="col">
-            <label for="exampleFormControlSelect12">Fecha de inicio</label>
-            <input type="date" name="inicio_solicitud" class="form-control"  placeholder="Inicio Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_INICIO']))}}">
+            <label for="exampleFormControlSelect12">Fecha final</label>
+            @if($permiso[0]['IND_SOLICITUD']=='Pendiente')
+            <input type="date" name="final_permiso" class="form-control"  placeholder="Finalizo Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_FINAL']))}}">
+            @else
+            <input type="date" name="final_permiso" class="form-control" readonly placeholder="Finalizo Permiso" value="{{date("Y-m-d", strtotime($permiso[0]['FEC_FINAL']))}}">
+            @endif
           </div>
         </div>
       </div>

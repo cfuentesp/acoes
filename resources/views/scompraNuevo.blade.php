@@ -53,7 +53,7 @@
           </div>
           <div class="col">
             <label for="exampleFormControlSelect12">Fecha de solicitud de aprobacion</label>
-            <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
+            <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD_APB']))}}">
             <br>              
             <label for="exampleFormControlSelect12">Estado de solicitud</label>
             <input type="text" name="tipo_equipo" class="form-control" readonly placeholder="TIpo de equipo" value="{{$datos[0]['IND_SOLICITUD']}}">

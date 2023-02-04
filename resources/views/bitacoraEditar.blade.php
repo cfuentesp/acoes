@@ -8,7 +8,7 @@
   <form action="{{ route('actualizarObservacion', $observacion[0]['COD_BIT_MEJORA']) }}" method="GET">
     @csrf
       @if ($errors->any())
-        <div class="alert alert-danger">
+      <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>AcoesSystem</title>
+      <title>Acoes Honduras</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -500,15 +500,22 @@ $(document).ready(function () {
 								href="{{route('getListaPermisosLaborales')}}" class="dashboard-nav-dropdown-item">Permisos laborales</a></div>
 					</div>
                     <a href="{{route('getListaPersonas')}}" class="dashboard-nav-item"><i class="bi bi-people-fill"></i> Personas</a>
-					<a href="{{route('getListaObservacion')}}" class="dashboard-nav-item"><i class="bi bi-card-checklist"></i> Bitacora</a>
+                    <div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+							class="bi bi-file-earmark-break"></i>Reportes</a>
+						<div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaEquiposReporte')}}" class="dashboard-nav-dropdown-item">Inventario</a><a
+								href="{{route('getListaEquiposReparados')}}" class="dashboard-nav-dropdown-item">Equipos reparados</a><a
+								href="{{route('getListaPersonasReporte')}}" class="dashboard-nav-dropdown-item">Personas</a><a
+								href="{{route('getListacomprasReporte')}}" class="dashboard-nav-dropdown-item">Solicitudes de compra</a><a
+								href="{{route('getListaPermisosReporte')}}" class="dashboard-nav-dropdown-item">Solicitudes de permiso</a></div>
+					</div>
+					<a href="{{route('getListaObservacion')}}" class="dashboard-nav-item"><i class="bi bi-card-checklist"></i> Observaciones</a>
 
             <div class='dashboard-nav-dropdown'><a style="color:white;" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="bi bi-tools"></i> Sistema</a>
                 <div class='dashboard-nav-dropdown-menu'><a href="{{route('getListaUsuarios')}}"
                                                                 class="dashboard-nav-dropdown-item">Usuarios</a><a
                             href="{{route('getListaRoles')}}" class="dashboard-nav-dropdown-item">Roles</a><a
-                            href="{{route('getListaCorreos')}}" class="dashboard-nav-dropdown-item">Correos</a><a
-                            href="{{route('getListaEquiposReparados')}}" class="dashboard-nav-dropdown-item">Equipos reparados</a></div>
+                            href="{{route('getListaCorreos')}}" class="dashboard-nav-dropdown-item">Correos</a></div>
                 </div>
 				  <div class="nav-item-divider"></div>
 				  <a
@@ -526,6 +533,27 @@ $(document).ready(function () {
                               @if (session('error'))
                                 <div class="alert alert-danger alert-dismissable fade show"><button type="button" class="close" data-dismiss="alert">&times;</button>{{session('error')}}</div>	
                             @endif
+                            <!-- @guest
+                                <script>
+                                  $("#miModal").modal("show");
+                                </script>
+                                <div class="modal fade" id="miModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">SESION EXPIRADA</h5>
+                                      </div>
+                                      <div class="modal-body">
+                                      <form action="{{route('logoutt')}}" method="GET">
+                                          <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Su sesion a expirado, favor vuelva a iniciar sesion</label>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Aceptar</button>
+                                      </div>
+                                    </form>
+                                    </div>
+                                  </div>
+                                 </div>
+                                 @endguest -->
 							@yield('seccion')
 						</div>
 					</div>

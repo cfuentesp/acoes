@@ -29,13 +29,21 @@ class sapbcompraController extends Controller
 
     public function nuevaAprobacionCompra(Request $request){
     if(Auth::user()->hasPermission('aprobacion-agregar')){
+
+        if ($request->cod_reparacion==null) {
+            return back()->withInput()
+                        ->with('error','Seleccione un equipo en mantenimiento');
+                        
+        } 
+
         $dataDos = HTTP::post('http://localhost:6000/mantenimiento/search',[
             'funcion' => 'b',
             'cod_reparacion' => $request->cod_reparacion
         ]);
         $datos = $dataDos->json();
         $datos = $datos[0]; 
-        $id = $request->cod_reparacion;      
+        $id = $request->cod_reparacion;     
+
         return view('sapbcompraNuevo',compact('datos','id'));
     }
     return back()->with('error','No tienes permisos');
@@ -43,6 +51,7 @@ class sapbcompraController extends Controller
 
     public function insertAprobacion(Request $request,$id){
     if(Auth::user()->hasPermission('aprobacion-agregar')){
+        //Validar campos vacions
         $validator = Validator::make($request->all(), [
             'cotizacion' => 'required',
             'fecha_solicitud' => 'required',
@@ -55,6 +64,44 @@ class sapbcompraController extends Controller
         if ($validator->fails()) {
             return back()->withInput()
                         ->withErrors($validator);
+                        
+        }
+
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'cotizacion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+            'fecha_solicitud' => 'required|date|after:2000-01-01',
+
+        ],[
+            'cotizacion.regex' => 'La cotizacion de equipo solo debe tener letras y numeros.',
+            'fecha_solicitud.after' => 'Ingrese una fecha valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
+        }
+
+         //Validar cantidad caracteres
+         $validator = Validator::make($request->all(), [
+            'cotizacion' => 'max:1499',
+            'fecha_solicitud' => 'before:01/01/2050'
+        ],[
+            'cotizacion.max' => 'La cotizacion de equipo contiene demasiados caracteres.',
+            'fecha_solicitud.before' => 'Ingrese una fecha valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
+        }
+
+        $pieces = explode("-", $request->fecha_solicitud);
+        if (strlen($pieces[0])>4) {
+            return back()->withInput()
+                        ->with('error','Ingrese una fecha valida');
                         
         }
 
@@ -114,14 +161,45 @@ class sapbcompraController extends Controller
 
     public function updateAprobacion(Request $request, $id){
     if(Auth::user()->hasPermission('aprobacion-editar')){
+                  //Validar campos vacions
         $validator = Validator::make($request->all(), [
             'cotizacion' => 'required',
             'fecha_solicitud' => 'required',
 
         ],[
-            'cotizacion.required' => 'Debe ingresar el precio o cotizacion del equipo requerido.',
+            'cotizacion.required' => 'Debe ingresar la cotización o precio del equipo requerido.',
             'fecha_solicitud.required' => 'Debe ingresar la fecha de solicitud de aprobación de compra del equipo.',
-            
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
+        }
+
+        //Validar caracteres especiales
+        $validator = Validator::make($request->all(), [
+            'cotizacion' => 'regex:/^[A-Za-z0-9\s]+$/u',
+            'fecha_solicitud' => 'required|date|after:2000-01-01',
+
+        ],[
+            'cotizacion.regex' => 'La cotizacion de equipo solo debe tener letras y numeros.',
+            'fecha_solicitud.after' => 'Ingrese una fecha valida.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);
+                        
+        }
+
+         //Validar cantidad caracteres
+         $validator = Validator::make($request->all(), [
+            'cotizacion' => 'max:1499',
+            'fecha_solicitud' => 'before:01/01/2050'
+        ],[
+            'cotizacion.max' => 'La cotizacion de equipo contiene demasiados caracteres.',
+            'fecha_solicitud.before' => 'Ingrese una fecha valida.',
         ]);
 
         if ($validator->fails()) {
@@ -171,8 +249,8 @@ class sapbcompraController extends Controller
                 'solucion' => $solicitud[0]['SOL_PROBLEMA'],
                 'cotizacion' => $solicitud[0]['COZ_EQUIPO'],
                 'equipo' => $solicitud[0]['NUM_EQUIPO'],
-                'urlapb' => 'http://127.0.0.1:8000/aprobacion/aprobar/'.$id, 
-                'urlrch' => 'http://127.0.0.1:8000/aprobacion/rechazar'.$id,
+                'urlapb' => 'http://acoes-apps.eastus.cloudapp.azure.com/acoes-admin/aprobacion/aprobar/'.$id, 
+                'urlrch' => 'http://acoes-apps.eastus.cloudapp.azure.com/acoes-admin/aprobacion/rechazar/'.$id,
             ];
         
             Mail::to($email)->send(new apbcompra($body));

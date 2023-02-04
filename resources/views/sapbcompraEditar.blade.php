@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Nueva solicitud de aprobacion</h1>
+    <h1>Editar solicitud de aprobacion</h1>
 </div>
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#home">Datos</a></li>
@@ -29,11 +29,15 @@
               <div class="row">
                 <div class="col">
                   <label for="exampleFormControlSelect12">Cotizacion de equipo</label>
+                  @if($datos[0]['IND_SOLICITUD']==='Pendiente')
                   <textarea rows="5" name="cotizacion" class="form-control" >{{$datos[0]['COZ_EQUIPO']}}</textarea>
+                  @else
+                  <textarea rows="5" name="cotizacion" readonly class="form-control" >{{$datos[0]['COZ_EQUIPO']}}</textarea>
+                  @endif
                 </div>
                 <div class="col">
-                  <label for="exampleFormControlSelect12">Fecha de solicitud</label>
-                  <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
+                  <label for="exampleFormControlSelect12">Fecha de ingreso</label>
+                  <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date('Y-m-d', strtotime($datos[0]['FEC_INGRESO']))}}">
                   <br>
                   @if($datos[0]['IND_SOLICITUD']=='Pendiente')
                   <button type="submit" class="btn btn-primary float-right">Actualizar solicitud</button>
@@ -105,7 +109,7 @@
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect12">Fecha de ingreso a mantenimiento</label>
-                <input type="date" class="form-control" readonly name="fecha_nacimiento" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO']))}}">
+                <input type="date" class="form-control" readonly name="fecha_nacimiento" value="{{date('Y-m-d', strtotime($datos[0]['FEC_INGRESO_MANTENIMIENTO']))}}">
               </div>
             </div>
         </div>
@@ -144,7 +148,7 @@
           <div class="row">
             <div class="col">
               <label for="exampleFormControlSelect12">Fecha de ingreso</label>
-              <input type="date" name="fecha_ingreso" class="form-control" readonly placeholder="Fecha de ingreso" value="{{$datos[0]['FEC_INGRESO']}}">
+              <input type="date" name="fecha_ingresoP" class="form-control" readonly placeholder="Fecha  ingreso" value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_EQUIPO']))}}">
             </div>
             <div class="col">
               <label for="exampleFormControlSelect12">Numero de equipo</label>
@@ -176,7 +180,7 @@
             </div>
             <div class="col">
               <label for="exampleFormControlSelect12">Fecha de solicitud</label>
-              <input type="date" class="form-control" name="fecha_nacimiento" readonly value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
+              <input type="date" class="form-control" name="fecha_nacimiento" readonly value="{{date("Y-m-d", strtotime($datos[0]['FEC_INGRESO_SOLICITUD']))}}">
             </div>
           </div>
       </div>

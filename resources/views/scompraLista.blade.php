@@ -2,14 +2,14 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de solicitudes de compra</h1>
+    <h1>Solicitudes de compra</h1>
 </div>
 <div class='card-body'>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Solicitudes de aprobadas </h5>
+              <h5 class="modal-title" id="exampleModalLabel">Solicitudes de compra aprobadas </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -40,7 +40,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              @if($solicitudes)
               <button type="submit" class="btn btn-primary">Seleccionar</button>
+              @endif
             </div>
           </form>
           </div>

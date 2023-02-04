@@ -21,6 +21,7 @@ class smantenimientoController extends Controller
     }
 
     public function insertMantenimiento(Request $request){
+        //Validar campos vacios
         $validator = Validator::make($request->all(), [
             'tip_solicitud' => 'required',
             'area' => 'required',
@@ -38,14 +39,58 @@ class smantenimientoController extends Controller
                         ->withErrors($validator);             
         }
 
+        //Validar caraceres especiales
+        $validator = Validator::make($request->all(), [
+            'tip_solicitud' => 'regex:/^[a-zA-Z\s]+$/u',
+            'area' => 'regex:/^[a-zA-Z\s]+$/u',
+            'motivo' => 'regex:/^[a-zA-Z\s]+$/u',
+            'cod_equipo' => 'alpha_num',
+        ],[
+            'tip_solicitud.regex' => 'Tipo de solicitud solo debe contener letras.',
+            'area.regex' => 'Area de solicitud solo debe contener letras.',
+            'motivo.regex' => 'Motivo de la solicitud solo debe contener letras.',
+            'cod_equipo.alpha_num' => 'Numero de equipo invalido.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);             
+        }
+
+        //Validar cantidad de cracteres
+        $validator = Validator::make($request->all(), [
+            'tip_solicitud' => 'max:60',
+            'area' => 'max:60',
+            'motivo' => 'max:1499',
+        ],[
+            'tip_solicitud.max' => 'Tipo de solicitud contiene demasiados caracteres.',
+            'area.max' => 'Area de solicitud contiene demasiados caracteres',
+            'motivo.max' => 'Motivo de la solicitud contiene demasiados caracteres',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withInput()
+                        ->withErrors($validator);             
+        }
+
+        $data = HTTP::post('http://localhost:6000/solicitud/result',[
+            'funcion' => 'r',
+            'cod_equipo' => $request->cod_equipo,
+        ]);
+        $dato = $data->json();
+        
+        if($dato[0][0]['existe']>0){
+            return back()->with('error','El equipo seleccionado ya se encuentra en mantenimmiento');
+        }
+        
+
         HTTP::post('http://localhost:6000/solicitud/insert',[
             'cod_equipo' => $request->cod_equipo,
             'motivo' => $request->motivo,
             'tipo' => $request->tip_solicitud,
             'area' => $request->area,
         ]);
-        $estado = "realizada";
-        return view('dictamen',compact('estado'));
+        return redirect()->route('getListaSolicitud')->with('mensaje','Solicitud realizada con exito');
     }
 
     ////////////////////////////

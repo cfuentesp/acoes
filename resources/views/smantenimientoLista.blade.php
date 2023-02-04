@@ -2,9 +2,17 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de solicitudes de mantenimiento</h1>
+    <h1>Solicitudes de mantenimiento</h1>
 </div>
 <div class='card-body'>
+<form action="{{route('smantenimientoNew')}}" method="GET">
+      <div>
+          <button type="submit" class="btn btn-primary float-right">Agregar solicitud</button>
+          <br>
+          <br>
+      </div>
+   </form>
+    <br>
     <br>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">

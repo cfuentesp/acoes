@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Lista de aprobación de compra</h1>
+    <h1>Aprobaciónes de compra</h1>
 </div>
 <div class='card-body'>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,7 +40,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              @if($equipos!=null)
               <button type="submit" class="btn btn-primary">Seleccionar</button>
+              @endif
             </div>
           </form>
           </div>

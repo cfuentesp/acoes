@@ -29,11 +29,15 @@
               <div class="row">
                 <div class="col">
                   <label for="exampleFormControlSelect12">Descripcion de solicitud</label>
+                  @if($datos[0]['IND_SOLICITUD_COMPRA']=="Pendiente")
                   <textarea rows="5" name="descripcion" class="form-control">{{$datos[0]['DES_SOLICITUD']}}</textarea>
+                  @else
+                  <textarea rows="5" readonly name="descripcion" class="form-control">{{$datos[0]['DES_SOLICITUD']}}</textarea>
+                  @endif
                 </div>
                 <div class="col">
                   <label for="exampleFormControlSelect12">Fecha de solicitud</label>
-                  <input type="date" name="fecha_solicitud" class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD']))}}">
+                  <input type="date" name="fecha_solicitud" readonly class="form-control" value="{{date("Y-m-d", strtotime($datos[0]['FEC_SOLICITUD_COMPRA']))}}">
                   <br>
                   @if ($datos[0]['IND_SOLICITUD_COM']=="Pendiente")
                   <button type="submit" class="btn btn-primary float-right">Actualizar solicitud</button>

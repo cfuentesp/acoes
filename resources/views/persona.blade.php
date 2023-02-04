@@ -2,7 +2,7 @@
 
 @section('seccion')
 <div class='card-header'>
-    <h1>Registros de personas</h1>
+    <h1>Personas</h1>
 </div>
 <div class='card-body'>
     <form action="{{route('nuevoPersona')}}" method="GET">

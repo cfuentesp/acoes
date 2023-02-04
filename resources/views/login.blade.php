@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AcoesSystem</title>
+    <title>Acoes Honduras</title>
     <style>
         .gradient-custom-3 {
 /* fallback for old browsers */
@@ -54,7 +54,7 @@ height: 100%;
         <div class="container-fluid h-custom">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
-              <img src="https://www.wapsi.org/sites/default/files/logo_acoes_honduras.png"
+              <img src="{{ asset('images/acoes.png') }}"
                 class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
@@ -68,8 +68,8 @@ height: 100%;
                 <!-- Email input -->
                 <div class="form-outline mb-4">
                   <input type="email" for="email" id="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
-                    placeholder="Enter a valid email address" />
-                  <label class="form-label" for="form3Example3">Usuario</label>
+                    placeholder="Ingrese su correo electronico" />
+                  <label class="form-label" for="form3Example3">Email</label>
 
                   @error('email')
                   <span class="invalid-feedback" role="alert">
@@ -82,7 +82,7 @@ height: 100%;
                 <div class="form-outline mb-3">
                   <input type="password" id="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"
 
-                    placeholder="Enter password" />
+                    placeholder="Ingrese su contraseña" />
                   <label class="form-label" for="form3Example4">Contraseña</label>
                   @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -93,14 +93,13 @@ height: 100%;
       
                 <div class="d-flex justify-content-between align-items-center">
                   <!-- Checkbox -->
-                  <div class="form-check mb-0">
+                  <!-- <div class="form-check mb-0">
                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}/>
 
                     <label class="form-check-label" for="remember">
-                      Recordar usuario
-                    </label>
-                  </div>
-                  <a href="{{ route('password.request') }}" class="btn btn-link">Olvidaste tu contraseña?</a>
+                                        {{ __('Recordar usuario') }}
+                                    </label>
+                  </div> -->
                 </div>
       
                 <div class="text-center text-lg-start mt-4 pt-2">
