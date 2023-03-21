@@ -23,10 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $mantenimiento = DB::select('SELECT * FROM dis_mantenimiento WHERE ESTATUS = 0');
-        $aprobacion = DB::select("SELECT * FROM sol_apb_compra WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD = 'Enviada'");
-        $compras = DB::select("SELECT * FROM sol_compra WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD = 'Enviada'");
-        $permisos = DB::select("SELECT * FROM sol_prm_laboral WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD ='Enviada'");
+        $mantenimiento = DB::select('SELECT * FROM tbl_dis_mantenimiento WHERE ESTATUS = 0');
+        $aprobacion = DB::select("SELECT * FROM tbl_sol_apb_compra WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD = 'Enviada'");
+        $compras = DB::select("SELECT * FROM tbl_sol_compra WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD = 'Enviada'");
+        $permisos = DB::select("SELECT * FROM tbl_sol_prm_laboral WHERE IND_SOLICITUD = 'Pendiente' OR IND_SOLICITUD ='Enviada'");
 
         $array = [
             count($mantenimiento),
@@ -35,12 +35,12 @@ class HomeController extends Controller
             count($permisos)
         ];
         
-        $Totalpermisos = DB::select("SELECT * FROM sol_prm_laboral");
-        $Totalpersonas = DB::select("SELECT * FROM personas");
-        $Totalequipos = DB::select("SELECT * FROM inventario");
-        $Totalcompras = DB::select("SELECT * FROM sol_compra");
+        $Totalpermisos = DB::select("SELECT * FROM tbl_sol_prm_laboral");
+        $Totalpersonas = DB::select("SELECT * FROM tbl_personas");
+        $Totalequipos = DB::select("SELECT * FROM tbl_inventario");
+        $Totalcompras = DB::select("SELECT * FROM tbl_sol_compra");
         $Totalusers = DB::select("SELECT * FROM users");
-        $Totalreparados = DB::select("SELECT * FROM dis_mantenimiento WHERE ESTATUS=3");
+        $Totalreparados = DB::select("SELECT * FROM tbl_dis_mantenimiento WHERE ESTATUS=3");
 
         $array2 = [
             count($Totalequipos), 
